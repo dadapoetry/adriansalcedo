@@ -5,23 +5,14 @@ export async function onRequest(context) {
   const clientSecret = env.GITHUB_CLIENT_SECRET;
 
   if (!clientId || !clientSecret) {
-    return new Response('GitHub OAuth not configured.', { status: 500 });
+    return new Response('Missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET env vars', { status: 500 });
   }
 
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
-  const stateParam = url.searchParams.get('state');
 
   if (!code) {
-    return new Response('Missing code parameter', { status: 400 });
-  }
-
-  let redirectUri = `${siteUrl}/admin/`;
-  if (stateParam) {
-    try {
-      const state = JSON.parse(stateParam);
-      if (state.redirect_uri) redirectUri = state.redirect_uri;
-    } catch (e) {}
+    return new Response('No code parameter received', { status: 400 });
   }
 
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
@@ -30,23 +21,24 @@ export async function onRequest(context) {
     body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code }),
   });
 
+  if (!tokenRes.ok) {
+    return new Response(`GitHub API returned ${tokenRes.status}`, { status: 502 });
+  }
+
   const data = await tokenRes.json();
 
   if (!data.access_token) {
-    return new Response(`Failed to get token: ${data.error_description || data.error || 'unknown'}`, {
-      status: 400,
-      headers: { 'Content-Type': 'text/html' },
-    });
+    return new Response(`GitHub error: ${data.error_description || data.error || 'no token returned'}`, { status: 400 });
   }
 
   const html = `<!DOCTYPE html><html><body><script>
     (function() {
       try {
-        window.opener.postMessage('authorization:${data.access_token}:${data.scope || ''}', '${redirectUri}');
-      } catch(e) {}
+        window.opener.postMessage('authorization:${data.access_token}:${data.scope || ''}', '${siteUrl}');
+      } catch(e) { document.body.textContent = 'postMessage failed: ' + e.message; }
       window.close();
     })();
-  </script></body></html>`;
+  </script><p>Authorized. This window should close automatically.</p></body></html>`;
 
   return new Response(html, {
     headers: { 'Content-Type': 'text/html;charset=utf-8' },
