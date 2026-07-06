@@ -34,7 +34,7 @@ export async function onRequest(context) {
   const html = `<!DOCTYPE html><html><body><script>
     (function() {
       try {
-        window.opener.postMessage('authorization:${data.access_token}:${data.scope || ''}', '${siteUrl}');
+        window.opener.postMessage('authorization:${data.access_token}:${data.scope || ''}', '*');
       } catch(e) { document.body.textContent = 'postMessage failed: ' + e.message; }
       window.close();
     })();
