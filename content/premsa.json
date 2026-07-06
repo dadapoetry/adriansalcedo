@@ -1,0 +1,24 @@
+{
+  "title": "Premsa",
+  "title_en": "Press",
+  "articles": [
+    {
+      "id": "press-1",
+      "date": "2025-10-15",
+      "publication": "El Punt Avui",
+      "title": "Adrián Salcedo: el crit que travessa l'avantguarda",
+      "url": null,
+      "language": "ca",
+      "type": "interview"
+    },
+    {
+      "id": "press-2",
+      "date": "2025-06-01",
+      "publication": "Núvol",
+      "title": "Poesia digital: el nou camp de batalla",
+      "url": null,
+      "language": "ca",
+      "type": "article"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "awards": [
+    {
+      "id": "premi-1",
+      "title": "Premi de Poesia Marta Pessarrodona de Terrassa 2021",
+      "title_en": "Marta Pessarrodona Poetry Prize of Terrassa 2021",
+      "year": 2021,
+      "category": "audiovisual",
+      "content": [
+        "Anunci i lliurament del Premi Marta Pessarrodona en el marc de la setena edició de L'Elixir Poètic, un festival de referència que va omplir Terrassa de propostes transversals a través d'una quinzena d'actes, seminaris, taules rodones i audicions dissenyats per apropar la disciplina a la ciutadania.",
+        "El veredicte es va fer públic en un dels plats forts de la programació: el certamen d'Slam Poetry celebrat davant d'un nombrós públic jove al Teatre Principal de la ciutat.",
+        "En aquesta fita es van distingir dues categories: Cecília Navarro guardonada en la categoria d'obra escrita, i Adrián Salcedo guardonat en la categoria d'obra audiovisual, posant en rellevància el valor del videopoema i els nous llenguatges digitals com a formats artístics de ple dret."
+      ],
+      "content_en": [],
+      "images": [
+        { "src": "/media/images/2823ff2a-d301-47be-8d19-8559cd7abcd0_rw_1200.jpg", "alt": "Premi Marta Pessarrodona", "width": "100%" }
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/d9HuzEP0RiY", "title": "L'aigua és un joc - Premi Marta Pessarrodona", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "premi-2",
+      "title": "Certamen Art Jove de Poesia Salvador Iborra 2018 i 2024",
+      "title_en": "Salvador Iborra Young Art Poetry Contest 2018 & 2024",
+      "year": 2024,
+      "category": "poetry",
+      "content": [
+        "El Certamen Art Jove Salvador Iborra de Poesia —impulsat per l'Agència Catalana de Joventut, l'Institut Balear de la Joventut i l'Associació d'Escriptors en Llengua Catalana (AELC)— s'ha consolidat com el gran espai de suport, formació i vertebració per a les veus més punyents de la poesia actual.",
+        "La trajectòria d'Adrián Salcedo s'ha vinculat estretament a aquest certamen en dues edicions clau que delimiten el naixement i la maduresa de la seva producció poètica:"
+      ],
+      "content_en": [],
+      "editions": [
+        {
+          "title": "I Certamen Salvador Iborra",
+          "year": 2018,
+          "status": "finalista",
+          "description": "Seleccionat com a finalista de la primera edició del premi, una cita que va funcionar com un autèntic catalitzador generacional on van emergir autors que avui defineixen el panorama poètic (com Laia M. Llobera, Xavier Mas Craviotto o Joan Deusa). Aquesta experiència va suposar una empenta definitiva per a la seva carrera literària; una complicitat que es va traduir, a més, en l'autoria per part de Salcedo del disseny de la portada del poemari guanyador d'aquell any, Renills de cavall negre de Xavier Mas Craviotto (Viena Edicions).",
+          "description_en": ""
+        },
+        {
+          "title": "VII Certamen Salvador Iborra",
+          "year": 2024,
+          "status": "finalista",
+          "description": "Sis anys després de la primera incursió, i just al límit de l'edat màxima de la convocatòria, Salcedo va tornar com un dels onze finalistes d'arreu del territori. En aquesta ocasió, les intenses jornades de formació de l'AELC van tenir lloc a l'Alberg Vallparadís de Terrassa, articulant un espai de lectura compartida i discussió crítica. D'aquest impuls i d'aquesta darrera selecció en va néixer el seu debut editorial: el llibre CRIT, editat posteriorment per Pont del Petroli Edicions.",
+          "description_en": ""
+        }
+      ],
+      "closing": "Haver estat doblement finalista de l'Iborra tanca un cercle perfecte de retrobament i evolució estètica, refermant el valor i el rigor de la seva obra com a creador independent.",
+      "closing_en": "",
+      "images": [
+        { "src": "/media/images/d378354d-a8da-4b3e-b976-30a471ebf5fb_rw_1920.jpeg", "alt": "Certamen Salvador Iborra", "width": "100%" }
+      ]
+    }
+  ]
+}

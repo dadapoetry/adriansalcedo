@@ -1,0 +1,57 @@
+{
+  "title": "Qui soc",
+  "biography": [
+    "Poeta avantguardista, comunicador i crític cultural.",
+    "Nascut el 1994 i resident al Maresme. Opero amb tècniques d'escriptura irracional i de creació poètica expandida i de gran format.",
+    "Soc creador de les obres d'avantguarda elquenovol.cat, POEMOT, Quaderns d'Hiperpoesia i l'Antologia Bastarda.",
+    "El 2025 vaig publicar el llibre Crit (Pont del Petroli Edicions), obra finalista al Certamen Art Jove Salvador Iborra.",
+    "El 2026 impulso el projecte d'arxiu de poesia de dades en català Dada Poetry, amb la participació de 7 poetes a la primera entrega."
+  ],
+  "biography_en": [
+    "Avant-garde poet, communicator and cultural critic.",
+    "Born in 1994 and resident in Maresme. I work with irrational writing techniques and expanded, large-format poetic creation.",
+    "I am the creator of the avant-garde works elquenovol.cat, POEMOT, Quaderns d'Hiperpoesia and Antologia Bastarda.",
+    "In 2025 I published the book Crit (Pont del Petroli Edicions), finalist at the Salvador Iborra Young Art Contest.",
+    "In 2026 I launched Dada Poetry, a Catalan data poetry archive project with 7 poets in the first edition."
+  ],
+  "performances": [
+    "He recitat al Festival Poesia i Més, Festival Nosaltres, Espais de Poesia d'Alella, 3 de March i Festival Nudo Internacional, i he exposat les meves obres visuals a la Pahissa del Marquet (2023 & 2025)."
+  ],
+  "performances_en": [
+    "I have performed at Festival Poesia i Més, Festival Nosaltres, Espais de Poesia d'Alella, 3 de March and Festival Nudo Internacional, and exhibited my visual works at La Pahissa del Marquet (2023 & 2025)."
+  ],
+  "memberships": [
+    "Com a membre de l'Associació d'Escriptors en Llengua Catalana (AELC), he impartit tallers de poesia visual en els espais liminars Híbrida."
+  ],
+  "memberships_en": [
+    "As a member of the Association of Writers in Catalan Language (AELC), I have taught visual poetry workshops in the liminal spaces of Híbrida."
+  ],
+  "awards": [
+    "També he estat guardonat amb el Premi Marta Pessarrodona de Poesia de Terrassa en la categoria audiovisual i he sigut dues vegades finalista del Certamen Art Jove de Poesia Salvador Iborra."
+  ],
+  "awards_en": [
+    "I have been awarded the Marta Pessarrodona Poetry Prize of Terrassa in the audiovisual category and have been twice a finalist of the Salvador Iborra Young Art Poetry Contest."
+  ],
+  "education": [
+    "M'he format en direcció artística amb la Fura dels Baus i en guió i direcció de cinema a La Casa del Cine de Barcelona.",
+    "Especialista en màrqueting editorial per l'Escuela Cursiva."
+  ],
+  "education_en": [
+    "Trained in artistic direction with La Fura dels Baus and in screenwriting and film direction at La Casa del Cine de Barcelona.",
+    "Specialist in editorial marketing from Escuela Cursiva."
+  ],
+  "timeline": [
+    { "year": 2018, "label": "Finalista I Certamen Salvador Iborra", "label_en": "Finalist I Salvador Iborra Contest", "description": "Primera selecció com a finalista del certamen de poesia jove.", "description_en": "First selection as a finalist of the young poetry contest." },
+    { "year": 2021, "label": "Premi Marta Pessarrodona", "label_en": "Marta Pessarrodona Award", "description": "Guardonat en la categoria d'obra audiovisual.", "description_en": "Awarded in the audiovisual category." },
+    { "year": 2022, "label": "Festa de les Lletres de Terrassa", "label_en": "Festa de les Lletres de Terrassa", "description": "Convidat d'honor com a guanyador del Premi Marta Pessarrodona.", "description_en": "Guest of honour as winner of the Marta Pessarrodona Award." },
+    { "year": 2023, "label": "Quatre dimensions té el meu poema", "label_en": "Four dimensions has my poem", "description": "Exposició col·lectiva a La Pahissa del Marquet.", "description_en": "Collective exhibition at La Pahissa del Marquet." },
+    { "year": 2024, "label": "VII Certamen Salvador Iborra", "label_en": "VII Salvador Iborra Contest", "description": "Finalista per segona vegada. Origen del llibre CRIT.", "description_en": "Finalist for second time. Origin of the book CRIT." },
+    { "year": 2025, "label": "Publicació de CRIT", "label_en": "Publication of CRIT", "description": "Debut editorial amb Pont del Petroli Edicions.", "description_en": "Editorial debut with Pont del Petroli Edicions." },
+    { "year": 2025, "label": "Festival Nudo Internacional", "label_en": "Nudo International Festival", "description": "Cap de cartell a l'edició de Barcelona.", "description_en": "Headliner at the Barcelona edition." },
+    { "year": 2026, "label": "Dada Poetry", "label_en": "Dada Poetry", "description": "Llançament de la plataforma d'experimentació digital.", "description_en": "Launch of the digital experimentation platform." }
+  ],
+  "portrait": null,
+  "cv": null,
+  "artistStatement": null,
+  "artistStatement_en": null
+}

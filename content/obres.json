@@ -1,0 +1,224 @@
+{
+  "works": [
+    {
+      "id": "obra-barretdefum",
+      "title": "Revista Barretdefum 11",
+      "type": "publication",
+      "year": 2025,
+      "content": [
+        "Participació en la revista de poesia visual de Pont del Petroli Edicions amb un díptic cal·ligramàtic. L'obra connecta l'avantguarda artística amb conceptes de la física quàntica mitjançant una relectura de l'últim manifest futurista de Joan Salvat-Papasseit."
+      ],
+      "content_en": [
+        "Participation in the visual poetry magazine from Pont del Petroli Edicions with a calligrammatic diptych. The work connects the avant-garde with concepts from quantum physics through a rereading of Joan Salvat-Papasseit's last futurist manifesto."
+      ],
+      "images": [
+        { "src": "/media/images/522bc20c-12d5-4ea6-967d-0b35b3571ce0_rw_1920.jpg", "alt": "Barretdefum 11", "width": "calc(50% - 7.5px)" },
+        { "src": "/media/images/dedd3fb2-0255-41ed-98ab-66a2e9c8e197_rw_1920.jpg", "alt": "Barretdefum 11", "width": "calc(50% - 7.5px)" }
+      ],
+      "contributors": ["Ferran Aisa", "Carme Boronat", "Joan-Lluís Lluís", "Laia Mauri", "Pep Mita", "Àlex Monfort", "Joan Oriol", "Carles Ribó", "Adrián Salcedo", "Myriam Soteras", "Gustavo Vega", "Sergi Viader"]
+    },
+    {
+      "id": "obra-caldesa",
+      "title": "Revista Caldesa nº 7",
+      "type": "publication",
+      "year": 2025,
+      "content": [
+        "Col·laboració poètica en el setè volum d'aquesta publicació independent.",
+        "L'edició està centrada monogràficament en la temàtica de l'alcohol i acull un cal·ligrama d'arrel apollineriana."
+      ],
+      "content_en": [
+        "Poetic collaboration in the seventh volume of this independent publication.",
+        "The edition focuses monographically on the theme of alcohol and features an Apollinairean-rooted calligram."
+      ],
+      "images": [
+        { "src": "/media/images/e0c66b69-c6f5-4649-aed7-e64c086b70b3_rw_1200.jpg", "alt": "Revista Caldesa nº 7", "width": "50%" }
+      ]
+    },
+    {
+      "id": "obra-vp1",
+      "title": "Vídeopoema \"Silenci\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [],
+      "content_en": [],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/UlFQb1drgd0", "title": "Vídeopoema Silenci", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-vp2",
+      "title": "Vídeopoema \"Bressol d'estiu\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [
+        "Obra seleccionada i projectada internacionalment al Festival NUDO de videopoesia (seus de Barcelona i Gran Canaria). Projecte de creació independent realitzat sota la direcció, interpretació, text, espai sonor i muntatge complet de l'autor."
+      ],
+      "content_en": [
+        "Selected and internationally screened at the NUDO Videopoetry Festival."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/DxQflCoiTYs", "title": "Vídeopoema Bressol d'estiu", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-vp3",
+      "title": "Vídeopoema \"Doble veu\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [
+        "Peça d'experimentació sonora que va formar part de la programació oficial del Festival NUDO. L'estructura rítmica i el text es modulen completament en directe mitjançant una estació de looping BOSS RC-505 MKI."
+      ],
+      "content_en": [
+        "Sound experimentation piece featuring live looping with BOSS RC-505 MKI."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/xjCie-__Tgo", "title": "Vídeopoema Doble Veu", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-antologia",
+      "title": "Antologia Bastarda",
+      "type": "publication",
+      "year": 2025,
+      "content": [
+        "L'Antologia Bastarda (@asalcedotoca) és un projecte que trasllada l'estil de la literatura nativa d'Instagram al llibre i viceversa. La segona edició amplia la proposta com un nou gir sobre els límits de la poesia digital i els codis clàssics del gènere."
+      ],
+      "content_en": [
+        "Project that translates Instagram-native literature to the book and vice versa."
+      ],
+      "images": [
+        { "src": "/media/images/1874691e-6c33-4c18-be45-9facbaab5c57_rw_1200.jpg", "alt": "Antologia Bastarda", "width": "50%" }
+      ]
+    },
+    {
+      "id": "obra-vp4",
+      "title": "Vídeopoema amb IA \"Alguns cercles\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [
+        "Col·laboració amb la poeta Laia M. Llobera.",
+        "Primer vídeopoema en català fent servir tècniques de creació audiovisual amb IA."
+      ],
+      "content_en": [
+        "Collaboration with poet Laia M. Llobera.",
+        "First videopoem in Catalan using AI audiovisual creation techniques."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/xqsWBvx37cU", "title": "Vídeopoema Alguns Cercles", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-vp5",
+      "title": "Vídeopoema \"L'aigua és un joc\"",
+      "type": "videopoem",
+      "year": 2021,
+      "content": [
+        "Peça audiovisual de poesia guanyadora del Premi de Poesia Marta Pessarrodona de 2021.",
+        "Obra realitzada amb el dispositiu magnètic Playtronica, el qual emet sons cada vegada que el circuit magnètic es tanca. En aquest cas, sota l'aigua d'un got."
+      ],
+      "content_en": [
+        "Winner of the Marta Pessarrodona Poetry Prize 2021.",
+        "Created with the Playtronica magnetic device."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/d9HuzEP0RiY", "title": "Vídeopoema l'aigua és un joc", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-vp6",
+      "title": "Vídeopoema \"Fragments de suïcidi\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [
+        "Peça projectada al Festival NUDO que s'estableix com un punt d'inflexió formal en la trajectòria de l'autor. El dispositiu audiovisual aborda la noció de l'existència i el suïcidi com un eix crític que fractura els discursos actuals."
+      ],
+      "content_en": [
+        "Screened at NUDO Festival. A formal turning point in the author's trajectory."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/KL3aKq9eJI4", "title": "Vídeopoema fragments de suïcidi", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-quaderns",
+      "title": "Quaderns d'hiperpoesia",
+      "type": "publication",
+      "year": 2021,
+      "content": [
+        "Sèrie de plaquettes experimentals publicades per Edicions del Perdedor i Edicions de la subversió subversiva que inclou els títols \"Superpòsit\" (2021) i \"Vós és teu Carrer Gant tot!\". Propostes crues centrades en la poesia visual, el collage i la ruptura de la sintaxi."
+      ],
+      "content_en": [
+        "Series of experimental plaquettes: \"Superpòsit\" (2021) and \"Vós és teu Carrer Gant tot!\""
+      ],
+      "images": [
+        { "src": "/media/images/b6664526-fc12-47d4-8896-599df0ab2aa3_rw_1920.jpg", "alt": "Quaderns d'hiperpoesia", "width": "100%" }
+      ]
+    },
+    {
+      "id": "obra-vp7",
+      "title": "Vídeopoema \"Camps d'anti-refugi\"",
+      "type": "videopoem",
+      "year": 2025,
+      "content": [
+        "Projecte audiovisual de marcada dimensió poètica i política.",
+        "Denúncia gairebé formal de la tendència literària al refugi, la sanació i l'autoajuda."
+      ],
+      "content_en": [
+        "Audiovisual project with a marked poetic and political dimension."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/1Yrbouw0Gn8", "title": "Vídeopoema Camps d'anti-refugi", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-poemot",
+      "title": "POEMOT (Poema de 10 metres)",
+      "type": "installation",
+      "year": 2024,
+      "content": [
+        "Peça poètica de gran format executada sobre un rotlle de deu metres de paper, exposada el Dia de les Lletres del Maresme davant de l'artista Perejaume.",
+        "L'obra utilitza el concepte de dazibao xinès com a eina d'ocupació mitjançant la fusió de text surrealista, teatre brechtià, collage i gravat."
+      ],
+      "content_en": [
+        "Large-format poetic piece on a ten-meter paper roll, exhibited before artist Perejaume."
+      ],
+      "images": [
+        { "src": "/media/images/f6a36fef-93a2-496c-9345-8dc7467f4bfa.jpg", "alt": "POEMOT", "width": "100%" }
+      ]
+    },
+    {
+      "id": "obra-elquenovol",
+      "title": "Elquenòvol.cat",
+      "type": "digital",
+      "year": 2026,
+      "content": [
+        "Interfície digital i projecte de data poetry vinculat als mètodes de l'Oulipo. L'arquitectura del web es regeix per una base de dades viva que canvia en bucle l'ordre dels versos en temps real per esquivar les dinàmiques de retenció algorítmica."
+      ],
+      "content_en": [
+        "Digital interface and data poetry project linked to Oulipo methods."
+      ],
+      "videos": [
+        { "url": "https://www.youtube.com/embed/Jf8xDzF8fDg", "title": "elquenovol.cat", "width": 560, "height": 315 }
+      ]
+    },
+    {
+      "id": "obra-crit",
+      "title": "CRIT",
+      "type": "publication",
+      "year": 2025,
+      "content": [
+        "<strong>CRIT</strong> és el debut editorial d'Adrián Salcedo Toca, publicat per <strong>Pont del Petroli Edicions</strong> l'any 2025.",
+        "El llibre va ser seleccionat com a obra finalista de la VII edició del Certamen Art Jove de Poesia Salvador Iborra, impulsat per l'Associació d'Escriptors en Llengua Catalana (AELC).",
+        "L'obra desplega una poesia que travessa el cos, la memòria i el llenguatge des d'una mirada avantguardista i irracionalista, i es presenta com un artefacte líric que interroga els límits del gènere."
+      ],
+      "content_en": [
+        "<strong>CRIT</strong> is the editorial debut of Adrián Salcedo Toca, published by <strong>Pont del Petroli Edicions</strong> in 2025.",
+        "The book was selected as a finalist for the 7th edition of the Salvador Iborra Young Art Poetry Contest, promoted by the Association of Writers in Catalan Language (AELC).",
+        "The work unfolds a poetry that traverses the body, memory and language from an avant-garde and irrationalist perspective, presented as a lyrical artefact that questions the limits of the genre."
+      ],
+      "images": [
+        { "src": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg", "alt": "CRIT portada", "width": "50%" }
+      ]
+    }
+  ]
+}

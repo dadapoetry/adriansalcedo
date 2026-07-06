@@ -1,0 +1,57 @@
+{
+  "hero": {
+    "title": "Poeta avantguardista",
+    "title_en": "Avant-garde poet",
+    "subtitle": "Comunicador i crític cultural",
+    "subtitle_en": "Communicator and cultural critic",
+    "statement": "Opero amb tècniques d'escriptura irracional i de creació poètica expandida i de gran format. Membre de l'Associació d'Escriptors en Llengua Catalana (AELC).",
+    "statement_en": "I work with irrational writing techniques and expanded, large-format poetic creation. Member of the Association of Writers in Catalan Language (AELC).",
+    "image": "/media/images/d925f1e3-d616-4922-bab2-3f10e359e822_rw_1920.jpg",
+    "imageAlt": "Adrián Salcedo Toca"
+  },
+  "featuredWork": {
+    "title": "CRIT",
+    "title_en": "CRIT",
+    "type": "Debut editorial",
+    "type_en": "Editorial debut",
+    "publisher": "Pont del Petroli Edicions",
+    "year": 2025,
+    "description": "Seleccionat com a obra finalista de la VII edició del Certamen Art Jove de Poesia Salvador Iborra.",
+    "description_en": "Selected as a finalist for the 7th Salvador Iborra Young Art Poetry Contest.",
+    "image": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg",
+    "imageAlt": "Cobertura Crit",
+    "imageAlt_en": "Crit cover",
+    "link": "/obres/obra-crit"
+  },
+  "featuredProjects": [
+    {
+      "title": "Dada Poetry",
+      "title_en": "Dada Poetry",
+      "description": "Plataforma d'experimentació i publicació digital independent.",
+      "description_en": "Independent digital experimentation and publishing platform.",
+      "link": "/projectes/projecte-1"
+    },
+    {
+      "title": "Avant-garde zero",
+      "title_en": "Avant-garde zero",
+      "description": "Digital magazine of a new international avant-garde.",
+      "description_en": "Digital magazine of a new international avant-garde.",
+      "link": "/projectes/projecte-2"
+    },
+    {
+      "title": "POEMOT",
+      "title_en": "POEMOT",
+      "description": "Poema de 10 metres. Fusió de text surrealista, collage i gravat.",
+      "description_en": "10-meter poem. Fusion of surrealist text, collage and engraving.",
+      "link": "/obres/obra-poemot"
+    }
+  ],
+  "bio": "Nascut el 1994 i resident al Maresme. He recitat al Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional i he exposat a La Pahissa del Marquet. Guardonat amb el Premi Marta Pessarrodona de Poesia 2021 i dues vegades finalista del Certamen Salvador Iborra.",
+  "bio_en": "Born in 1994 and based in Maresme. I have performed at Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional and exhibited at La Pahissa del Marquet. Winner of the Marta Pessarrodona Poetry Prize 2021 and twice finalist of the Salvador Iborra Contest.",
+  "seo": {
+    "title": "Adrián Salcedo Toca — Poeta avantguardista",
+    "title_en": "Adrián Salcedo Toca — Avant-garde poet",
+    "description": "Portfoli oficial d'Adrián Salcedo Toca. Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.",
+    "description_en": "Official portfolio of Adrián Salcedo Toca. Avant-garde poetry, videopoetry, cultural criticism and editorial projects."
+  }
+}

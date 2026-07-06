@@ -1,0 +1,320 @@
+{
+  "title": "Festivals i exposicions",
+  "title_en": "Festivals and exhibitions",
+  "festivals": [
+    {
+      "id": "festival-1",
+      "title": "Trobada de joves poetes com a diàleg amb Cocteau",
+      "title_en": "Meeting of Young Poets as a Dialogue with Cocteau",
+      "year": 2025,
+      "label": "exhibition",
+      "content": [
+        "Diàleg estètic que articula la memòria i el llegat creuat de Jean Cocteau i Apel·les Fenosa, concebut en paral·lel a l'exposició \"Le cercle lumineux (1920-1960)\" al Museu Apel·les Fenosa (El Vendrell).",
+        "L'esdeveniment, organitzat per Nekane Aramburu i sota la curadoria de Laia M. Llobera, va plantejar una línia de continuïtat entre les xarxes artístiques de l'avantguarda històrica i la producció contemporània.",
+        "La meva intervenció s'ha concretat en la hibridació de formats a través del fragment audiovisual del poema visual inèdit \"Soldat demi-sel\" i de l'obra cal·ligramàtica \"Empelt\", enclavada directament dins l'espai expositiu.",
+        "L'encontre va convocar una selecció de veus de la nova lírica actual, compartint l'espai amb les poetes Laia M. Llobera, Cecília Navarro i Júlia Sentís."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/01cc7e1f-7111-45a1-96ba-9dcbcf35c017_rw_1200.jpg",
+          "alt": "Soldat demi-sel",
+          "alt_en": "Soldat demi-sel",
+          "width": "50%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/eagJu121Bp0",
+          "title": "Soldat demi-sel - Poema visual",
+          "title_en": "Soldat demi-sel - Poema visual",
+          "width": 315,
+          "height": 560
+        }
+      ]
+    },
+    {
+      "id": "festival-2",
+      "title": "De l'Art a la Zeta: plaquettes d'escriptura subversiva",
+      "title_en": "From Art to Z: Subversive Writing Plaquettes",
+      "year": 2025,
+      "label": "exhibition",
+      "content": [
+        "Mostra col·lectiva organitzada a la Sala II de La Pahissa del Marquet (Parc Natural de Sant Llorenç del Munt i l'Obac), emmarcada dins del cicle De l'Art a la Zeta. L'exposició va aplegar les propostes més destacades de la vuitena edició del Premi Carles Hac Mor a plaquettes d'escriptura subversiva, impulsat per l'Ajuntament de Juneda i l'Editorial Fonoll.",
+        "L'exposició va aplegar a figures rellevants del món poètic com Miriam Reyes, premi Nacional de Poesia 2025, i Gloria Bonet Batalla, guanyadora del 8è Premi Carles Hac Mor.",
+        "La meva participació —que significava la seva segona incursió expositiva en aquest emblemàtic centre artístic— hibridava textualitat, plàstica i tecnologia a través de tres línies de treball:",
+        "Una nano-instal·lació electrònica que portava la dimensió digital a la lectura, i no a la inversa. Una plaquette poètica articulada al voltant de les nocions de Déu, la Bíblia i el moviment Retro. Un conjunt d'obres visuals d'arrel papasseitiana que feien dialogar l'avantguarda històrica amb els nous formats contemporanis.",
+        "L'exposició va romandre oberta des del 15 de setembre fins al 26 d'octubre."
+      ],
+      "content_en": [],
+      "contentList": [
+        "Una nano-instal·lació electrònica que portava la dimensió digital a la lectura, i no a la inversa.",
+        "Una plaquette poètica articulada al voltant de les nocions de Déu, la Bíblia i el moviment Retro.",
+        "Un conjunt d'obres visuals d'arrel papasseitiana que feien dialogar l'avantguarda històrica amb els nous formats contemporanis."
+      ],
+      "contentList_en": [],
+      "images": [
+        {
+          "src": "/media/images/2e031827-ba59-442f-9645-3a766e155080_rw_1920.jpg",
+          "alt": "Nano-instal·lació poètica",
+          "alt_en": "Nano-instal·lació poètica",
+          "width": "50%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/Vgrsa0RleVk",
+          "title": "Nano-instal·lació poètica per a l'exposició de plaquettes subversives",
+          "title_en": "Nano-instal·lació poètica per a l'exposició de plaquettes subversives",
+          "width": 315,
+          "height": 560
+        }
+      ]
+    },
+    {
+      "id": "festival-3",
+      "title": "Dia internacional de la poesia: mural cal·ligramàtic",
+      "title_en": "World Poetry Day: Calligram Mural",
+      "year": 2025,
+      "label": "intervention",
+      "content": [
+        "Intervenció urbana i comunitària realitzada a Mataró en motiu del #DiaMundialDeLaPoesia, on es va confeccionar un mural de cal·ligrames dels llocs més emblemàtics de la ciutat.",
+        "La unió dels diferents cal·ligrames traçava una nova cartografia visual de l'entorn urbà, integrant espais locals mítics com: la presó, la riera i el far verd del port.",
+        "Aquesta acció va destacar per posar en pràctica la figura del mediador poètic, un rol conceptual que activa el vincle directe i orgànic entre la plàstica del mural, la poesia recitada en viu i la resposta d'un públic completament implicat.",
+        "La trobada va cloure amb els assistents desmuntant el mapa i emportant-se els cal·ligrames originals a casa. Una forma de recitar perquè la ciutadania fes seva una ciutat nova —per nova poesia proclamada—, tancant així un dispositiu artístic orientat exclusivament a transformar."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/2e6d623b-19d0-40d7-853d-3cde9f739bfc_rw_1200.jpg",
+          "alt": "Mural cal·ligramàtic",
+          "alt_en": "Mural cal·ligramàtic",
+          "width": "100%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/MQZGiQvenDc",
+          "title": "I de sobte l'avantguardisme va tornar a rebre l'atenció del públic",
+          "title_en": "I de sobte l'avantguardisme va tornar a rebre l'atenció del públic",
+          "width": 315,
+          "height": 560
+        }
+      ]
+    },
+    {
+      "id": "festival-4",
+      "title": "3 de March",
+      "title_en": "3 de March",
+      "year": 2025,
+      "label": "recital",
+      "content": [
+        "Participació activa a la setmana cultural #3deMarch, un esdeveniment celebrat a Gandia amb l'objectiu de reivindicar, rememorar i estendre el llegat de la figura del cèlebre poeta valencià.",
+        "Aquesta intervenció s'emmarcava en una sèrie de recitals organitzats per l'Associació d'Escriptors en Llengua Catalana (AELC) posteriors a les jornades de formació del Certamen Art Jove de Poesia Salvador Iborra."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/0864451f-0df1-440a-83e7-baccce598dfa_rw_1200.jpg",
+          "alt": "3 de March",
+          "alt_en": "3 de March",
+          "width": "100%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/GTTQ3_1bvQ4",
+          "title": "El poema cadàver",
+          "title_en": "El poema cadàver",
+          "width": 315,
+          "height": 560
+        }
+      ]
+    },
+    {
+      "id": "festival-5",
+      "title": "Festival Nudo Internacional",
+      "title_en": "Nudo International Festival",
+      "year": 2025,
+      "label": "festival",
+      "content": [
+        "Participació al Festival Nudo de videopoesia durant les seves edicions de 2025, un dels certàmens de referència internacional dedicats a hibridar la paraula escrita amb el llenguatge cinematogràfic i experimental, celebrat a les seus de Gran Canaria i Barcelona.",
+        "La mostra va acollir la projecció de tres de les peces audiovisuals més significatives que he realitzat fins ara: \"Fragments de suïcidi\", \"Bressol d'estiu\" i \"Doble veu\".",
+        "Vaig poder intervenir com a cap de cartell de l'edició de Barcelona juntament amb David Aceituno."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/81060ce1-2015-4c53-9044-35694b7073cd_rw_1200.png",
+          "alt": "Festival Nudo",
+          "alt_en": "Festival Nudo",
+          "width": "50%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/oUUytdt2aJI",
+          "title": "Festival Nudo",
+          "title_en": "Festival Nudo",
+          "width": 560,
+          "height": 315
+        }
+      ]
+    },
+    {
+      "id": "festival-6",
+      "title": "Espais de Poesia d'Alella",
+      "title_en": "Poetry Spaces of Alella",
+      "year": 2024,
+      "label": "intervention",
+      "content": [
+        "Intervenció poètica i d'art urbà instal·lada a l'entrada del Mercat Municipal d'Alella, plantejada com una fractura de la quotidianitat a través de la desubicació d'artefactes quotidians: imatges poètiques reproduïdes en bucle amb una televisió emplaçada allà on no toca.",
+        "La proposta d'Adrián Salcedo —reconegut amb el Premi Marta Pessarrodona d'obra audiovisual 2021— assalta el teixit públic mitjançant l'arribada de videocreacions protagonitzades per objectes en moviment, amors rítmics i versos dissidents.",
+        "Aquesta acció planteja una reapropiació dels mètodes de la publicitat moderna amb l'objectiu estricte de capgirar les lògiques del consum visual."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/e07f9a15-d590-49c8-87c4-86a4fb88a20c_rw_1200.jpg",
+          "alt": "Espais de Poesia d'Alella",
+          "alt_en": "Espais de Poesia d'Alella",
+          "width": "50%"
+        }
+      ]
+    },
+    {
+      "id": "festival-7",
+      "title": "Quatre dimensions té el meu poema",
+      "title_en": "Four Dimensions Has My Poem",
+      "year": 2023,
+      "label": "exhibition",
+      "content": [
+        "Exposició col·lectiva i interdisciplinària presentada a les sales I i II de La Pahissa del Marquet (Parc Natural de Sant Llorenç del Munt i l'Obac). La mostra es va configurar com un espai de recerca on la paraula es desborda de la pàgina per habitar noves dimensions físiques i plàstiques.",
+        "L'esdeveniment va comptar amb la presentació d'Ester Xargay, responsable de la programació d'aquest equipament de referència. L'eix conceptual de la proposta es basava estrictament en la selecció d'artistes i poetes que hibriden la seva producció literària amb altres pràctiques artístiques contemporànies.",
+        "La mostra va bastir un diàleg coral entre una selecció de veus clau del panorama actual: Gerard Altaió, Laia Carbonell, Francesc Gelonch, Anna Pantinat, Adrián Salcedo, Maria Sevilla i David Ymbernon."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/62de3fa4-c9a7-4354-961e-5f026adb7bfa_rw_1200.jpg",
+          "alt": "Quatre dimensions té el meu poema",
+          "alt_en": "Quatre dimensions té el meu poema",
+          "width": "50%"
+        }
+      ]
+    },
+    {
+      "id": "festival-8",
+      "title": "Dia de les Lletres del Maresme",
+      "title_en": "Maresme Letters Day",
+      "year": 2024,
+      "label": "recital",
+      "content": [
+        "En commemoració del Dia de les Lletres al Maresme, l'entitat Òmnium Cultural va organitzar una diada poètica excepcional que va tenir com a escenari el pintoresc Museu de Sant Pol de Mar.",
+        "L'esdeveniment va plantejar un diàleg estètic de primer ordre, reunint en un mateix espai de lectura i acció els poetes Oriol Sauleda i Adrián Salcedo. Mentre que el primer va recitar uns versos dempeus a la cadira, el segon va presentar la seva obra poètica de 10 metres que lluïa darrere seu.",
+        "La trobada, caracteritzada per debats intensos i converses apassionants sobre la creació contemporània, va comptar a més amb la presència d'un espectador de luxe entre el públic: el llegendari artista i escriptor Perejaume, tancant una jornada de referència per a la lírica de la comarca."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/18a84f97-a42f-4746-bb2c-62a73238f138_rw_1200.jpg",
+          "alt": "Dia de les Lletres del Maresme",
+          "alt_en": "Dia de les Lletres del Maresme",
+          "width": "100%"
+        }
+      ]
+    },
+    {
+      "id": "festival-9",
+      "title": "Festa de les Lletres",
+      "title_en": "Festival of Letters",
+      "year": 2022,
+      "label": "recital",
+      "content": [
+        "Participació en la primera edició de la Festa de les Lletres de Terrassa (2022), una fita nascuda de la Taula Sectorial de Lletres i Pensament del Consell Municipal de Cultura amb l'objectiu d'unificar els certàmens literaris de la ciutat, impulsar la producció local i dotar de major rellevància pública els seus creadors.",
+        "La vetllada va tenir com a escenari el Teatre Alegria, on Adrián Salcedo i Cecília Navarro van ser els convidats d'honor com a guanyadors del Premi Marta Pessarrodona de poesia, un guardó que es consolidava plenament en la seva segona edició."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/9cd5a99e-9695-4a1a-83b1-8ce89ba9afa2_rw_1200.jpg",
+          "alt": "Festa de les Lletres",
+          "alt_en": "Festa de les Lletres",
+          "width": "100%"
+        }
+      ],
+      "videos": [
+        {
+          "url": "https://www.youtube.com/embed/pkQXcYuOK3Y",
+          "title": "Vídeo presentat a la Festa de les Lletres",
+          "title_en": "Vídeo presentat a la Festa de les Lletres",
+          "width": 560,
+          "height": 315
+        }
+      ]
+    },
+    {
+      "id": "festival-10",
+      "title": "Festival Poesia i Més",
+      "title_en": "Poesia i Més Festival",
+      "year": 2024,
+      "label": "recital",
+      "content": [
+        "Participació al prestigiós Festival Poesia i Més, un dels grans epicentres de la poesia al Maresme i a Catalunya.",
+        "La intervenció va consistir en una acció conjunta amb la poeta Chantal Poch. A l'escenari vam activar un dispositiu d'impulsos magnètics que emetia sons cada vegada que els poetes entraven en contacte físic, generant-se una resposta melòdica en temps real.",
+        "Aquesta confluència va transformar la lectura en una experiència multisensorial, on el circuit electrònic esdevenia una extensió de la pròpia veu."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/b55abec4-5f7c-40fe-92df-e0a4ea56b9f0_rw_1200.jpg",
+          "alt": "Festival Poesia i Més",
+          "alt_en": "Festival Poesia i Més",
+          "width": "100%"
+        }
+      ]
+    },
+    {
+      "id": "festival-11",
+      "title": "Festival Nosaltres",
+      "title_en": "Nosaltres Festival",
+      "year": 2024,
+      "label": "recital",
+      "content": [
+        "Participació al prestigiós Festival Nosaltres, un dels altaveus culturals i comunitaris de referència a la comarca del Maresme, dissenyat com un espai de trobada i descentralització de la creació artística.",
+        "En aquesta ocasió, Adrián Salcedo va ser convidat a compartir l'escenari i recitar de manera conjunta amb dues poetes excepcionals: Chantal Poch i Laia M. Llobera.",
+        "L'esdeveniment es va configurar com un diàleg poètic, plantejat com una oportunitat per hibridar i posar en comú diferents textures d'entendre la recitació, l'oralitat i el ritme."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/fc99989b-1238-41ba-8873-ed29c758477c_rw_1200.jpg",
+          "alt": "Festival Nosaltres",
+          "alt_en": "Festival Nosaltres",
+          "width": "100%"
+        }
+      ]
+    },
+    {
+      "id": "festival-12",
+      "title": "Festival de Poesia Jove de Gandia",
+      "title_en": "Gandia Youth Poetry Festival",
+      "year": 2024,
+      "label": "festival",
+      "content": [
+        "Després de resultar guardonats amb el prestigiós Premi Salvador Iborra, els poetes premiats van traslladar la seva activitat al novedós Festival de Poesia Jove de Gandia, una cita concebuda per visibilitzar les veus emergents més punyents del mapa literari d'aquell moment.",
+        "L'esdeveniment va oferir un espai propici per connectar de manera directa amb altres creadors d'arreu del territori, compartir dinàmiques creatives i debatre sobre els camins de futurs de la literatura.",
+        "Aquesta trobada a Gandia va funcionar, de fet, com una extensió natural i orgànica de les complicitats artístiques i el treball col·lectiu que ja s'havien començat a gestar prèviament durant la residència de creació del propi certamen."
+      ],
+      "content_en": [],
+      "images": [
+        {
+          "src": "/media/images/290572e7-61df-439e-b74d-b1de6128663d_rw_1200.jpg",
+          "alt": "Festival Poesia Jove de Gandia",
+          "alt_en": "Festival Poesia Jove de Gandia",
+          "width": "100%"
+        }
+      ]
+    }
+  ]
+}

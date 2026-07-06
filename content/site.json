@@ -1,0 +1,28 @@
+{
+  "site": {
+    "title": "Adrián Salcedo Toca",
+    "description": "Portfoli digital d'Adrián Salcedo Toca. Poeta avantguardista i crític cultural",
+    "url": "https://adriansalcedo.com",
+    "language": "ca",
+    "locale": "ca_ES",
+    "copyright": "Adrián Salcedo Toca // © 2026 Arxiu Digital",
+    "logo": "/media/images/sat.png",
+    "favicon": "/media/images/sat.png"
+  },
+  "nav": [
+    { "id": "home", "label": "Inici", "path": "/", "label_en": "Home" },
+    { "id": "obres", "label": "Obres", "path": "/obres", "label_en": "Works" },
+    { "id": "projectes", "label": "Projectes", "path": "/projectes", "label_en": "Projects" },
+    { "id": "festivals", "label": "Festivals", "path": "/festivals", "label_en": "Festivals" },
+    { "id": "premsa", "label": "Premsa", "path": "/premsa", "label_en": "Press" },
+    { "id": "premis", "label": "Premis", "path": "/premis", "label_en": "Awards" },
+    { "id": "quisoc", "label": "Qui soc", "path": "/quisoc", "label_en": "About" },
+    { "id": "arxiu", "label": "Arxiu", "path": "/arxiu", "label_en": "Archive" }
+  ],
+  "social": {
+    "instagram": { "url": "https://instagram.com/asalcedotoca", "icon": "fab fa-instagram", "label": "Instagram" },
+    "twitter": { "url": "https://twitter.com/asalcedotoca", "icon": "fab fa-twitter", "label": "Twitter" },
+    "youtube": { "url": "https://youtube.com/@asalcedotoca", "icon": "fab fa-youtube", "label": "YouTube" },
+    "tiktok": { "url": "https://tiktok.com/@asalcedotoca", "icon": "fab fa-tiktok", "label": "TikTok" }
+  }
+}
