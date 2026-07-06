@@ -115,45 +115,50 @@ nav a.active {
   gap: 12px;
 }
 
-.lang-switch-mobile {
+#lang-switch-mobile {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 0;
   padding: 10px 0 0;
   margin-top: 10px;
   border-top: 1px solid var(--border-light);
   width: 100%;
 }
 
-.lang-switch-mobile a:link,
-.lang-switch-mobile a:visited {
+#lang-switch-mobile a:link,
+#lang-switch-mobile a:visited {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.15em;
+  letter-spacing: 0.1em;
   color: var(--text);
   text-decoration: none;
-  opacity: 0.25;
+  opacity: 0.3;
   transition: opacity var(--transition-fast);
-  padding: 2px 6px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 0;
 }
 
-.lang-switch-mobile a.active {
+#lang-switch-mobile a.active:link,
+#lang-switch-mobile a.active:visited {
   opacity: 1;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
 }
 
-.lang-switch-mobile a:hover {
+#lang-switch-mobile a:hover {
   opacity: 0.6;
 }
 
-.lang-switch-mobile .sep {
-  opacity: 0.1;
-  font-size: 9px;
-  padding: 0 2px;
+#lang-switch-mobile .sep {
+  opacity: 0.15;
+  font-size: 8px;
+  padding: 0;
 }
 
 .socials {
@@ -817,7 +822,7 @@ img[loading="lazy"].loaded {
     margin-left: auto;
   }
 
-  .lang-switch-mobile {
+  #lang-switch-mobile {
     display: inline-flex;
     justify-content: flex-start;
     padding: 0;
