@@ -24,17 +24,24 @@
           var parsed = JSON.parse(stored);
           if (parsed.token) {
             log('Token found: ' + parsed.token.substring(0, 10) + '... scope=' + parsed.scope);
-            fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
-              headers: { 'Authorization': 'Bearer ' + parsed.token }
+            var tok = parsed.token;
+
+            fetch('https://api.github.com/user', {
+              headers: { 'Authorization': 'Bearer ' + tok }
             })
-            .then(function(r) {
-              return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 100) }; });
-            })
-            .then(function(result) {
-              log('API test: HTTP ' + result.status + ' - ' + result.body);
+            .then(function(r) { return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 120) }; }); })
+            .then(function(r1) {
+              log('/user: HTTP ' + r1.status + ' - ' + r1.body);
+              return fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
+                headers: { 'Authorization': 'Bearer ' + tok }
+              })
+              .then(function(r) { return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 120) }; }); })
+              .then(function(r2) {
+                log('/user: HTTP ' + r1.status + ' | /repos: HTTP ' + r2.status + ' - ' + r2.body);
+              });
             })
             .catch(function(e) {
-              log('API fetch error: ' + e.message);
+              log('API error: ' + e.message);
             });
           } else {
             log('Token stored but no token field');
