@@ -363,7 +363,6 @@ a.inline-link:hover {
 .calligram-shape {
   float: left;
   width: 200px;
-  height: 2000px;
   shape-outside: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   margin-right: 25px;
   margin-bottom: 20px;

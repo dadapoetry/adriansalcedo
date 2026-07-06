@@ -47,5 +47,31 @@ const SearchEngine = {
         <a href="/${r.section}" class="item-link">${r.title}</a>
       </div>`
     ).join('\n');
+  },
+
+  performSearch(term) {
+    const input = document.getElementById('search-input');
+    const results = document.getElementById('search-results');
+    if (!input || !results) return;
+    input.value = term;
+    const hits = this.query(term);
+    this.renderResults(hits, results);
   }
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  SearchEngine.init();
+  const input = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  if (input && results) {
+    input.addEventListener('input', () => {
+      const term = input.value.trim();
+      if (term.length < 2) {
+        results.innerHTML = '<p style="opacity: 0.4; font-size: 12px;">Escriu almenys 2 caràcters per cercar.</p>';
+        return;
+      }
+      const hits = SearchEngine.query(term);
+      SearchEngine.renderResults(hits, results);
+    });
+  }
+});

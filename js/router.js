@@ -71,6 +71,11 @@ const App = {
 
     this.updateMeta(currentSection, currentArticle);
     await this.renderSection(currentSection, currentArticle);
+
+    const params = new URLSearchParams(window.location.search);
+    if (currentSection === 'cerca' && params.has('q')) {
+      setTimeout(() => SearchEngine.performSearch(params.get('q')), 100);
+    }
   },
 
   updateMeta(section, article) {
@@ -313,7 +318,7 @@ const App = {
       const title = isEn ? (data.title_en || data.title) : data.title;
       listLayer.innerHTML = `<h2>${title}</h2>
         <p>${data.description || ''}</p>
-        ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/arxiu?tag=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
+        ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/cerca?q=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
     }
   },
 
