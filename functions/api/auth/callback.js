@@ -38,8 +38,8 @@ export async function onRequest(context) {
     const testRes = await fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
       headers: { 'Authorization': `Bearer ${token}`, 'Accept': 'application/vnd.github.v3+json' },
     });
-    const testData = await testRes.json();
-    testResult = `${testRes.status}: ${testData.full_name || testData.message || JSON.stringify(testData)}`;
+    const rawText = await testRes.text();
+    testResult = `HTTP ${testRes.status}: ${rawText.substring(0, 200)}`;
   } catch (e) {
     testResult = `Error: ${e.message}`;
   }
