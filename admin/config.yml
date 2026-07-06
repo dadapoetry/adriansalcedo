@@ -25,11 +25,18 @@ collections:
         label: "Configuració general"
         name: "site-config"
         fields:
-          - { label: "Títol del lloc", name: "site.title", widget: "string" }
-          - { label: "Descripció", name: "site.description", widget: "text" }
-          - { label: "Idioma", name: "site.language", widget: "string" }
-          - { label: "URL", name: "site.url", widget: "string" }
-          - { label: "Copyright", name: "site.copyright", widget: "string" }
+          - label: "Configuració del lloc"
+            name: "site"
+            widget: "object"
+            fields:
+              - { label: "Títol del lloc", name: "title", widget: "string" }
+              - { label: "Descripció", name: "description", widget: "text" }
+              - { label: "Idioma", name: "language", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Copyright", name: "copyright", widget: "string" }
+              - { label: "Idioma del lloc (locale)", name: "locale", widget: "string", required: false }
+              - { label: "Logotip (URL)", name: "logo", widget: "string", required: false }
+              - { label: "Favicon (URL)", name: "favicon", widget: "string", required: false }
           - label: "Navegació"
             name: "nav"
             widget: "list"
@@ -38,9 +45,6 @@ collections:
               - { label: "Etiqueta (CA)", name: "label", widget: "string" }
               - { label: "Etiqueta (EN)", name: "label_en", widget: "string" }
               - { label: "Camí", name: "path", widget: "string" }
-          - { label: "Idioma del lloc (locale)", name: "site.locale", widget: "string", required: false }
-          - { label: "Logotip (URL)", name: "site.logo", widget: "string", required: false }
-          - { label: "Favicon (URL)", name: "site.favicon", widget: "string", required: false }
           - label: "Xarxes socials"
             name: "social"
             widget: "object"
