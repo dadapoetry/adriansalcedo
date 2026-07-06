@@ -207,8 +207,7 @@ const App = {
       const tlLabel = isEn ? 'Career trajectory' : 'Trajectòria';
 
       listLayer.innerHTML = `<h2>${title}</h2>
-        <div class="calligram-shape"></div>
-        ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
+        ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" class="calligram-portrait" loading="lazy" />` : ''}
         ${Renderers.paragraphs(bio)}
         ${Renderers.paragraphs(perfs)}
         ${Renderers.paragraphs(members)}

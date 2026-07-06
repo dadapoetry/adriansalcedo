@@ -346,12 +346,13 @@ a.inline-link:hover {
   opacity: 0.3;
 }
 
-.calligram-shape {
+.calligram-portrait {
   float: left;
   width: 200px;
-  height: 2000px;
+  height: auto;
   shape-outside: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  margin-right: 25px;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  margin: 0 30px 20px 0;
 }
 
 #section-quisoc.active .view-layer.active {
