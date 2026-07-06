@@ -1,15 +1,5 @@
 {
-  "title": "fdsf",
-  "title_en": "sdfs",
-  "articles": [
-    {
-      "date": "2026-07-06",
-      "id": "1",
-      "publication": "sfd",
-      "title": "sf",
-      "url": "sd",
-      "language": "ca",
-      "type": "interview"
-    }
-  ]
+  "title": "Premsa",
+  "title_en": "Press",
+  "articles": []
 }
