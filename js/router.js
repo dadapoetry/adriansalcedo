@@ -129,7 +129,7 @@ const App = {
       link.classList.toggle('active', href === sectionPath);
     });
 
-    const langSwitchLinks = document.querySelectorAll('#lang-switch a, #lang-switch-mobile a');
+    const langSwitchLinks = document.querySelectorAll('#lang-switch-mobile a');
     langSwitchLinks.forEach(a => {
       const lang = a.getAttribute('lang');
       a.classList.toggle('active', lang === this.lang);

@@ -116,7 +116,36 @@ nav a.active {
 }
 
 .lang-switch-mobile {
-  display: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 4px;
+}
+
+.lang-switch-mobile a {
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.3;
+  transition: opacity var(--transition-fast);
+  padding: 1px 4px;
+}
+
+.lang-switch-mobile a.active {
+  opacity: 1;
+  font-weight: 700;
+}
+
+.lang-switch-mobile a:hover {
+  opacity: 0.6;
+}
+
+.lang-switch-mobile .sep {
+  opacity: 0.15;
+  font-size: 8px;
 }
 
 .socials {
@@ -185,38 +214,6 @@ aside.sidebar-right {
   flex-direction: column;
   align-items: center;
   gap: 12px;
-}
-
-.lang-switch {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-
-.lang-switch a {
-  color: var(--text);
-  text-decoration: none;
-  opacity: 0.3;
-  transition: opacity var(--transition-fast);
-  padding: 1px 4px;
-}
-
-.lang-switch a.active {
-  opacity: 1;
-  font-weight: 700;
-}
-
-.lang-switch a:hover {
-  opacity: 0.6;
-}
-
-.lang-switch .sep {
-  opacity: 0.15;
-  font-size: 8px;
 }
 
 .vertical-footer-text {
@@ -814,11 +811,7 @@ img[loading="lazy"].loaded {
 
   .lang-switch-mobile {
     display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    margin-top: 0;
   }
 
   iframe {
