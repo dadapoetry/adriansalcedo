@@ -207,17 +207,15 @@ const App = {
       const tlLabel = isEn ? 'Career trajectory' : 'Trajectòria';
 
       listLayer.innerHTML = `<h2>${title}</h2>
-        <div class="about-body">
-          <div class="calligram-shape"></div>
-          ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
-          ${Renderers.paragraphs(bio)}
-          ${Renderers.paragraphs(perfs)}
-          ${Renderers.paragraphs(members)}
-          ${Renderers.paragraphs(awtxt)}
-          ${Renderers.paragraphs(edu)}
-          ${statement ? `<p><em>${statement}</em></p>` : ''}
-          ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
-        </div>
+        <div class="calligram-shape"></div>
+        ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
+        ${Renderers.paragraphs(bio)}
+        ${Renderers.paragraphs(perfs)}
+        ${Renderers.paragraphs(members)}
+        ${Renderers.paragraphs(awtxt)}
+        ${Renderers.paragraphs(edu)}
+        ${statement ? `<p><em>${statement}</em></p>` : ''}
+        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
         ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>

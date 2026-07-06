@@ -348,14 +348,10 @@ a.inline-link:hover {
 
 .calligram-shape {
   float: left;
-  width: 220px;
-  height: 750px;
+  width: 200px;
+  height: 2000px;
   shape-outside: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
   margin-right: 25px;
-}
-
-.about-body {
-  display: flow-root;
 }
 
 #section-quisoc.active .view-layer.active {
