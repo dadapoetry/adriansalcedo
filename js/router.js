@@ -220,12 +220,17 @@ const App = {
       setTimeout(() => {
         const shape = listLayer.querySelector('.calligram-shape');
         if (!shape) return;
-        const tl = listLayer.querySelector('.timeline-wrapper');
-        if (tl) {
-          const shapeRect = shape.getBoundingClientRect();
-          const tlRect = tl.getBoundingClientRect();
-          shape.style.height = Math.max(100, tlRect.top - shapeRect.top) + 'px';
-        }
+        shape.style.height = '0';
+        requestAnimationFrame(() => {
+          const tl = listLayer.querySelector('.timeline-wrapper');
+          if (tl) {
+            const shapeRect = shape.getBoundingClientRect();
+            const tlRect = tl.getBoundingClientRect();
+            shape.style.height = Math.max(100, tlRect.top - shapeRect.top) + 'px';
+          } else {
+            shape.style.height = '';
+          }
+        });
       }, 0);
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
