@@ -30,30 +30,27 @@ export async function onRequest(context) {
     return new Response(`GitHub error: ${data.error_description || data.error || 'unknown'}`, { status: 400 });
   }
 
+  const tokenJson = JSON.stringify(data.access_token);
+  const scopeJson = JSON.stringify(data.scope || 'repo');
+
   const html = `<!DOCTYPE html>
 <html><body>
-<p id="status">Processing...</p>
-<pre id="debug"></pre>
 <script>
-  const debug = document.getElementById('debug');
-  const status = document.getElementById('status');
-
+try {
   if (window.opener) {
-    status.textContent = 'opener found, sending postMessage...';
-    try {
-      window.opener.postMessage('authorization:${data.access_token}:${data.scope || ''}', '*');
-      status.textContent = 'postMessage sent successfully. Closing...';
-      setTimeout(function() {
-        window.close();
-      }, 1000);
-    } catch(e) {
-      status.textContent = 'postMessage error: ' + e.message;
-      debug.textContent = e.stack || '';
-    }
+    var token = ${tokenJson};
+    var scope = ${scopeJson};
+    var user = JSON.stringify({ backendName: 'github', token: token, scope: scope });
+    window.opener.localStorage.setItem('github-token', user);
+    window.opener.localStorage.setItem('netlify-cms-user', user);
+    window.opener.location.reload();
   } else {
-    status.textContent = 'NO OPENER - direct browser access. Token received.';
-    debug.textContent = 'Token starts with: ${data.access_token.substring(0, 10)}...';
+    document.body.textContent = 'ERROR: no opener (direct access)';
   }
+} catch(e) {
+  document.body.textContent = 'ERROR: ' + e.message;
+}
+window.close();
 </script>
 </body></html>`;
 

@@ -12,35 +12,6 @@
   </style>
 </head>
 <body>
-  <p id="cms-debug" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#222;color:#0f0;padding:8px;font:12px monospace;white-space:pre-wrap;display:none;"></p>
-  <script>
-    (function() {
-      var dbg = document.getElementById('cms-debug');
-      function log(msg) {
-        dbg.style.display = 'block';
-        dbg.textContent = new Date().toISOString().slice(11,19) + ' ' + msg;
-      }
-
-      window.addEventListener('message', function(e) {
-        log('MSG from ' + e.origin + ': ' + (e.data || '').slice(0,80));
-        if (e.data && e.data.startsWith && e.data.startsWith('authorization:')) {
-          log('AUTH TOKEN RECEIVED! Storing...');
-          try {
-            var parts = e.data.split(':');
-            var token = parts[1];
-            var scope = parts[2] || 'repo';
-            var user = { backendName: 'github', token: token, scope: scope };
-            localStorage.setItem('netlify-cms-user', JSON.stringify(user));
-            localStorage.setItem('github-token', JSON.stringify(user));
-            log('Token saved! Reloading in 1s...');
-            setTimeout(function() { location.reload(); }, 1000);
-          } catch(err) {
-            log('Save error: ' + err.message);
-          }
-        }
-      });
-    })();
-  </script>
   <script src="https://unpkg.com/netlify-cms@^2.10.192/dist/netlify-cms.js"></script>
   <script>
     CMS.init();
