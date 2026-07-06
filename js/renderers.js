@@ -122,12 +122,12 @@ const Renderers = {
     const projects = data.featuredProjects || [];
     const bio = isEn ? (data.bio_en || data.bio) : (data.bio || '');
 
-    const featuredLink = fw.link || (isEn ? '/en/obres/obra-crit' : '/obres/obra-crit');
+    const featuredLink = isEn ? (fw.link_en || fw.link || '/en/obres/obra-crit') : (fw.link || '/obres/obra-crit');
     const bioLink = isEn ? '/en/quisoc' : '/quisoc';
 
     let projectCards = '';
     projects.forEach(p => {
-      const link = p.link || '#';
+      const link = isEn ? (p.link_en || p.link || '#') : (p.link || '#');
       const title = isEn ? (p.title_en || p.title) : p.title;
       const desc = isEn ? (p.description_en || p.description) : p.description;
       projectCards += `

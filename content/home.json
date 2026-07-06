@@ -21,7 +21,8 @@
     "image": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg",
     "imageAlt": "Cobertura Crit",
     "imageAlt_en": "Crit cover",
-    "link": "/obres/obra-crit"
+    "link": "/obres/obra-crit",
+    "link_en": "/en/obres/obra-crit"
   },
   "featuredProjects": [
     {
@@ -29,21 +30,24 @@
       "title_en": "Dada Poetry",
       "description": "Plataforma d'experimentació i publicació digital independent.",
       "description_en": "Independent digital experimentation and publishing platform.",
-      "link": "/projectes/projecte-1"
+      "link": "/projectes/projecte-1",
+      "link_en": "/en/projectes/projecte-1"
     },
     {
       "title": "Avant-garde zero",
       "title_en": "Avant-garde zero",
       "description": "Digital magazine of a new international avant-garde.",
       "description_en": "Digital magazine of a new international avant-garde.",
-      "link": "/projectes/projecte-2"
+      "link": "/projectes/projecte-2",
+      "link_en": "/en/projectes/projecte-2"
     },
     {
       "title": "POEMOT",
       "title_en": "POEMOT",
       "description": "Poema de 10 metres. Fusió de text surrealista, collage i gravat.",
       "description_en": "10-meter poem. Fusion of surrealist text, collage and engraving.",
-      "link": "/obres/obra-poemot"
+      "link": "/obres/obra-poemot",
+      "link_en": "/en/obres/obra-poemot"
     }
   ],
   "bio": "Nascut el 1994 i resident al Maresme. He recitat al Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional i he exposat a La Pahissa del Marquet. Guardonat amb el Premi Marta Pessarrodona de Poesia 2021 i dues vegades finalista del Certamen Salvador Iborra.",

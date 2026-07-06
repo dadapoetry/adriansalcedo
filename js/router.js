@@ -149,11 +149,7 @@ const App = {
 
     if (!sectionEl) return;
 
-    if (this.lang === 'en') {
-      await this.loadEnglishContent(section, sectionEl);
-    } else {
-      this.restoreCaContent(sectionEl);
-    }
+    await this.loadContent(section, sectionEl);
 
     sectionEl.style.display = 'block';
     sectionEl.classList.add('active');
@@ -188,51 +184,42 @@ const App = {
     }
   },
 
-  restoreCaContent(sectionEl) {
+  async loadContent(section, sectionEl) {
     const listLayer = sectionEl.querySelector('.list-layer');
     if (!listLayer) return;
 
-    if (listLayer.dataset.caContent && listLayer.dataset.loaded === 'en') {
-      listLayer.innerHTML = listLayer.dataset.caContent;
-      delete listLayer.dataset.loaded;
-      delete listLayer.dataset.caContent;
-    }
+    const isEn = this.lang === 'en';
+    const prefix = isEn ? '/en' : '';
 
-    const detailLayers = sectionEl.querySelectorAll('.detail-layer');
-    detailLayers.forEach(d => {
-      if (d.dataset.caContent) {
-        d.innerHTML = d.dataset.caContent;
-        delete d.dataset.caContent;
-      }
-    });
-  },
-
-  async loadEnglishContent(section, sectionEl) {
-    const listLayer = sectionEl.querySelector('.list-layer');
-    if (!listLayer || listLayer.dataset.loaded === 'en') return;
-
-    if (!listLayer.dataset.caContent) {
-      listLayer.dataset.caContent = listLayer.innerHTML;
-    }
-
-    const allDetails = sectionEl.querySelectorAll('.detail-layer');
-    allDetails.forEach(d => {
-      if (!d.dataset.caContent) {
-        d.dataset.caContent = d.innerHTML;
-      }
-    });
-
-    let data = await ContentLoader.loadSection(section, 'en');
+    let data = await ContentLoader.loadSection(section, this.lang);
     if (!data) return;
 
     if (section === 'home') {
-      const homeData = data;
-      if (homeData) {
-        listLayer.innerHTML = Renderers.home(homeData, this.lang);
-      }
+      listLayer.innerHTML = Renderers.home(data, this.lang);
+    } else if (section === 'quisoc') {
+      const title = isEn ? (data.title_en || data.title) : data.title;
+      const bio = isEn ? (data.biography_en || data.biography) : data.biography;
+      const perfs = isEn ? (data.performances_en || data.performances) : data.performances;
+      const members = isEn ? (data.memberships_en || data.memberships) : data.memberships;
+      const awtxt = isEn ? (data.awards_en || data.awards) : data.awards;
+      const edu = isEn ? (data.education_en || data.education) : data.education;
+      const statement = isEn ? (data.artistStatement_en || data.artistStatement) : data.artistStatement;
+      const tlLabel = isEn ? 'Career trajectory' : 'Trajectòria';
+
+      listLayer.innerHTML = `<h2>${title}</h2>
+        <div class="calligram-shape"></div>
+        ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
+        ${Renderers.paragraphs(bio)}
+        ${Renderers.paragraphs(perfs)}
+        ${Renderers.paragraphs(members)}
+        ${Renderers.paragraphs(awtxt)}
+        ${Renderers.paragraphs(edu)}
+        ${statement ? `<p><em>${statement}</em></p>` : ''}
+        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
+        ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
     } else if (section === 'projectes' && data.projects) {
-      listLayer.innerHTML = `<h2>Projects</h2>
-        <ul class="item-list">${data.projects.map(p => `<li><a class="item-link" href="/en/projectes/${p.id}">${p.title}</a></li>`).join('')}</ul>`;
+      listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
+        <ul class="item-list">${data.projects.map(p => `<li><a class="item-link" href="${prefix}/projectes/${p.id}">${p.title}</a></li>`).join('')}</ul>`;
 
       data.projects.forEach(p => {
         let existing = sectionEl.querySelector(`#${p.id}`);
@@ -242,26 +229,15 @@ const App = {
           existing.id = p.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="/en/projectes" class="back-link">← back</a>
+        const content = isEn ? (p.content_en || p.content) : p.content;
+        existing.innerHTML = `<a href="${prefix}/projectes" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${p.title}${p.issn ? ` (ISSN: ${p.issn})` : ''}</h3>
           ${p.image ? `<img src="${p.image}" style="max-width: ${p.imageWidth || '50%'}; height: auto; margin: 15px 0;" alt="${p.imageAlt || ''}" loading="lazy" />` : ''}
-          ${Renderers.paragraphs(p.content_en || p.content)}`;
+          ${Renderers.paragraphs(content)}`;
       });
-    } else if (section === 'quisoc') {
-      listLayer.innerHTML = `<h2>${data.title_en || data.title}</h2>
-        <div class="calligram-shape"></div>
-        ${Renderers.paragraphs(data.biography_en || data.biography)}
-        ${Renderers.paragraphs(data.performances_en || data.performances)}
-        ${Renderers.paragraphs(data.memberships_en || data.memberships)}
-        ${Renderers.paragraphs(data.awards_en || data.awards)}
-        ${Renderers.paragraphs(data.education_en || data.education)}
-        ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">Career trajectory</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
-    } else if (section === 'premsa') {
-      listLayer.innerHTML = `<h2>${data.title_en || data.title}</h2>
-        ${data.articles ? Renderers.pressItems(data.articles) : ''}`;
     } else if (section === 'obres' && data.works) {
-      listLayer.innerHTML = `<h2>Works</h2>
-        <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="/en/obres/${w.id}">${w.title}</a></li>`).join('')}</ul>`;
+      listLayer.innerHTML = `<h2>${isEn ? 'Works' : 'Obres'}</h2>
+        <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="${prefix}/obres/${w.id}">${w.title}</a></li>`).join('')}</ul>`;
       data.works.forEach(w => {
         let existing = sectionEl.querySelector(`#${w.id}`);
         if (!existing) {
@@ -270,15 +246,16 @@ const App = {
           existing.id = w.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="/en/obres" class="back-link">← back</a>
+        existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${w.title}</h3>
-          ${Renderers.paragraphs(w.content_en || w.content)}
+          ${Renderers.paragraphs(isEn ? (w.content_en || w.content) : w.content)}
           ${Renderers.images(w.images, this.lang)}
           ${Renderers.videos(w.videos, this.lang)}`;
       });
     } else if (section === 'festivals' && data.festivals) {
-      listLayer.innerHTML = `<h2>${data.title_en || data.title || 'Festivals'}</h2>
-          <ul class="item-list">${data.festivals.map(f => `<li><a class="item-link" href="/en/festivals/${f.id}">${f.title_en || f.title}</a></li>`).join('')}</ul>`;
+      const sectionTitle = isEn ? (data.title_en || data.title || 'Festivals') : (data.title || 'Festivals');
+      listLayer.innerHTML = `<h2>${sectionTitle}</h2>
+          <ul class="item-list">${data.festivals.map(f => `<li><a class="item-link" href="${prefix}/festivals/${f.id}">${isEn ? (f.title_en || f.title) : f.title}</a></li>`).join('')}</ul>`;
       data.festivals.forEach(f => {
         let existing = sectionEl.querySelector(`#${f.id}`);
         if (!existing) {
@@ -287,17 +264,17 @@ const App = {
           existing.id = f.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="/en/festivals" class="back-link">← back</a>
-          <h3>${f.title_en || f.title}</h3>
+        existing.innerHTML = `<a href="${prefix}/festivals" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+          <h3>${isEn ? (f.title_en || f.title) : f.title}</h3>
           ${f.label ? `<div class="performance-type">${f.label}</div>` : ''}
-          ${Renderers.paragraphs(f.content_en || f.content)}
-          ${(f.contentList_en && f.contentList_en.length) ? Renderers.contentList(f.contentList_en) : (f.contentList && f.contentList.length ? Renderers.contentList(f.contentList) : '')}
+          ${Renderers.paragraphs(isEn ? (f.content_en || f.content) : f.content)}
+          ${isEn ? ((f.contentList_en && f.contentList_en.length) ? Renderers.contentList(f.contentList_en) : (f.contentList && f.contentList.length ? Renderers.contentList(f.contentList) : '')) : ((f.contentList && f.contentList.length) ? Renderers.contentList(f.contentList) : '')}
           ${Renderers.images(f.images, this.lang)}
           ${Renderers.videos(f.videos, this.lang)}`;
       });
     } else if (section === 'premis' && data.awards) {
-      listLayer.innerHTML = `<h2>Awards</h2>
-        <ul class="item-list">${data.awards.map(a => `<li><a class="item-link" href="/en/premis/${a.id}">${a.title_en || a.title}</a></li>`).join('')}</ul>`;
+      listLayer.innerHTML = `<h2>${isEn ? 'Awards' : 'Premis'}</h2>
+        <ul class="item-list">${data.awards.map(a => `<li><a class="item-link" href="${prefix}/premis/${a.id}">${isEn ? (a.title_en || a.title) : a.title}</a></li>`).join('')}</ul>`;
       data.awards.forEach(a => {
         let existing = sectionEl.querySelector(`#${a.id}`);
         if (!existing) {
@@ -306,15 +283,22 @@ const App = {
           existing.id = a.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="/en/premis" class="back-link">← back</a>
-          <h3>${a.title_en || a.title}</h3>
+        existing.innerHTML = `<a href="${prefix}/premis" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+          <h3>${isEn ? (a.title_en || a.title) : a.title}</h3>
           <p class="featured-meta">${a.year} · ${a.category}</p>
-          ${Renderers.paragraphs(a.content_en || a.content)}
+          ${Renderers.paragraphs(isEn ? (a.content_en || a.content) : a.content)}
           ${Renderers.images(a.images, this.lang)}
           ${Renderers.videos(a.videos, this.lang)}`;
       });
+    } else if (section === 'premsa') {
+      listLayer.innerHTML = `<h2>${isEn ? (data.title_en || data.title) : data.title}</h2>
+        ${data.articles ? Renderers.pressItems(data.articles) : ''}`;
+    } else if (section === 'arxiu') {
+      const title = isEn ? (data.title_en || data.title) : data.title;
+      listLayer.innerHTML = `<h2>${title}</h2>
+        <p>${data.description || ''}</p>
+        ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/arxiu?tag=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
     }
-    listLayer.dataset.loaded = 'en';
   },
 
   async navigateTo(path) {

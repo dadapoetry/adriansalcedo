@@ -106,7 +106,8 @@ collections:
               - { label: "Imatge", name: "image", widget: "image" }
               - { label: "Alt text (CA)", name: "imageAlt", widget: "string", required: false }
               - { label: "Alt text (EN)", name: "imageAlt_en", widget: "string", required: false }
-              - { label: "Enllaç", name: "link", widget: "string" }
+              - { label: "Enllaç (CA)", name: "link", widget: "string" }
+              - { label: "Link (EN)", name: "link_en", widget: "string" }
           - label: "Projectes destacats"
             name: "featuredProjects"
             widget: "list"
@@ -115,7 +116,8 @@ collections:
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Descripció (CA)", name: "description", widget: "text" }
               - { label: "Description (EN)", name: "description_en", widget: "text" }
-              - { label: "Enllaç", name: "link", widget: "string" }
+              - { label: "Enllaç (CA)", name: "link", widget: "string" }
+              - { label: "Link (EN)", name: "link_en", widget: "string" }
           - { label: "Bio curta (CA)", name: "bio", widget: "text" }
           - { label: "Short bio (EN)", name: "bio_en", widget: "text" }
           - label: "SEO"
