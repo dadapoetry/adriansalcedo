@@ -223,7 +223,6 @@ const App = {
         ${statement ? `<p><em>${statement}</em></p>` : ''}
         ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
         ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
-      }, 0);
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
         <ul class="item-list">${data.projects.map(p => `<li><a class="item-link" href="${prefix}/projectes/${p.id}">${p.title}</a></li>`).join('')}</ul>`;
