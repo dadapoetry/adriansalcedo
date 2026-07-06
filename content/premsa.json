@@ -4,21 +4,31 @@
   "articles": [
     {
       "id": "press-1",
-      "date": "2025-10-15",
-      "publication": "El Punt Avui",
-      "title": "Adrián Salcedo: el crit que travessa l'avantguarda",
-      "url": null,
+      "date": "2025-11-10",
+      "publication": "Barcelona Ciutat de Literatura - UNESCO",
+      "title": "Crit, el primer poemari d'Adrián Salcedo Toca",
+      "url": "https://ajuntament.barcelona.cat/ciutatdelaliteratura/ca/actualitat/crit-el-primer-poemari-dadrian-salcedo-toca",
       "language": "ca",
-      "type": "interview"
+      "type": "publicació"
     },
     {
       "id": "press-2",
-      "date": "2025-06-01",
-      "publication": "Núvol",
-      "title": "Poesia digital: el nou camp de batalla",
-      "url": null,
+      "date": "2024-11-07",
+      "publication": "Pànxing",
+      "title": "El maresmenc Adrián Salcedo, finalista del VII Certamen Art Jove de Poesia Salvador Iborra
+Maresme",
+      "url": "https://www.panxing.net/noticies/el-maresmenc-adrian-salcedo-finalista-del-vii-certamen-art-jove-de-poesia-salvador-iborra/",
       "language": "ca",
-      "type": "article"
-    }
+      "type": "premis"
+    },
+        {
+      "id": "press-3",
+      "date": "2019-07-31",
+      "publication": "Diari Ara",
+      "title": "'Xavier Mas Craviotto: “Aquells tres dies en què vaig conèixer la Laia i l’Adri van ser com si tot s’hagués quedat aturat'",
+      "url": "https://www.ara.cat/gent/xavier-mas-craviotto-laia-adri_1_2657555.html",
+      "language": "ca",
+      "type": "entrevista"
+    },
   ]
 }
