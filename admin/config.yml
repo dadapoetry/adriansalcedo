@@ -2,7 +2,7 @@ backend:
   name: github
   repo: dadapoetry/adriansalcedo
   branch: main
-  base_url: https://adriansalcedo.pages.dev
+  base_url: https://adriansalcedo.com
   auth_endpoint: api/auth
   commit_messages:
     create: "CMS: Create {{collection}} {{slug}}"

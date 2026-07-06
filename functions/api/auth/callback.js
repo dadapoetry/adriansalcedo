@@ -1,6 +1,6 @@
 export async function onRequest(context) {
   const { request, env } = context;
-  const siteUrl = env.SITE_URL || 'https://adriansalcedo.pages.dev';
+  const siteUrl = env.SITE_URL || 'https://adriansalcedo.com';
   const clientId = env.GITHUB_CLIENT_ID;
   const clientSecret = env.GITHUB_CLIENT_SECRET;
 
