@@ -252,7 +252,7 @@ collections:
               - { label: "Categoria", name: "category", widget: "string" }
               - { label: "Contingut (CA)", name: "content", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
               - { label: "Content (EN)", name: "content_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
-               - label: "Imatges"
+              - label: "Imatges"
                 name: "images"
                 widget: "list"
                 required: false
