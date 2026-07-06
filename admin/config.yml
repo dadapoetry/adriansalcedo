@@ -10,12 +10,6 @@ backend:
 
 media_folder: "media/images"
 public_folder: "/media/images"
-media_library:
-  name: uploadcare
-  config:
-    multiple: false
-    previewStep: true
-
 locale: 'ca'
 
 collections:
