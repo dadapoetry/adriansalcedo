@@ -360,14 +360,6 @@ a.inline-link:hover {
   opacity: 0.3;
 }
 
-.calligram-shape {
-  float: left;
-  width: 200px;
-  shape-outside: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-  margin-right: 25px;
-  margin-bottom: 20px;
-}
-
 #section-quisoc.active .view-layer.active {
   display: flow-root;
 }
@@ -870,13 +862,6 @@ img[loading="lazy"].loaded {
     margin-right: 0;
     width: 100%;
     padding: 20px 24px;
-  }
-
-  .calligram-shape {
-    float: none;
-    width: 0;
-    height: 0;
-    margin-right: 0;
   }
 
   .image-pair {

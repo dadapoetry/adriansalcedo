@@ -74,7 +74,9 @@ const App = {
 
     const params = new URLSearchParams(window.location.search);
     if (currentSection === 'cerca' && params.has('q')) {
-      setTimeout(() => SearchEngine.performSearch(params.get('q')), 100);
+      setTimeout(async () => {
+        await SearchEngine.performSearch(params.get('q'));
+      }, 100);
     }
   },
 
@@ -213,7 +215,6 @@ const App = {
 
       listLayer.innerHTML = `<h2>${title}</h2>
         ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="display: block; max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
-        <div class="calligram-shape"></div>
         ${Renderers.paragraphs(bio)}
         ${Renderers.paragraphs(perfs)}
         ${Renderers.paragraphs(members)}
@@ -222,21 +223,6 @@ const App = {
         ${statement ? `<p><em>${statement}</em></p>` : ''}
         ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
         ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
-      setTimeout(() => {
-        const shape = listLayer.querySelector('.calligram-shape');
-        if (!shape) return;
-        const tl = listLayer.querySelector('.timeline-wrapper');
-        if (!tl) return;
-        shape.style.height = '0';
-        shape.style.marginBottom = '0';
-        setTimeout(() => {
-          const lastEl = tl.previousElementSibling;
-          if (!lastEl) return;
-          const shapeRect = shape.getBoundingClientRect();
-          const lastRect = lastEl.getBoundingClientRect();
-          shape.style.height = Math.max(100, lastRect.bottom - shapeRect.top + 20) + 'px';
-          shape.style.marginBottom = '20px';
-        }, 50);
       }, 0);
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>

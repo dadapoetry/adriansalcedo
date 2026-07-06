@@ -4,7 +4,7 @@ const SearchEngine = {
 
   async buildIndex() {
     if (this.built) return;
-    const sections = ['crit', 'projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa', 'actuacions'];
+    const sections = ['projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa'];
     for (const section of sections) {
       const data = await ContentLoader.loadSection(section);
       if (!data) continue;
@@ -49,7 +49,8 @@ const SearchEngine = {
     ).join('\n');
   },
 
-  performSearch(term) {
+  async performSearch(term) {
+    if (!this.built) await this.buildIndex();
     const input = document.getElementById('search-input');
     const results = document.getElementById('search-results');
     if (!input || !results) return;
