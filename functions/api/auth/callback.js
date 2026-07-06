@@ -10,10 +10,18 @@ export async function onRequest(context) {
 
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
-  const redirectUri = url.searchParams.get('redirect_uri') || `${siteUrl}/admin/`;
+  const stateParam = url.searchParams.get('state');
 
   if (!code) {
     return new Response('Missing code parameter', { status: 400 });
+  }
+
+  let redirectUri = `${siteUrl}/admin/`;
+  if (stateParam) {
+    try {
+      const state = JSON.parse(stateParam);
+      if (state.redirect_uri) redirectUri = state.redirect_uri;
+    } catch (e) {}
   }
 
   const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
