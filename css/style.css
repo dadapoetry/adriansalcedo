@@ -115,6 +115,10 @@ nav a.active {
   gap: 12px;
 }
 
+.lang-switch-mobile {
+  display: none;
+}
+
 .socials {
   display: flex;
   gap: 15px;
@@ -806,6 +810,15 @@ img[loading="lazy"].loaded {
 
   .admin-link {
     margin-left: auto;
+  }
+
+  .lang-switch-mobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
 
   iframe {

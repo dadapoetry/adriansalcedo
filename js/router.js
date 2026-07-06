@@ -129,7 +129,7 @@ const App = {
       link.classList.toggle('active', href === sectionPath);
     });
 
-    const langSwitchLinks = document.querySelectorAll('#lang-switch a');
+    const langSwitchLinks = document.querySelectorAll('#lang-switch a, #lang-switch-mobile a');
     langSwitchLinks.forEach(a => {
       const lang = a.getAttribute('lang');
       a.classList.toggle('active', lang === this.lang);
@@ -219,7 +219,13 @@ const App = {
         ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
       setTimeout(() => {
         const shape = listLayer.querySelector('.calligram-shape');
-        if (shape) shape.style.height = listLayer.scrollHeight + 'px';
+        if (!shape) return;
+        const tl = listLayer.querySelector('.timeline-wrapper');
+        if (tl) {
+          const shapeRect = shape.getBoundingClientRect();
+          const tlRect = tl.getBoundingClientRect();
+          shape.style.height = Math.max(100, tlRect.top - shapeRect.top) + 'px';
+        }
       }, 0);
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
