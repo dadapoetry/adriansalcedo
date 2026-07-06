@@ -29,15 +29,15 @@
             fetch('https://api.github.com/user', {
               headers: { 'Authorization': 'Bearer ' + tok }
             })
-            .then(function(r) { return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 120) }; }); })
+            .then(function(r) { return r.json().then(function(j) { return { status: r.status, login: j.login || j.message, body: JSON.stringify(j).substring(0, 100) }; }); })
             .then(function(r1) {
-              log('/user: HTTP ' + r1.status + ' - ' + r1.body);
+              log('Token belongs to @' + r1.login + ' (HTTP ' + r1.status + ')');
               return fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
                 headers: { 'Authorization': 'Bearer ' + tok }
               })
               .then(function(r) { return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 120) }; }); })
               .then(function(r2) {
-                log('/user: HTTP ' + r1.status + ' | /repos: HTTP ' + r2.status + ' - ' + r2.body);
+                log('Token: @' + r1.login + ' | ' + r2.body.substring(0, 50));
               });
             })
             .catch(function(e) {
