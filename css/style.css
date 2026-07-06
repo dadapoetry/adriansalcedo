@@ -354,6 +354,10 @@ a.inline-link:hover {
   margin-right: 25px;
 }
 
+.about-body {
+  display: flow-root;
+}
+
 #section-quisoc.active .view-layer.active {
   display: flow-root;
 }
