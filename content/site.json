@@ -1,4 +1,55 @@
 {
+  "site.copyright": "Adrián Salcedo Toca",
+  "nav": [
+    {
+      "id": "home",
+      "label": "Inici",
+      "path": "/",
+      "label_en": "Home"
+    },
+    {
+      "id": "obres",
+      "label": "Obres",
+      "path": "/obres",
+      "label_en": "Works"
+    },
+    {
+      "id": "projectes",
+      "label": "Projectes",
+      "path": "/projectes",
+      "label_en": "Projects"
+    },
+    {
+      "id": "festivals",
+      "label": "Festivals",
+      "path": "/festivals",
+      "label_en": "Festivals"
+    },
+    {
+      "id": "premsa",
+      "label": "Premsa",
+      "path": "/premsa",
+      "label_en": "Press"
+    },
+    {
+      "id": "premis",
+      "label": "Premis",
+      "path": "/premis",
+      "label_en": "Awards"
+    },
+    {
+      "id": "quisoc",
+      "label": "Qui soc",
+      "path": "/quisoc",
+      "label_en": "About"
+    },
+    {
+      "id": "arxiu",
+      "label": "Arxiu",
+      "path": "/arxiu",
+      "label_en": "Archive"
+    }
+  ],
   "site": {
     "title": "Adrián Salcedo Toca",
     "description": "Portfoli digital d'Adrián Salcedo Toca. Poeta avantguardista i crític cultural",
@@ -9,20 +60,31 @@
     "logo": "/media/images/sat.png",
     "favicon": "/media/images/sat.png"
   },
-  "nav": [
-    { "id": "home", "label": "Inici", "path": "/", "label_en": "Home" },
-    { "id": "obres", "label": "Obres", "path": "/obres", "label_en": "Works" },
-    { "id": "projectes", "label": "Projectes", "path": "/projectes", "label_en": "Projects" },
-    { "id": "festivals", "label": "Festivals", "path": "/festivals", "label_en": "Festivals" },
-    { "id": "premsa", "label": "Premsa", "path": "/premsa", "label_en": "Press" },
-    { "id": "premis", "label": "Premis", "path": "/premis", "label_en": "Awards" },
-    { "id": "quisoc", "label": "Qui soc", "path": "/quisoc", "label_en": "About" },
-    { "id": "arxiu", "label": "Arxiu", "path": "/arxiu", "label_en": "Archive" }
-  ],
+  "site.url": "https://adriansalcedo.com",
   "social": {
-    "instagram": { "url": "https://instagram.com/asalcedotoca", "icon": "fab fa-instagram", "label": "Instagram" },
-    "twitter": { "url": "https://twitter.com/asalcedotoca", "icon": "fab fa-twitter", "label": "Twitter" },
-    "youtube": { "url": "https://youtube.com/@asalcedotoca", "icon": "fab fa-youtube", "label": "YouTube" },
-    "tiktok": { "url": "https://tiktok.com/@asalcedotoca", "icon": "fab fa-tiktok", "label": "TikTok" }
-  }
+    "instagram": {
+      "url": "https://instagram.com/asalcedotoca",
+      "icon": "fab fa-instagram",
+      "label": "Instagram"
+    },
+    "twitter": {
+      "url": "https://twitter.com/asalcedotoca",
+      "icon": "fab fa-twitter",
+      "label": "Twitter"
+    },
+    "youtube": {
+      "url": "https://youtube.com/@asalcedotoca",
+      "icon": "fab fa-youtube",
+      "label": "YouTube"
+    },
+    "tiktok": {
+      "url": "https://tiktok.com/@asalcedotoca",
+      "icon": "fab fa-tiktok",
+      "label": "TikTok"
+    }
+  },
+  "site.title": "Adrián Salcedo Toca | Poeta Avantguardista",
+  "site.logo": "media/images/sat.png",
+  "site.description": "Nascut el 1994 i resident al Maresme. Ha recitat al Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional i he exposat a La Pahissa del Marquet. Guardonat amb el Premi Marta Pessarrodona de Poesia 2021 i dues vegades finalista del Certamen Salvador Iborra.",
+  "site.language": "Català"
 }
