@@ -119,24 +119,31 @@ nav a.active {
   display: flex;
   flex-direction: row;
   align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin-top: 4px;
+  justify-content: center;
+  gap: 2px;
+  padding: 10px 0 0;
+  margin-top: 10px;
+  border-top: 1px solid var(--border-light);
+  width: 100%;
 }
 
-.lang-switch-mobile a {
+.lang-switch-mobile a:link,
+.lang-switch-mobile a:visited {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
   color: var(--text);
   text-decoration: none;
-  opacity: 0.3;
+  opacity: 0.25;
   transition: opacity var(--transition-fast);
-  padding: 1px 4px;
+  padding: 2px 6px;
 }
 
 .lang-switch-mobile a.active {
   opacity: 1;
   font-weight: 700;
+  letter-spacing: 0.12em;
 }
 
 .lang-switch-mobile a:hover {
@@ -144,8 +151,9 @@ nav a.active {
 }
 
 .lang-switch-mobile .sep {
-  opacity: 0.15;
-  font-size: 8px;
+  opacity: 0.1;
+  font-size: 9px;
+  padding: 0 2px;
 }
 
 .socials {
@@ -811,7 +819,11 @@ img[loading="lazy"].loaded {
 
   .lang-switch-mobile {
     display: inline-flex;
+    justify-content: flex-start;
+    padding: 0;
     margin-top: 0;
+    border-top: none;
+    width: auto;
   }
 
   iframe {
