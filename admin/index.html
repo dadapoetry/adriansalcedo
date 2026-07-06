@@ -12,6 +12,39 @@
   </style>
 </head>
 <body>
+  <p id="token-debug" style="position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#222;color:#0f0;padding:6px;font:12px monospace;display:none;"></p>
+  <script>
+    (function(){
+      var d = document.getElementById('token-debug');
+      function log(m) { d.style.display = 'block'; d.textContent = m; }
+
+      var stored = localStorage.getItem('github-token');
+      if (stored) {
+        try {
+          var parsed = JSON.parse(stored);
+          if (parsed.token) {
+            log('Token found: ' + parsed.token.substring(0, 10) + '... scope=' + parsed.scope);
+            fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
+              headers: { 'Authorization': 'Bearer ' + parsed.token }
+            })
+            .then(function(r) {
+              return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 100) }; });
+            })
+            .then(function(result) {
+              log('API test: HTTP ' + result.status + ' - ' + result.body);
+            })
+            .catch(function(e) {
+              log('API fetch error: ' + e.message);
+            });
+          } else {
+            log('Token stored but no token field');
+          }
+        } catch(e) {
+          log('Parse error: ' + e.message);
+        }
+      }
+    })();
+  </script>
   <script src="https://unpkg.com/netlify-cms@^2.10.192/dist/netlify-cms.js"></script>
   <script>
     CMS.init();
