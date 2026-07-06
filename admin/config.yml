@@ -1,6 +1,9 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: dadapoetry/adriansalcedo
   branch: main
+  base_url: https://adriansalcedo.pages.dev
+  auth_endpoint: api/auth
   commit_messages:
     create: "CMS: Create {{collection}} {{slug}}"
     update: "CMS: Update {{collection}} {{slug}}"
