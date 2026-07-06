@@ -32,9 +32,14 @@ export async function onRequest(context) {
 
   const tokenJson = JSON.stringify(data.access_token);
   const scopeJson = JSON.stringify(data.scope || 'repo');
+  const fullScope = data.scope || 'repo';
 
   const html = `<!DOCTYPE html>
 <html><body>
+<h2>GitHub OAuth</h2>
+<p>Token: ${data.access_token.substring(0, 15)}...</p>
+<p>Scope: <strong>${fullScope}</strong></p>
+<p id="status">Processing...</p>
 <script>
 try {
   if (window.opener) {
@@ -43,14 +48,15 @@ try {
     var user = JSON.stringify({ backendName: 'github', token: token, scope: scope });
     window.opener.localStorage.setItem('github-token', user);
     window.opener.localStorage.setItem('netlify-cms-user', user);
+    document.getElementById('status').textContent = 'Token saved to opener localStorage. Reloading opener...';
     window.opener.location.reload();
+    setTimeout(function() { window.close(); }, 2000);
   } else {
-    document.body.textContent = 'ERROR: no opener (direct access)';
+    document.getElementById('status').textContent = 'ERROR: no window.opener (direct access)';
   }
 } catch(e) {
-  document.body.textContent = 'ERROR: ' + e.message;
+  document.getElementById('status').textContent = 'ERROR: ' + e.message;
 }
-window.close();
 </script>
 </body></html>`;
 
