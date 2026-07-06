@@ -15,7 +15,7 @@ export async function onRequest(context) {
   const nonce = Math.random().toString(36).slice(2);
   const state = JSON.stringify({ redirect_uri: redirectUri, nonce });
 
-  const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=repo,user&prompt=consent&state=${encodeURIComponent(state)}`;
+  const githubUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&scope=public_repo,user&state=${encodeURIComponent(state)}`;
 
   return Response.redirect(githubUrl, 302);
 }
