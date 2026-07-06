@@ -31,14 +31,24 @@
             })
             .then(function(r) { return r.json().then(function(j) { return { status: r.status, login: j.login || j.message, body: JSON.stringify(j).substring(0, 100) }; }); })
             .then(function(r1) {
-              log('Token belongs to @' + r1.login + ' (HTTP ' + r1.status + ')');
-              return fetch('https://api.github.com/repos/dadapoetry/adriansalcedo', {
+              return fetch('https://api.github.com/user/repos?per_page=100&type=owner', {
                 headers: { 'Authorization': 'Bearer ' + tok }
               })
-              .then(function(r) { return r.text().then(function(t) { return { status: r.status, body: t.substring(0, 120) }; }); })
-              .then(function(r2) {
-                log('Token: @' + r1.login + ' | ' + r2.body.substring(0, 50));
-              });
+              .then(function(r) { return r.json().then(function(repos) { return { user: r1, repos: repos }; }); });
+            })
+            .then(function(data) {
+              var repos = data.repos;
+              if (!Array.isArray(repos)) {
+                log('Repo list error: ' + (repos.message || JSON.stringify(repos).substring(0, 80)));
+                return;
+              }
+              var found = repos.filter(function(r) { return r.name === 'adriansalcedo'; });
+              var names = repos.map(function(r) { return r.name; }).join(', ');
+              if (found.length > 0) {
+                log('Token: @' + data.user.login + ' | Repo FOUND: ' + found[0].name + ' (private=' + found[0].private + ')');
+              } else {
+                log('Token: @' + data.user.login + ' | Repo NOT in user repos. Repos: ' + names.substring(0, 120));
+              }
             })
             .catch(function(e) {
               log('API error: ' + e.message);
