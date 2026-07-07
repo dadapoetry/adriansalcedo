@@ -44,8 +44,20 @@ const App = {
     if (socialList && this.siteData) {
       socialList.innerHTML = Renderers.socialLinks(this.siteData);
     }
+    const contactEl = document.getElementById('contact-email');
+    if (contactEl && this.siteData) {
+      const e = this.siteData.site.email;
+      if (e) {
+        contactEl.innerHTML = `<a href="mailto:${e}">${e}</a>`;
+        contactEl.style.display = 'block';
+      }
+    }
     if (footerText && this.siteData) {
-      footerText.textContent = this.siteData.site.copyright;
+      const s = this.siteData.site;
+      const email = s.email;
+      footerText.innerHTML = email
+        ? `<a href="mailto:${email}" class="contact-email">${email}</a> &middot; ${s.copyright}`
+        : s.copyright;
     }
     if (brandLink) {
       brandLink.href = this.lang === 'en' ? '/en' : '/';

@@ -37,6 +37,7 @@ collections:
               - { label: "Idioma del lloc (locale)", name: "locale", widget: "string", required: false }
               - { label: "Logotip (URL)", name: "logo", widget: "string", required: false }
               - { label: "Favicon (URL)", name: "favicon", widget: "string", required: false }
+              - { label: "Correu electrònic de contacte", name: "email", widget: "string", required: false }
           - label: "Navegació"
             name: "nav"
             widget: "list"

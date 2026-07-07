@@ -7,7 +7,8 @@
     "locale": "en_GB",
     "copyright": "Adrián Salcedo Toca // © 2026 Digital Archive",
     "logo": "/media/images/sat.png",
-    "favicon": "/media/images/sat.png"
+    "favicon": "/media/images/sat.png",
+    "email": "contacte@adriansalcedo.com"
   },
   "nav": [
     { "id": "home", "label": "Home", "path": "/en", "label_en": "Home" },
