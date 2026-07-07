@@ -142,21 +142,6 @@ collections:
               - { label: "Descripció (CA)", name: "description", widget: "text" }
               - { label: "Description (EN)", name: "description_en", widget: "text" }
               - { label: "Estat (opcional)", name: "status", widget: "string", required: false }
-          - label: "AG0 (Avant-garde zero)"
-            name: "ag0"
-            widget: "object"
-            required: false
-            fields:
-              - { label: "Issue", name: "issue", widget: "string", required: false }
-              - { label: "Cover image", name: "image", widget: "image", required: false }
-              - label: "Articles"
-                name: "articles"
-                widget: "list"
-                required: false
-                fields:
-                  - { label: "Title", name: "title", widget: "string" }
-                  - { label: "URL", name: "url", widget: "string" }
-              - { label: "Link to AG0 site", name: "link", widget: "string", required: false }
           - label: "SEO"
             name: "seo"
             widget: "object"

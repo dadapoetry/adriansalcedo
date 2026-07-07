@@ -125,7 +125,6 @@ const Renderers = {
     const bio = isEn ? (data.bio_en || data.bio) : (data.bio || '');
     const manifesto = isEn ? (data.manifesto_en || data.manifesto) : (data.manifesto || '');
     const currentProjects = data.currentProjects || [];
-    const ag0 = data.ag0 || null;
 
     const featuredLink = isEn ? (fw.link_en || fw.link || '/en/obres/obra-crit') : (fw.link || '/obres/obra-crit');
     const bioLink = isEn ? '/en/quisoc' : '/quisoc';
@@ -170,22 +169,11 @@ const Renderers = {
         </div>`;
     }
 
-    let ag0Html = '';
-    if (ag0 && (ag0.issue || ag0.image || (ag0.articles && ag0.articles.length))) {
-      const articles = ag0.articles || [];
-      ag0Html = `
-        <div class="home-ag0" id="home-ag0">
-          <h2 class="section-label">${isEn ? 'Latest from Avant-garde zero' : 'Últim de Avant-garde zero'}</h2>
-          <div class="ag0-block">
-            ${ag0.image ? `<div class="ag0-image"><img src="${ag0.image}" alt="Avant-garde zero" loading="lazy" /></div>` : ''}
-            <div class="ag0-info">
-              ${ag0.issue ? `<p class="ag0-issue">${isEn ? 'Issue' : 'Número'} ${ag0.issue}</p>` : ''}
-              ${articles.length ? `<ul class="ag0-articles">${articles.map(a => `<li><a href="${a.url}" target="_blank" rel="noopener noreferrer" class="inline-link">${a.title}</a></li>`).join('')}</ul>` : ''}
-              ${ag0.link ? `<p><a href="${ag0.link}" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit AG0 \u2192' : 'Visitar AG0 \u2192'}</a></p>` : ''}
-            </div>
-          </div>
-        </div>`;
-    }
+    let ag0Html = `
+      <div class="home-ag0" id="home-ag0">
+        <h2 class="section-label">${isEn ? 'Latest from Avant-garde zero' : 'Últim de Avant-garde zero'}</h2>
+        <div class="ag0-block" id="ag0-block"></div>
+      </div>`;
 
     return `
       <div class="hero" id="home-hero">

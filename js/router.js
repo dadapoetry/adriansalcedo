@@ -242,6 +242,7 @@ const App = {
 
     if (section === 'home') {
       listLayer.innerHTML = Renderers.home(data, this.lang);
+      this.loadAg0Block();
     } else if (section === 'quisoc') {
       const title = isEn ? (data.title_en || data.title) : data.title;
       const bio = isEn ? (data.biography_en || data.biography) : data.biography;
@@ -347,6 +348,31 @@ const App = {
 
     const firstImg = sectionEl.querySelector('img');
     if (firstImg && firstImg.src) this.setMetaImage(firstImg.src);
+  },
+
+  async loadAg0Block() {
+    const block = document.getElementById('ag0-block');
+    if (!block) return;
+    try {
+      const res = await fetch('/api/ag0');
+      if (!res.ok) return;
+      const articles = await res.json();
+      if (!articles || !articles.length) return;
+      const isEn = this.lang === 'en';
+      const first = articles[0];
+      block.innerHTML = `
+        ${first.image ? `<div class="ag0-image"><img src="${first.image}" alt="Avant-garde zero" loading="lazy" /></div>` : ''}
+        <div class="ag0-info">
+          <ul class="ag0-articles">
+            ${articles.map(a => `<li><a href="${a.url}" target="_blank" rel="noopener noreferrer" class="inline-link">${a.title}</a></li>`).join('')}
+          </ul>
+          <p><a href="https://ag0.surge.sh" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit AG0 \u2192' : 'Visitar AG0 \u2192'}</a></p>
+        </div>`;
+    } catch (e) {
+      // AG0 unavailable, hide block
+      const ag0Section = document.getElementById('home-ag0');
+      if (ag0Section) ag0Section.style.display = 'none';
+    }
   },
 
   async navigateTo(path) {
