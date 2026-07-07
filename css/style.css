@@ -237,22 +237,6 @@ aside.sidebar-right {
   color: var(--text);
 }
 
-.vertical-footer-rss {
-  writing-mode: vertical-rl;
-  white-space: nowrap;
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  opacity: 0.2;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity var(--transition-fast);
-}
-
-.vertical-footer-rss:hover {
-  opacity: 0.6;
-}
-
 .scroll-top {
   position: absolute;
   bottom: 30px;
