@@ -53,11 +53,7 @@ const App = {
       }
     }
     if (footerText && this.siteData) {
-      const s = this.siteData.site;
-      const email = s.email;
-      footerText.innerHTML = email
-        ? `<a href="mailto:${email}" class="contact-email">${email}</a> &middot; ${s.copyright}`
-        : s.copyright;
+      footerText.innerHTML = this.siteData.site.copyright;
     }
     if (brandLink) {
       brandLink.href = this.lang === 'en' ? '/en' : '/';
