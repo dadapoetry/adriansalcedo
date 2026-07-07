@@ -63,6 +63,7 @@ aside.sidebar-left {
   padding: 40px;
   background-color: var(--bg);
   z-index: 100;
+  overflow-y: auto;
 }
 
 .brand {
@@ -113,6 +114,18 @@ nav a.active {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+#contact-email a {
+  font-size: 11px;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast);
+}
+
+#contact-email a:hover {
+  opacity: 1;
 }
 
 #lang-switch-mobile {
@@ -240,12 +253,15 @@ aside.sidebar-right {
 }
 
 .vertical-footer-text a {
-  color: inherit;
+  color: var(--text);
   text-decoration: none;
+  font-size: 9px;
+  opacity: 0.5;
+  transition: opacity var(--transition-fast);
 }
 
 .vertical-footer-text a:hover {
-  opacity: 0.6;
+  opacity: 1;
 }
 
 .scroll-top {
