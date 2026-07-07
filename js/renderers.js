@@ -172,17 +172,10 @@ const Renderers = {
 
     let dadapoetryHtml = `
       <div class="home-dadapoetry" id="home-dadapoetry">
-        <div class="dadapoetry-header">
-          <div class="dadapoetry-icon">d_</div>
-          <div>
-            <h2 class="section-label" style="margin-bottom:2px;">Dada Poetry</h2>
-            <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
-          </div>
-        </div>
-        <div class="dadapoetry-content" id="dadapoetry-content">
-          <div class="dadapoetry-loading">carregant...</div>
-        </div>
-        <a href="https://dadapoetry.cat" class="dadapoetry-cta" target="_blank" rel="noopener noreferrer">${isEn ? 'Explore the archive \u2192' : 'Explorar l\'arxiu \u2192'}</a>
+        <h2 class="section-label">Dada Poetry</h2>
+        <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
+        <div class="dadapoetry-content" id="dadapoetry-content"></div>
+        <p><a href="https://dadapoetry.cat" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit Dada Poetry \u2192' : 'Visitar Dada Poetry \u2192'}</a></p>
       </div>`;
 
     return `
@@ -213,12 +206,12 @@ const Renderers = {
 
       ${currentHtml}
 
-      ${dadapoetryHtml}
-
       <div class="home-projects" id="home-projects">
         <h2 class="section-label">${isEn ? 'Projects' : 'Projectes'}</h2>
         <div class="project-grid">${projectCards}</div>
       </div>
+
+      ${dadapoetryHtml}
 
       <div class="home-bio" id="home-bio">
         <p>${bio}</p>

@@ -584,69 +584,33 @@ strong {
 
 /* ===== AG0 ===== */
 .home-dadapoetry {
-  margin: 60px 0 50px;
-  padding: 35px;
-  border: 2px solid var(--text);
-  background: var(--text);
-  color: var(--bg);
-}
-
-.home-dadapoetry .section-label {
-  color: var(--bg);
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  margin-bottom: 2px;
-}
-
-.dadapoetry-header {
-  display: flex;
-  align-items: flex-start;
-  gap: 15px;
-  margin-bottom: 25px;
-}
-
-.dadapoetry-icon {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 2.5rem;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--bg);
-  opacity: 0.4;
-  flex-shrink: 0;
+  margin-bottom: 50px;
 }
 
 .dadapoetry-subtitle {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.05em;
   opacity: 0.5;
-  color: var(--bg);
+  margin-bottom: 15px;
 }
 
 .dadapoetry-content {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-bottom: 25px;
-}
-
-.dadapoetry-loading {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.3;
-  color: var(--bg);
+  margin-bottom: 15px;
 }
 
 .dadapoetry-object {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 12px 14px;
+  padding: 10px 0;
   text-decoration: none;
-  color: var(--bg);
-  transition: background 0.15s ease;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+  transition: opacity 0.15s ease;
 }
 
 .dadapoetry-object:last-child {
@@ -654,52 +618,33 @@ strong {
 }
 
 .dadapoetry-object:hover {
-  background: rgba(255,255,255,0.06);
+  opacity: 0.6;
 }
 
 .dadapoetry-object-id {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 12px;
   font-weight: 700;
-  opacity: 0.4;
+  opacity: 0.3;
   flex-shrink: 0;
-  min-width: 3.5em;
-  color: var(--bg);
+  min-width: 3.2em;
+  color: var(--text);
 }
 
 .dadapoetry-object-title {
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--bg);
+  color: var(--text);
   flex: 1;
 }
 
 .dadapoetry-object-date {
   font-family: var(--font-mono);
   font-size: 11px;
-  opacity: 0.4;
+  opacity: 0.3;
   flex-shrink: 0;
-  color: var(--bg);
-}
-
-.dadapoetry-cta {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--bg);
-  text-decoration: none;
-  border-bottom: 2px solid var(--bg);
-  padding-bottom: 2px;
-  transition: all 0.15s ease;
-}
-
-.dadapoetry-cta:hover {
   color: var(--text);
-  background: var(--bg);
 }
 
 .ag0-info p {
@@ -1146,19 +1091,6 @@ img[loading="lazy"].loaded {
   .manifesto p {
     font-size: 14px;
     max-width: 100%;
-  }
-
-  .home-dadapoetry {
-    padding: 20px;
-    margin: 40px 0;
-  }
-
-  .dadapoetry-header {
-    gap: 12px;
-  }
-
-  .dadapoetry-icon {
-    font-size: 1.8rem;
   }
 
   .dadapoetry-object {
