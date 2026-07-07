@@ -152,9 +152,19 @@ const App = {
       }
     });
 
-    const sectionEl = document.getElementById(`section-${section}`);
+    let sectionEl = document.getElementById(`section-${section}`);
 
-    if (!sectionEl) return;
+    if (!sectionEl) {
+      sectionEl = document.createElement('section');
+      sectionEl.id = `section-${section}`;
+      sectionEl.className = 'content-section';
+
+      const listLayer = document.createElement('div');
+      listLayer.className = 'view-layer list-layer active';
+      sectionEl.appendChild(listLayer);
+
+      document.getElementById('main-content').appendChild(sectionEl);
+    }
 
     await this.loadContent(section, sectionEl);
 
