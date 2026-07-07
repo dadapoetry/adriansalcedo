@@ -166,13 +166,17 @@ const App = {
       document.getElementById('main-content').appendChild(sectionEl);
     }
 
+    const listLayer = sectionEl.querySelector('.list-layer');
+    if (listLayer) {
+      listLayer.innerHTML = '<p style="opacity:0.3;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;animation:pulse 1.2s ease-in-out infinite;">carregant...</p>';
+    }
+
     await this.loadContent(section, sectionEl);
 
     sectionEl.style.display = 'block';
     sectionEl.classList.add('active');
     window.scrollTo(0, 0);
 
-    const listLayer = sectionEl.querySelector('.list-layer');
     const detailLayers = sectionEl.querySelectorAll('.detail-layer');
 
     if (!article) {

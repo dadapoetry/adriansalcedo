@@ -74,5 +74,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const hits = SearchEngine.query(term);
       SearchEngine.renderResults(hits, results);
     });
+
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        const term = input.value.trim();
+        if (term.length < 2) return;
+        const hits = SearchEngine.query(term);
+        if (hits.length && typeof App !== 'undefined') {
+          App.navigateTo(`/${hits[0].section}`);
+        }
+      }
+    });
   }
 });
