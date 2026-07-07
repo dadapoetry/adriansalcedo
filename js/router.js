@@ -47,8 +47,9 @@ const App = {
     const contactEl = document.getElementById('contact-email');
     if (contactEl && this.siteData) {
       const e = this.siteData.site.email;
+      const cta = this.lang === 'en' ? (this.siteData.site.cta_en || '') : (this.siteData.site.cta || '');
       if (e) {
-        contactEl.innerHTML = `<a href="mailto:${e}">${e}</a>`;
+        contactEl.innerHTML = `<a href="mailto:${e}">${e}</a>${cta ? `<span class="contact-cta">${cta}</span>` : ''}`;
         contactEl.style.display = 'block';
       }
     }
@@ -113,6 +114,15 @@ const App = {
     if (ogTitle) ogTitle.setAttribute('content', pageTitle);
     if (ogDesc) ogDesc.setAttribute('content', pageDesc);
     if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+  },
+
+  setMetaImage(src) {
+    if (!src) return;
+    const imageSrc = src.startsWith('http') ? src : `https://adriansalcedo.com${src}`;
+    const ogImage = document.querySelector('meta[property="og:image"]');
+    const twImage = document.querySelector('meta[name="twitter:image"]');
+    if (ogImage) ogImage.setAttribute('content', imageSrc);
+    if (twImage) twImage.setAttribute('content', imageSrc);
   },
 
   async renderSection(section, article) {
@@ -211,6 +221,18 @@ const App = {
 
     const isEn = this.lang === 'en';
     const prefix = isEn ? '/en' : '';
+
+    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca'];
+    if (!validSections.includes(section)) {
+      listLayer.innerHTML = `
+        <div class="error-404">
+          <h2>404</h2>
+          <p>${isEn ? 'Page not found.' : 'Pàgina no trobada.'}</p>
+          <p><a href="${isEn ? '/en' : '/'}" class="inline-link">${isEn ? 'Go home \u2192' : 'Tornar a l\'inici \u2192'}</a></p>
+        </div>`;
+      document.title = isEn ? 'Page not found | Adri\u00E1n Salcedo Toca' : 'P\u00E0gina no trobada | Adri\u00E1n Salcedo Toca';
+      return;
+    }
 
     let data = await ContentLoader.loadSection(section, this.lang);
     if (!data) {
@@ -322,6 +344,9 @@ const App = {
         <p>${data.description || ''}</p>
         ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/cerca?q=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
     }
+
+    const firstImg = sectionEl.querySelector('img');
+    if (firstImg && firstImg.src) this.setMetaImage(firstImg.src);
   },
 
   async navigateTo(path) {

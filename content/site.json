@@ -8,7 +8,9 @@
     "copyright": "Adrián Salcedo Toca // © 2026 Arxiu Digital",
     "logo": "/media/images/sat.png",
     "favicon": "/media/images/sat.png",
-    "email": "contacte@adriansalcedo.com"
+    "email": "contacte@adriansalcedo.com",
+    "cta": "Festivals, col·laboracions, encàrrecs",
+    "cta_en": "Festivals, collaborations, commissions"
   },
   "nav": [
     { "id": "home", "label": "Inici", "path": "/", "label_en": "Home" },

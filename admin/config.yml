@@ -38,6 +38,8 @@ collections:
               - { label: "Logotip (URL)", name: "logo", widget: "string", required: false }
               - { label: "Favicon (URL)", name: "favicon", widget: "string", required: false }
               - { label: "Correu electrònic de contacte", name: "email", widget: "string", required: false }
+              - { label: "CTA text (CA)", name: "cta", widget: "string", required: false }
+              - { label: "CTA text (EN)", name: "cta_en", widget: "string", required: false }
           - label: "Navegació"
             name: "nav"
             widget: "list"
@@ -128,6 +130,33 @@ collections:
               - { label: "Link (EN)", name: "link_en", widget: "string" }
           - { label: "Bio curta (CA)", name: "bio", widget: "text" }
           - { label: "Short bio (EN)", name: "bio_en", widget: "text" }
+          - { label: "Manifest (CA)", name: "manifesto", widget: "text", required: false }
+          - { label: "Manifest (EN)", name: "manifesto_en", widget: "text", required: false }
+          - label: "Projectes actuals (Now)"
+            name: "currentProjects"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Títol (CA)", name: "title", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Descripció (CA)", name: "description", widget: "text" }
+              - { label: "Description (EN)", name: "description_en", widget: "text" }
+              - { label: "Estat (opcional)", name: "status", widget: "string", required: false }
+          - label: "AG0 (Avant-garde zero)"
+            name: "ag0"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Issue", name: "issue", widget: "string", required: false }
+              - { label: "Cover image", name: "image", widget: "image", required: false }
+              - label: "Articles"
+                name: "articles"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "URL", name: "url", widget: "string" }
+              - { label: "Link to AG0 site", name: "link", widget: "string", required: false }
           - label: "SEO"
             name: "seo"
             widget: "object"
