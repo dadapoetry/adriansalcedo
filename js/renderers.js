@@ -125,6 +125,7 @@ const Renderers = {
     const bio = isEn ? (data.bio_en || data.bio) : (data.bio || '');
     const manifesto = isEn ? (data.manifesto_en || data.manifesto) : (data.manifesto || '');
     const currentProjects = data.currentProjects || [];
+    // dadapoetry and ag0 blocks are populated live via API
 
     const featuredLink = isEn ? (fw.link_en || fw.link || '/en/obres/obra-crit') : (fw.link || '/obres/obra-crit');
     const bioLink = isEn ? '/en/quisoc' : '/quisoc';
@@ -171,14 +172,17 @@ const Renderers = {
 
     let dadapoetryHtml = `
       <div class="home-dadapoetry" id="home-dadapoetry">
-        <h2 class="section-label">Dada Poetry</h2>
-        <div class="dadapoetry-content" id="dadapoetry-content"></div>
-      </div>`;
-
-    let ag0Html = `
-      <div class="home-ag0" id="home-ag0">
-        <h2 class="section-label">${isEn ? 'Latest position at Avant-garde zero' : 'Últim posicionament a Avant-garde zero'}</h2>
-        <div class="ag0-block" id="ag0-block"></div>
+        <div class="dadapoetry-header">
+          <div class="dadapoetry-icon">d_</div>
+          <div>
+            <h2 class="section-label" style="margin-bottom:2px;">Dada Poetry</h2>
+            <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
+          </div>
+        </div>
+        <div class="dadapoetry-content" id="dadapoetry-content">
+          <div class="dadapoetry-loading">carregant...</div>
+        </div>
+        <a href="https://dadapoetry.cat" class="dadapoetry-cta" target="_blank" rel="noopener noreferrer">${isEn ? 'Explore the archive \u2192' : 'Explorar l\'arxiu \u2192'}</a>
       </div>`;
 
     return `
@@ -215,8 +219,6 @@ const Renderers = {
         <h2 class="section-label">${isEn ? 'Projects' : 'Projectes'}</h2>
         <div class="project-grid">${projectCards}</div>
       </div>
-
-      ${ag0Html}
 
       <div class="home-bio" id="home-bio">
         <p>${bio}</p>

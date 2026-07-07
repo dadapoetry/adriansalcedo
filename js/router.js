@@ -243,7 +243,6 @@ const App = {
     if (section === 'home') {
       listLayer.innerHTML = Renderers.home(data, this.lang);
       this.loadDadaPoetry();
-      this.loadAg0Block();
     } else if (section === 'quisoc') {
       const title = isEn ? (data.title_en || data.title) : data.title;
       const bio = isEn ? (data.biography_en || data.biography) : data.biography;
@@ -356,48 +355,19 @@ const App = {
     if (!content) return;
     try {
       const res = await fetch('/api/dadapoetry');
-      if (!res.ok) { content.innerHTML = ''; return; }
+      if (!res.ok) return;
       const objects = await res.json();
-      if (!objects || !objects.length) { content.innerHTML = ''; return; }
-      const isEn = this.lang === 'en';
-      content.innerHTML = `
-        <div class="dadapoetry-block">
-          <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
-          <ul class="dadapoetry-objects">
-            ${objects.map(o => `<li><a href="${o.url}" target="_blank" rel="noopener noreferrer" class="inline-link">[${o.id}] ${o.title}</a><span class="dadapoetry-date"> — ${o.date}</span></li>`).join('')}
-          </ul>
-          <p><a href="https://dadapoetry.cat" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit Dada Poetry \u2192' : 'Visitar Dada Poetry \u2192'}</a></p>
-        </div>`;
+      if (!objects || !objects.length) return;
+      content.innerHTML = objects.map(o => `
+        <a href="${o.url}" class="dadapoetry-object" target="_blank" rel="noopener noreferrer">
+          <span class="dadapoetry-object-id">${o.id}</span>
+          <span class="dadapoetry-object-title">${o.title}</span>
+          <span class="dadapoetry-object-date">${o.date}</span>
+        </a>
+      `).join('');
     } catch (e) {
       const section = document.getElementById('home-dadapoetry');
       if (section) section.style.display = 'none';
-    }
-  },
-
-  async loadAg0Block() {
-    const block = document.getElementById('ag0-block');
-    if (!block) return;
-    try {
-      const res = await fetch('/api/ag0');
-      if (!res.ok) return;
-      const articles = await res.json();
-      if (!articles || !articles.length) return;
-      const isEn = this.lang === 'en';
-      const first = articles[0];
-      const maxArticles = 3;
-      const shown = articles.slice(0, maxArticles);
-      block.innerHTML = `
-        ${first.image ? `<div class="ag0-image"><img src="${first.image}" alt="Avant-garde zero" loading="lazy" /></div>` : ''}
-        <div class="ag0-info">
-          <ul class="ag0-articles">
-            ${shown.map(a => `<li><a href="${a.url}" target="_blank" rel="noopener noreferrer" class="inline-link">${a.title}</a></li>`).join('')}
-          </ul>
-          <p><a href="https://ag0.surge.sh" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit AG0 \u2192' : 'Visitar AG0 \u2192'}</a></p>
-        </div>`;
-    } catch (e) {
-      // AG0 unavailable, hide block
-      const ag0Section = document.getElementById('home-ag0');
-      if (ag0Section) ag0Section.style.display = 'none';
     }
   },
 
