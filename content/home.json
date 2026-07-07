@@ -32,7 +32,12 @@
   "ag0": {
     "issue": "",
     "image": "",
-    "articles": [],
+    "articles": [
+      {
+        "title": "A CALL FOR A POINT ZERO",
+        "url": "https://ag0.surge.sh/?entry=2"
+      }
+    ],
     "link": "https://ag0.surge.sh"
   },
   "currentProjects": [],
