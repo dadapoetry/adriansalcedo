@@ -171,7 +171,7 @@ const Renderers = {
 
     let ag0Html = `
       <div class="home-ag0" id="home-ag0">
-        <h2 class="section-label">${isEn ? 'Latest from Avant-garde zero' : 'Últim de Avant-garde zero'}</h2>
+        <h2 class="section-label">${isEn ? 'Latest position at Avant-garde zero' : 'Últim posicionament a Avant-garde zero'}</h2>
         <div class="ag0-block" id="ag0-block"></div>
       </div>`;
 
