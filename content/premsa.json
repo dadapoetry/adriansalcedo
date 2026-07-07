@@ -82,6 +82,15 @@
       "url": "https://www.ara.cat/gent/xavier-mas-craviotto-laia-adri_1_2657555.html",
       "language": "ca",
       "type": "entrevista"
+    },
+    {
+      "date": "2020-04-16",
+      "id": "nuvol",
+      "publication": "Núvol",
+      "title": "elquenòvol.cat, un hiperpoemari",
+      "url": "https://www.nuvol.com/llibres/elquenovol-cat-un-hiperpoemari-93352",
+      "language": "ca",
+      "type": "review"
     }
   ]
 }
