@@ -213,7 +213,10 @@ const App = {
     const prefix = isEn ? '/en' : '';
 
     let data = await ContentLoader.loadSection(section, this.lang);
-    if (!data) return;
+    if (!data) {
+      listLayer.innerHTML = '<p style="opacity:0.3;font-size:11px;">No s\'ha pogut carregar el contingut.</p>';
+      return;
+    }
 
     if (section === 'home') {
       listLayer.innerHTML = Renderers.home(data, this.lang);
