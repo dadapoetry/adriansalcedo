@@ -360,11 +360,13 @@ const App = {
       if (!articles || !articles.length) return;
       const isEn = this.lang === 'en';
       const first = articles[0];
+      const maxArticles = 3;
+      const shown = articles.slice(0, maxArticles);
       block.innerHTML = `
         ${first.image ? `<div class="ag0-image"><img src="${first.image}" alt="Avant-garde zero" loading="lazy" /></div>` : ''}
         <div class="ag0-info">
           <ul class="ag0-articles">
-            ${articles.map(a => `<li><a href="${a.url}" target="_blank" rel="noopener noreferrer" class="inline-link">${a.title}</a></li>`).join('')}
+            ${shown.map(a => `<li><a href="${a.url}" target="_blank" rel="noopener noreferrer" class="inline-link">${a.title}</a></li>`).join('')}
           </ul>
           <p><a href="https://ag0.surge.sh" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit AG0 \u2192' : 'Visitar AG0 \u2192'}</a></p>
         </div>`;
