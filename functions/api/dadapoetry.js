@@ -19,7 +19,7 @@ export async function onRequest(context) {
       objects.push({
         id: match[1],
         title: match[3].trim(),
-        url: `https://dadapoetry.cat${match[2]}`,
+        url: `https://dadapoetry.cat/${match[2].replace(/^\//, '')}`,
         date: match[4].trim(),
       });
     }
