@@ -39,11 +39,29 @@
       "type": "publicació"
     },
     {
+      "date": "2025-11-07",
+      "id": "3-viles",
+      "publication": "3 Viles Mèdia",
+      "title": "Entrevista al poeta Adrián Salcedo",
+      "url": "https://www.youtube.com/watch?v=u-EEqCWD1o4&t=332s",
+      "language": "ca",
+      "type": "interview"
+    },
+    {
       "date": "2025-05-20",
       "id": "canal-blau",
       "publication": "Canal Blau",
       "title": "geMMinades. Adrián Salcedo, artista contemporani",
       "url": "https://canalblau.tv/2025/05/20/gemminades-adrian-salcedo-artista-contemporani/",
+      "language": "ca",
+      "type": "interview"
+    },
+    {
+      "date": "2024-11-07",
+      "id": "premia-media-1",
+      "publication": "Premià Mèdia",
+      "title": "Adrián Salcedo, poeta i artista multidisciplinar",
+      "url": "https://www.youtube.com/watch?v=THpvMu6heU8",
       "language": "ca",
       "type": "interview"
     },
@@ -64,15 +82,6 @@
       "url": "https://www.ara.cat/gent/xavier-mas-craviotto-laia-adri_1_2657555.html",
       "language": "ca",
       "type": "entrevista"
-    },
-    {
-      "date": "2024-11-07",
-      "id": "premia-media-1",
-      "publication": "Premià Mèdia",
-      "title": "Adrián Salcedo, poeta i artista multidisciplinar",
-      "url": "https://www.youtube.com/watch?v=THpvMu6heU8",
-      "language": "ca",
-      "type": "interview"
     }
   ]
 }
