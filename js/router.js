@@ -361,11 +361,9 @@ const App = {
       content.innerHTML = `<ul class="dadapoetry-list">
         ${objects.map(o => `
           <li class="dadapoetry-item">
-            <a href="${o.url}" class="dadapoetry-object" target="_blank" rel="noopener noreferrer">
-              <span class="dadapoetry-object-id">${o.id}</span>
-              <span class="dadapoetry-object-title">${o.title}</span>
-              <span class="dadapoetry-object-date">${o.date}</span>
-            </a>
+            <span class="dadapoetry-object-id">${o.id}</span>
+            <a href="${o.url}" class="dadapoetry-object-title" target="_blank" rel="noopener noreferrer">${o.title}</a>
+            <span class="dadapoetry-object-date">${o.date}</span>
           </li>
         `).join('')}
       </ul>`;
