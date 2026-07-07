@@ -3,6 +3,15 @@
   "title_en": "Press",
   "articles": [
     {
+      "date": "2026-02-04",
+      "id": "garraf",
+      "publication": "Tot ho sap",
+      "title": "Adrián Salcedo publica CRIT, un llibre que trenca la tradició del silenci",
+      "url": "https://www.calameo.com/tothosap/read/00630654717cf7ae69ec1",
+      "language": "ca",
+      "type": "review"
+    },
+    {
       "date": "2025-12-06",
       "id": "rne",
       "publication": "Ràdio 4 - Radio Nacional Española",
@@ -28,6 +37,15 @@
       "url": "https://ajuntament.barcelona.cat/ciutatdelaliteratura/ca/actualitat/crit-el-primer-poemari-dadrian-salcedo-toca",
       "language": "ca",
       "type": "publicació"
+    },
+    {
+      "date": "2025-05-20",
+      "id": "canal-blau",
+      "publication": "Canal Blau",
+      "title": "geMMinades. Adrián Salcedo, artista contemporani",
+      "url": "https://canalblau.tv/2025/05/20/gemminades-adrian-salcedo-artista-contemporani/",
+      "language": "ca",
+      "type": "interview"
     },
     {
       "id": "press-2",
