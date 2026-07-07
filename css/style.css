@@ -597,28 +597,35 @@ strong {
 }
 
 .dadapoetry-content {
-  display: flex;
-  flex-direction: column;
   margin-bottom: 15px;
+}
+
+.dadapoetry-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dadapoetry-item {
+  border-bottom: 1px solid var(--border-light);
+}
+
+.dadapoetry-item:last-child {
+  border-bottom: none;
 }
 
 .dadapoetry-object {
   display: flex;
   align-items: baseline;
   gap: 12px;
-  padding: 10px 0;
+  padding: 12px 0;
   text-decoration: none;
   color: var(--text);
-  border-bottom: 1px solid var(--border-light);
   transition: opacity 0.15s ease;
 }
 
-.dadapoetry-object:last-child {
-  border-bottom: none;
-}
-
 .dadapoetry-object:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 .dadapoetry-object-id {
@@ -1095,7 +1102,7 @@ img[loading="lazy"].loaded {
 
   .dadapoetry-object {
     flex-wrap: wrap;
-    gap: 4px 12px;
+    gap: 6px 10px;
     padding: 10px 0;
   }
 

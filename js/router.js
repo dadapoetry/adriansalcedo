@@ -358,13 +358,17 @@ const App = {
       if (!res.ok) return;
       const objects = await res.json();
       if (!objects || !objects.length) return;
-      content.innerHTML = objects.map(o => `
-        <a href="${o.url}" class="dadapoetry-object" target="_blank" rel="noopener noreferrer">
-          <span class="dadapoetry-object-id">${o.id}</span>
-          <span class="dadapoetry-object-title">${o.title}</span>
-          <span class="dadapoetry-object-date">${o.date}</span>
-        </a>
-      `).join('');
+      content.innerHTML = `<ul class="dadapoetry-list">
+        ${objects.map(o => `
+          <li class="dadapoetry-item">
+            <a href="${o.url}" class="dadapoetry-object" target="_blank" rel="noopener noreferrer">
+              <span class="dadapoetry-object-id">${o.id}</span>
+              <span class="dadapoetry-object-title">${o.title}</span>
+              <span class="dadapoetry-object-date">${o.date}</span>
+            </a>
+          </li>
+        `).join('')}
+      </ul>`;
     } catch (e) {
       const section = document.getElementById('home-dadapoetry');
       if (section) section.style.display = 'none';
