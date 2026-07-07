@@ -204,21 +204,6 @@ nav a.active {
   opacity: 0.3;
 }
 
-.admin-link {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  opacity: 0.12;
-  color: var(--text);
-  text-decoration: none;
-  transition: opacity var(--transition-fast);
-  width: fit-content;
-}
-
-.admin-link:hover {
-  opacity: 0.5;
-}
-
 /* ===== SIDEBAR RIGHT ===== */
 aside.sidebar-right {
   width: 60px;
