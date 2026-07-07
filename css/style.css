@@ -583,6 +583,45 @@ strong {
 }
 
 /* ===== AG0 ===== */
+.home-dadapoetry {
+  margin-bottom: 50px;
+}
+
+.dadapoetry-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dadapoetry-subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  margin-bottom: 10px;
+}
+
+.dadapoetry-objects {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 15px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dadapoetry-objects li {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dadapoetry-date {
+  font-weight: 400;
+  opacity: 0.4;
+  font-size: 12px;
+}
+
 .home-ag0 {
   margin-bottom: 50px;
 }

@@ -169,6 +169,12 @@ const Renderers = {
         </div>`;
     }
 
+    let dadapoetryHtml = `
+      <div class="home-dadapoetry" id="home-dadapoetry">
+        <h2 class="section-label">Dada Poetry</h2>
+        <div class="dadapoetry-content" id="dadapoetry-content"></div>
+      </div>`;
+
     let ag0Html = `
       <div class="home-ag0" id="home-ag0">
         <h2 class="section-label">${isEn ? 'Latest position at Avant-garde zero' : 'Últim posicionament a Avant-garde zero'}</h2>
@@ -202,6 +208,8 @@ const Renderers = {
       </div>
 
       ${currentHtml}
+
+      ${dadapoetryHtml}
 
       <div class="home-projects" id="home-projects">
         <h2 class="section-label">${isEn ? 'Projects' : 'Projectes'}</h2>

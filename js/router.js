@@ -242,6 +242,7 @@ const App = {
 
     if (section === 'home') {
       listLayer.innerHTML = Renderers.home(data, this.lang);
+      this.loadDadaPoetry();
       this.loadAg0Block();
     } else if (section === 'quisoc') {
       const title = isEn ? (data.title_en || data.title) : data.title;
@@ -348,6 +349,29 @@ const App = {
 
     const firstImg = sectionEl.querySelector('img');
     if (firstImg && firstImg.src) this.setMetaImage(firstImg.src);
+  },
+
+  async loadDadaPoetry() {
+    const content = document.getElementById('dadapoetry-content');
+    if (!content) return;
+    try {
+      const res = await fetch('/api/dadapoetry');
+      if (!res.ok) { content.innerHTML = ''; return; }
+      const objects = await res.json();
+      if (!objects || !objects.length) { content.innerHTML = ''; return; }
+      const isEn = this.lang === 'en';
+      content.innerHTML = `
+        <div class="dadapoetry-block">
+          <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
+          <ul class="dadapoetry-objects">
+            ${objects.map(o => `<li><a href="${o.url}" target="_blank" rel="noopener noreferrer" class="inline-link">[${o.id}] ${o.title}</a><span class="dadapoetry-date"> — ${o.date}</span></li>`).join('')}
+          </ul>
+          <p><a href="https://dadapoetry.cat" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit Dada Poetry \u2192' : 'Visitar Dada Poetry \u2192'}</a></p>
+        </div>`;
+    } catch (e) {
+      const section = document.getElementById('home-dadapoetry');
+      if (section) section.style.display = 'none';
+    }
   },
 
   async loadAg0Block() {
