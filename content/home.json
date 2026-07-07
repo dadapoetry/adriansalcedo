@@ -6,11 +6,11 @@
     "subtitle_en": "Communicator and cultural critic",
     "statement": "Opero amb tècniques d'escriptura irracional i de creació poètica expandida i de gran format. Membre de l'Associació d'Escriptors en Llengua Catalana (AELC).",
     "statement_en": "I work with irrational writing techniques and expanded, large-format poetic creation. Member of the Association of Writers in Catalan Language (AELC).",
-    "image": "/media/images/81060ce1-2015-4c53-9044-35694b7073cd_rw_1200.png",
+    "image": "",
     "imageAlt": "Adrián Salcedo Toca"
   },
   "featuredWork": {
-    "description_en": "Selected as a finalist for the 7th Salvador Iborra Young Art Poetry Contest.",
+    "description_en": "Selected as a finalist for the <strong>7th Salvador Iborra Young Art Poetry Contest</strong.",
     "imageAlt": "Cobertura Crit",
     "link_en": "/en/obres/obra-crit",
     "type_en": "Editorial debut",
@@ -21,7 +21,7 @@
     "link": "/obres/obra-crit",
     "image": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg",
     "publisher": "Pont del Petroli Edicions",
-    "description": "Seleccionat com a obra finalista de la VII edició del Certamen Art Jove de Poesia Salvador Iborra.",
+    "description": "Seleccionat com a obra finalista de la <strong>VII edició del Certamen Art Jove de Poesia Salvador Iborra</strong>.",
     "year": 2025
   },
   "featuredProjects": [
@@ -34,12 +34,12 @@
       "link_en": "/en/projectes/projecte-1"
     },
     {
-      "title": "Avant-garde zero",
-      "title_en": "Avant-garde zero",
-      "description": "Digital magazine of a new international avant-garde.",
-      "description_en": "Digital magazine of a new international avant-garde.",
-      "link": "/projectes/projecte-2",
-      "link_en": "/en/projectes/projecte-2"
+      "link": "https://adriansalcedo.com/festivals/festival-3",
+      "link_en": "https://adriansalcedo.com/en/festivals/festival-3",
+      "description": "Intervenció urbana i comunitària realitzada a Mataró en motiu del #DiaMundialDeLaPoesia.",
+      "title_en": "World Poetry Day: Calligram Mural",
+      "title": "Dia internacional de la poesia: mural cal·ligramàtic",
+      "description_en": "Urban and community intervention carried out in Mataró on the occasion of #WorldPoetryDay."
     },
     {
       "title": "POEMOT",
@@ -55,7 +55,7 @@
   "seo": {
     "title": "Adrián Salcedo Toca — Poeta avantguardista",
     "title_en": "Adrián Salcedo Toca — Avant-garde poet",
-    "description": "Portfoli oficial d'Adrián Salcedo Toca. Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.",
-    "description_en": "Official portfolio of Adrián Salcedo Toca. Avant-garde poetry, videopoetry, cultural criticism and editorial projects."
+    "description": "Nascut el 1994 i resident al Maresme. Ha recitat al Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional i ha exposat a La Pahissa del Marquet. Guardonat amb el Premi Marta Pessarrodona de Poesia 2021 i dues vegades finalista del Certamen Salvador Iborra.",
+    "description_en": "Born in 1994 and based in Maresme. Performed at Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional and exhibited at La Pahissa del Marquet. Winner of the Marta Pessarrodona Poetry Prize 2021 and twice finalist of the Salvador Iborra Contest."
   }
 }
