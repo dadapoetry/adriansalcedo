@@ -91,13 +91,15 @@ const Renderers = {
     `).join('')}</div>`;
   },
 
-  pressItems(articles) {
+  pressItems(articles, isEn) {
     if (!articles || !articles.length) return '';
-    return articles.map(a => `
+    const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const readLabel = isEn ? 'Read' : 'Llegir';
+    return sorted.map(a => `
       <div class="press-item">
         <div class="press-meta">${a.date} · ${a.publication} · ${a.type}</div>
         <div class="press-title">${a.title}</div>
-        ${a.url ? `<div class="press-publication"><a href="${a.url}" class="inline-link" target="_blank" rel="noopener">Llegir</a></div>` : ''}
+        ${a.url ? `<div class="press-publication"><a href="${a.url}" class="inline-link" target="_blank" rel="noopener">${readLabel}</a></div>` : ''}
       </div>
     `).join('');
   },

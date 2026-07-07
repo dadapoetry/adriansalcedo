@@ -123,17 +123,9 @@ const App = {
     });
 
     const navLinks = document.querySelectorAll('.nav-link');
+    const sectionPath = this.lang === 'en' ? `/en/${section}` : section === 'home' ? (this.lang === 'en' ? '/en' : '/') : `/${section}`;
     navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      let sectionPath;
-      if (section === 'home') {
-        sectionPath = this.lang === 'en' ? '/en' : '/';
-      } else if (article) {
-        sectionPath = this.lang === 'en' ? `/en/${section}/${article}` : `/${section}/${article}`;
-      } else {
-        sectionPath = this.lang === 'en' ? `/en/${section}` : `/${section}`;
-      }
-      link.classList.toggle('active', href === sectionPath);
+      link.classList.toggle('active', link.getAttribute('href') === sectionPath);
     });
 
     const langSwitchLinks = document.querySelectorAll('#lang-switch-mobile a');
@@ -298,7 +290,7 @@ const App = {
       });
     } else if (section === 'premsa') {
       listLayer.innerHTML = `<h2>${isEn ? (data.title_en || data.title) : data.title}</h2>
-        ${data.articles ? Renderers.pressItems(data.articles) : ''}`;
+        ${data.articles ? Renderers.pressItems(data.articles, isEn) : ''}`;
     } else if (section === 'arxiu') {
       const title = isEn ? (data.title_en || data.title) : data.title;
       listLayer.innerHTML = `<h2>${title}</h2>
