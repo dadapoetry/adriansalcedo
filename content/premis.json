@@ -33,7 +33,11 @@
       "category": "audiovisual"
     },
     {
-      "content_en": [],
+      "content_en": [
+        "The Salvador Iborra Young Poetry Award —organized by the Catalan Youth Agency, the Balearic Youth Institute, and the Association of Catalan Language Writers (AELC)— has established itself as a key space for support, training, and fostering connections among some of the most compelling voices in contemporary poetry.",
+        "Adrián Salcedo's trajectory has been closely linked to this award through two key editions that mark the emergence and maturity of his poetic work.",
+        "<div class=\"edicio-cronologia\" style=\"margin-top: 25px;\">\n  <div class=\"edicio-bloc\" style=\"margin-bottom: 20px; border-left: 2px solid #ccc; padding-left: 15px;\">\n    <h4>I Salvador Iborra Award</h4>\n    <p>Selected as a finalist in the award’s first edition, an event that became a true generational catalyst where authors who now define the contemporary poetry scene emerged (such as Laia M. Llobera, Xavier Mas Craviotto, and Joan Deusa). This experience provided a decisive boost to his literary career; a connection that was further strengthened when Salcedo designed the cover of that year’s winning poetry collection, <em>Renills de cavall negre</em> by Xavier Mas Craviotto (Viena Edicions).</p>\n  </div>\n\n  <div class=\"edicio-bloc\" style=\"border-left: 2px solid #ccc; padding-left: 15px;\">\n    <h4>VII Salvador Iborra Award</h4>\n    <p>Six years after his first participation, and right at the upper age limit of the call, Salcedo returned as one of eleven finalists from across the territory. On this occasion, the AELC’s intensive training sessions took place at Vallparadís Hostel in Terrassa, creating a space for shared reading and critical discussion. From this momentum and this final selection emerged his editorial debut: the book <strong><em>CRIT</em></strong>, later published by Pont del Petroli Edicions.</p>\n  </div>\n</div>"
+      ],
       "title_en": "Salvador Iborra Young Art Poetry Contest 2018 & 2024",
       "closing_en": "",
       "closing": "Haver estat doblement finalista de l'Iborra tanca un cercle perfecte de retrobament i evolució estètica, refermant el valor i el rigor de la seva obra com a creador independent.",
@@ -63,7 +67,8 @@
       ],
       "content": [
         "El Certamen Art Jove Salvador Iborra de Poesia —impulsat per l'Agència Catalana de Joventut, l'Institut Balear de la Joventut i l'Associació d'Escriptors en Llengua Catalana (AELC)— s'ha consolidat com el gran espai de suport, formació i vertebració per a les veus més punyents de la poesia actual.",
-        "La trajectòria d'Adrián Salcedo s'ha vinculat estretament a aquest certamen en dues edicions clau que delimiten el naixement i la maduresa de la seva producció poètica."
+        "La trajectòria d'Adrián Salcedo s'ha vinculat estretament a aquest certamen en dues edicions clau que delimiten el naixement i la maduresa de la seva producció poètica.",
+        "   <div class=\"edicio-cronologia\" style=\"margin-top: 25px;\">\n        <div class=\"edicio-bloc\" style=\"margin-bottom: 20px; border-left: 2px solid #ccc; padding-left: 15px;\">\n          <h4>I Certamen Salvador Iborra</h4>\n          <p>Seleccionat com a finalista de la primera edició del premi, una cita que va funcionar com un autèntic catalitzador generacional on van emergir autors que avui defineixen el panorama poètic (com Laia M. Llobera, Xavier Mas Craviotto o Joan Deusa). Aquesta experiència va suposar una empenta definitiva per a la seva carrera literària; una complicitat que es va traduir, a més, en l'autoria per part de Salcedo del disseny de la portada del poemari guanyador d'aquell any, <em>Renills de cavall negre</em> de Xavier Mas Craviotto (Viena Edicions).</p>\n        </div>\n\n        <div class=\"edicio-bloc\" style=\"border-left: 2px solid #ccc; padding-left: 15px;\">\n          <h4>VII Certamen Salvador Iborra</h4>\n          <p>Sis anys després de la primera incursió, i just al límit de l’edat màxima de la convocatòria, Salcedo va tornar com un dels onze finalistes d'arreu del territori. En aquesta ocasió, les intenses jornades de formació de l'AELC van tenir lloc a l'Alberg Vallparadís de Terrassa, articulant un espai de lectura compartida i discussió crítica. D'aquest impuls i d'aquesta darrera selecció en va néixer el seu debut editorial: el llibre <strong><em>CRIT</em></strong>, editat posteriorment per Pont del Petroli Edicions.</p>\n        </div>\n      </div>"
       ],
       "id": "premi-2",
       "year": 2024,
