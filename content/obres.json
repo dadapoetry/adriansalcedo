@@ -12,10 +12,31 @@
         "Participation in the visual poetry magazine from Pont del Petroli Edicions with a calligrammatic diptych. The work connects the avant-garde with concepts from quantum physics through a rereading of Joan Salvat-Papasseit's last futurist manifesto."
       ],
       "images": [
-        { "src": "/media/images/522bc20c-12d5-4ea6-967d-0b35b3571ce0_rw_1920.jpg", "alt": "Barretdefum 11", "width": "calc(50% - 7.5px)" },
-        { "src": "/media/images/dedd3fb2-0255-41ed-98ab-66a2e9c8e197_rw_1920.jpg", "alt": "Barretdefum 11", "width": "calc(50% - 7.5px)" }
+        {
+          "src": "/media/images/522bc20c-12d5-4ea6-967d-0b35b3571ce0_rw_1920.jpg",
+          "alt": "Barretdefum 11",
+          "width": "calc(50% - 7.5px)"
+        },
+        {
+          "src": "/media/images/dedd3fb2-0255-41ed-98ab-66a2e9c8e197_rw_1920.jpg",
+          "alt": "Barretdefum 11",
+          "width": "calc(50% - 7.5px)"
+        }
       ],
-      "contributors": ["Ferran Aisa", "Carme Boronat", "Joan-Lluís Lluís", "Laia Mauri", "Pep Mita", "Àlex Monfort", "Joan Oriol", "Carles Ribó", "Adrián Salcedo", "Myriam Soteras", "Gustavo Vega", "Sergi Viader"]
+      "contributors": [
+        "Ferran Aisa",
+        "Carme Boronat",
+        "Joan-Lluís Lluís",
+        "Laia Mauri",
+        "Pep Mita",
+        "Àlex Monfort",
+        "Joan Oriol",
+        "Carles Ribó",
+        "Adrián Salcedo",
+        "Myriam Soteras",
+        "Gustavo Vega",
+        "Sergi Viader"
+      ]
     },
     {
       "id": "obra-caldesa",
@@ -31,7 +52,11 @@
         "The edition focuses monographically on the theme of alcohol and features an Apollinairean-rooted calligram."
       ],
       "images": [
-        { "src": "/media/images/e0c66b69-c6f5-4649-aed7-e64c086b70b3_rw_1200.jpg", "alt": "Revista Caldesa nº 7", "width": "50%" }
+        {
+          "src": "/media/images/e0c66b69-c6f5-4649-aed7-e64c086b70b3_rw_1200.jpg",
+          "alt": "Revista Caldesa nº 7",
+          "width": "50%"
+        }
       ]
     },
     {
@@ -42,7 +67,12 @@
       "content": [],
       "content_en": [],
       "videos": [
-        { "url": "https://www.youtube.com/embed/UlFQb1drgd0", "title": "Vídeopoema Silenci", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/UlFQb1drgd0",
+          "title": "Vídeopoema Silenci",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -57,7 +87,12 @@
         "Selected and internationally screened at the NUDO Videopoetry Festival."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/DxQflCoiTYs", "title": "Vídeopoema Bressol d'estiu", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/DxQflCoiTYs",
+          "title": "Vídeopoema Bressol d'estiu",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -72,7 +107,12 @@
         "Sound experimentation piece featuring live looping with BOSS RC-505 MKI."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/xjCie-__Tgo", "title": "Vídeopoema Doble Veu", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/xjCie-__Tgo",
+          "title": "Vídeopoema Doble Veu",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -87,7 +127,11 @@
         "Project that translates Instagram-native literature to the book and vice versa."
       ],
       "images": [
-        { "src": "/media/images/1874691e-6c33-4c18-be45-9facbaab5c57_rw_1200.jpg", "alt": "Antologia Bastarda", "width": "50%" }
+        {
+          "src": "/media/images/1874691e-6c33-4c18-be45-9facbaab5c57_rw_1200.jpg",
+          "alt": "Antologia Bastarda",
+          "width": "50%"
+        }
       ]
     },
     {
@@ -104,7 +148,12 @@
         "First videopoem in Catalan using AI audiovisual creation techniques."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/xqsWBvx37cU", "title": "Vídeopoema Alguns Cercles", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/xqsWBvx37cU",
+          "title": "Vídeopoema Alguns Cercles",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -121,7 +170,12 @@
         "Created with the Playtronica magnetic device."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/d9HuzEP0RiY", "title": "Vídeopoema l'aigua és un joc", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/d9HuzEP0RiY",
+          "title": "Vídeopoema l'aigua és un joc",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -136,7 +190,12 @@
         "Screened at NUDO Festival. A formal turning point in the author's trajectory."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/KL3aKq9eJI4", "title": "Vídeopoema fragments de suïcidi", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/KL3aKq9eJI4",
+          "title": "Vídeopoema fragments de suïcidi",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -151,7 +210,11 @@
         "Series of experimental plaquettes: \"Superpòsit\" (2021) and \"Vós és teu Carrer Gant tot!\""
       ],
       "images": [
-        { "src": "/media/images/b6664526-fc12-47d4-8896-599df0ab2aa3_rw_1920.jpg", "alt": "Quaderns d'hiperpoesia", "width": "100%" }
+        {
+          "src": "/media/images/b6664526-fc12-47d4-8896-599df0ab2aa3_rw_1920.jpg",
+          "alt": "Quaderns d'hiperpoesia",
+          "width": "100%"
+        }
       ]
     },
     {
@@ -167,7 +230,12 @@
         "Audiovisual project with a marked poetic and political dimension."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/1Yrbouw0Gn8", "title": "Vídeopoema Camps d'anti-refugi", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/1Yrbouw0Gn8",
+          "title": "Vídeopoema Camps d'anti-refugi",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
@@ -183,7 +251,11 @@
         "Large-format poetic piece on a ten-meter paper roll, exhibited before artist Perejaume."
       ],
       "images": [
-        { "src": "/media/images/f6a36fef-93a2-496c-9345-8dc7467f4bfa.jpg", "alt": "POEMOT", "width": "100%" }
+        {
+          "src": "/media/images/f6a36fef-93a2-496c-9345-8dc7467f4bfa.jpg",
+          "alt": "POEMOT",
+          "width": "100%"
+        }
       ]
     },
     {
@@ -198,26 +270,37 @@
         "Digital interface and data poetry project linked to Oulipo methods."
       ],
       "videos": [
-        { "url": "https://www.youtube.com/embed/Jf8xDzF8fDg", "title": "elquenovol.cat", "width": 560, "height": 315 }
+        {
+          "url": "https://www.youtube.com/embed/Jf8xDzF8fDg",
+          "title": "elquenovol.cat",
+          "width": 560,
+          "height": 315
+        }
       ]
     },
     {
       "id": "obra-crit",
-      "title": "CRIT",
+      "title": "CRIT (Pont del Petroli, 2025)",
       "type": "publication",
       "year": 2025,
       "content": [
-        "<strong>CRIT</strong> és el debut editorial d'Adrián Salcedo Toca, publicat per <strong>Pont del Petroli Edicions</strong> l'any 2025.",
+        "<strong>CRIT</strong> és el debut editorial d'Adrián Salcedo Toca, publicat per <strong>Pont del Petroli Edicions</strong> a finals de l'any 2025.",
         "El llibre va ser seleccionat com a obra finalista de la VII edició del Certamen Art Jove de Poesia Salvador Iborra, impulsat per l'Associació d'Escriptors en Llengua Catalana (AELC).",
-        "L'obra desplega una poesia que travessa el cos, la memòria i el llenguatge des d'una mirada avantguardista i irracionalista, i es presenta com un artefacte líric que interroga els límits del gènere."
+        "Crit es construeix com una arquitectura hermètica i alhora propera, elevada i ardent, política i íntima. A través d'una successió d'imatges surrealistes, la multiplicitat de crits es transforma en el fil conductor i alhora en una estratègia per incomodar el lector, acostumat a trobar sempre una resolució emocional al final del poema.",
+        "El volum compta amb un pròleg de la poeta <strong>Meritxell Cucurella-Jorba</strong> i es tanca amb un epíleg de la també poeta <strong>Raquel Casas Agustí</strong>."
       ],
       "content_en": [
-        "<strong>CRIT</strong> is the editorial debut of Adrián Salcedo Toca, published by <strong>Pont del Petroli Edicions</strong> in 2025.",
-        "The book was selected as a finalist for the 7th edition of the Salvador Iborra Young Art Poetry Contest, promoted by the Association of Writers in Catalan Language (AELC).",
-        "The work unfolds a poetry that traverses the body, memory and language from an avant-garde and irrationalist perspective, presented as a lyrical artefact that questions the limits of the genre."
+        "<strong>CRIT</strong> is Adrián Salcedo Toca's debut book, published by <strong>Pont del Petroli Edicions</strong> in late 2025.",
+        "The book was shortlisted in the seventh edition of the Salvador Iborra Young Poetry Award, organized by the Association of Catalan Language Writers (AELC).",
+        "<strong>CRIT</strong> is built as an architecture that is at once hermetic and intimate, elevated and incandescent, political and deeply personal. Through a succession of surrealist images, the multiplicity of cries becomes both the poem's guiding thread and a strategy for unsettling the reader, who has grown accustomed to finding emotional resolution at the end of every poem.",
+        "The volume features a foreword by the poet <strong>Meritxell Cucurella-Jorba</strong> and concludes with an afterword by fellow poet <strong>Raquel Casas Agustí</strong>."
       ],
       "images": [
-        { "src": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg", "alt": "CRIT portada", "width": "50%" }
+        {
+          "src": "/media/images/761bc857-67e3-4250-a657-b7d4a1b30bb9_rw_1920.jpg",
+          "alt": "CRIT portada",
+          "width": "50%"
+        }
       ]
     }
   ]
