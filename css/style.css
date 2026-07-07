@@ -820,7 +820,17 @@ img[loading="lazy"].loaded {
   }
 
   #contact-email {
-    display: none !important;
+    order: 100;
+    width: 100%;
+    text-align: center;
+    padding-top: 6px;
+    margin-top: 2px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  #contact-email a {
+    font-size: 9px;
+    opacity: 0.5;
   }
 
   .admin-link {
@@ -854,6 +864,14 @@ img[loading="lazy"].loaded {
     aspect-ratio: 9 / 16;
     display: block;
     margin: 15px auto;
+  }
+
+  main {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 24px;
+    width: 100%;
+    max-width: 100%;
   }
 
   .brand {
