@@ -59,6 +59,10 @@ const App = {
     if (brandLink) {
       brandLink.href = this.lang === 'en' ? '/en' : '/';
     }
+    const logoEl = document.getElementById('site-logo');
+    if (logoEl && this.siteData.site.logo) {
+      logoEl.innerHTML = `<img src="${this.siteData.site.logo}" alt="Logotip" class="site-logo-img" />`;
+    }
     if (searchTrigger) {
       searchTrigger.href = this.lang === 'en' ? '/en/cerca' : '/cerca';
     }

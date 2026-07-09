@@ -67,7 +67,7 @@ aside.sidebar-left {
 }
 
 .brand {
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 
 .brand-link {
@@ -77,6 +77,17 @@ aside.sidebar-left {
 
 .brand-link:hover {
   opacity: 0.6;
+}
+
+#site-logo {
+  margin-bottom: 30px;
+}
+
+.site-logo-img {
+  display: block;
+  max-width: 120px;
+  height: auto;
+  border: 1px solid var(--border-light);
 }
 
 .brand h1 {
