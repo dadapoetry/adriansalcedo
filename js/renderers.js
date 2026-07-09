@@ -125,7 +125,6 @@ const Renderers = {
     const bio = isEn ? (data.bio_en || data.bio) : (data.bio || '');
     const manifesto = isEn ? (data.manifesto_en || data.manifesto) : (data.manifesto || '');
     const currentProjects = data.currentProjects || [];
-    // dadapoetry and ag0 blocks are populated live via API
 
     const featuredLink = isEn ? (fw.link_en || fw.link || '/en/obres/obra-crit') : (fw.link || '/obres/obra-crit');
     const bioLink = isEn ? '/en/quisoc' : '/quisoc';
@@ -170,14 +169,6 @@ const Renderers = {
         </div>`;
     }
 
-    let dadapoetryHtml = `
-      <div class="home-dadapoetry" id="home-dadapoetry">
-        <h2 class="section-label">Dada Poetry</h2>
-        <p class="dadapoetry-subtitle">${isEn ? 'Archive of poetic data and visual experiments' : 'Arxiu de dades poètiques i experiments visuals'}</p>
-        <div class="dadapoetry-content" id="dadapoetry-content"></div>
-        <p><a href="https://dadapoetry.cat" target="_blank" rel="noopener noreferrer" class="inline-link">${isEn ? 'Visit Dada Poetry \u2192' : 'Visitar Dada Poetry \u2192'}</a></p>
-      </div>`;
-
     return `
       <div class="hero" id="home-hero">
         <h2 class="hero-title" id="hero-title">${isEn ? (h.title_en || h.title) : h.title}</h2>
@@ -210,8 +201,6 @@ const Renderers = {
         <h2 class="section-label">${isEn ? 'Projects' : 'Projectes'}</h2>
         <div class="project-grid">${projectCards}</div>
       </div>
-
-      ${dadapoetryHtml}
 
       <div class="home-bio" id="home-bio">
         <p>${bio}</p>

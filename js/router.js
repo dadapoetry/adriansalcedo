@@ -242,7 +242,6 @@ const App = {
 
     if (section === 'home') {
       listLayer.innerHTML = Renderers.home(data, this.lang);
-      this.loadDadaPoetry();
     } else if (section === 'quisoc') {
       const title = isEn ? (data.title_en || data.title) : data.title;
       const bio = isEn ? (data.biography_en || data.biography) : data.biography;
@@ -348,29 +347,6 @@ const App = {
 
     const firstImg = sectionEl.querySelector('img');
     if (firstImg && firstImg.src) this.setMetaImage(firstImg.src);
-  },
-
-  async loadDadaPoetry() {
-    const content = document.getElementById('dadapoetry-content');
-    if (!content) return;
-    try {
-      const res = await fetch('/api/dadapoetry');
-      if (!res.ok) return;
-      const objects = await res.json();
-      if (!objects || !objects.length) return;
-      content.innerHTML = `<ul class="dadapoetry-list">
-        ${objects.map(o => `
-          <li class="dadapoetry-item">
-            <span class="dadapoetry-object-id">${o.id}</span>
-            <a href="${o.url}" class="dadapoetry-object-title" target="_blank" rel="noopener noreferrer">${o.title}</a>
-            <span class="dadapoetry-object-date">${o.date}</span>
-          </li>
-        `).join('')}
-      </ul>`;
-    } catch (e) {
-      const section = document.getElementById('home-dadapoetry');
-      if (section) section.style.display = 'none';
-    }
   },
 
   async navigateTo(path) {
