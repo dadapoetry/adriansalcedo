@@ -85,7 +85,7 @@ aside.sidebar-left {
 
 .site-logo-img {
   display: block;
-  max-width: 120px;
+  max-width: 80px;
   height: auto;
   border: 1px solid var(--border-light);
 }
@@ -896,6 +896,10 @@ img[loading="lazy"].loaded {
 }
 
 @media (max-width: 768px) {
+  #site-logo {
+    display: none;
+  }
+
   body {
     flex-direction: column;
   }
