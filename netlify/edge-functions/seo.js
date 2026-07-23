@@ -1,5 +1,3 @@
-import { readFile } from "https://deno.land/std@0.168.0/fs/mod.ts";
-
 const BASE = "https://adriansalcedo.com";
 const SECTION_TITLES = {
   home:      { ca: "Inici — Poeta avantguardista",        en: "Home — Avant-garde poet" },
@@ -13,56 +11,64 @@ const SECTION_TITLES = {
   arxiu:     { ca: "Arxiu",                               en: "Archive" },
 };
 
-function escapeHtml(s) {
+function esc(s) {
   return s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
-async function readJson(path) {
+async function readJson(filename) {
   try {
-    const raw = await readFile(`./content/${path}`);
-    return JSON.parse(new TextDecoder().decode(raw));
-  } catch {
+    const text = await Deno.readTextFile(`./content/${filename}`);
+    return JSON.parse(text);
+  } catch (e) {
+    console.error(`[seo] Failed to read ./content/${filename}:`, e.message);
     return null;
   }
 }
 
-function getMeta(data) {
-  if (!data) return null;
-  const isEn = data.lang === "en";
+function findItem(json, section, id) {
+  if (!json) return null;
+  const map = {
+    obres: "works",
+    projectes: "projects",
+    festivals: "festivals",
+    premis: "awards",
+  };
+  const key = map[section];
+  if (key && Array.isArray(json[key])) {
+    return json[key].find((x) => x.id === id) || null;
+  }
+  return null;
+}
 
-  if (data.section === "home") {
-    const seo = data.json?.seo;
+function stripHtml(s) {
+  if (!s) return "";
+  return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+}
+
+function buildMeta({ section, article, lang, json }) {
+  const isEn = lang === "en";
+
+  if (section === "home") {
+    const seo = json?.seo;
     return {
-      title: isEn ? (seo?.title_en || seo?.title || "Adrián Salcedo Toca — Avant-garde poet") : (seo?.title || "Adrián Salcedo Toca — Poeta avantguardista"),
-      desc:  isEn ? (seo?.description_en || seo?.description || "Digital portfolio of Adrián Salcedo Toca, avant-garde poet and cultural critic.") : (seo?.description || "Portfoli digital d'Adrián Salcedo Toca, poeta avantguardista i crític cultural."),
-      type:  "website",
+      title: isEn
+        ? (seo?.title_en || seo?.title || "Adrián Salcedo Toca — Avant-garde poet")
+        : (seo?.title || "Adrián Salcedo Toca — Poeta avantguardista"),
+      desc: isEn
+        ? (seo?.description_en || seo?.description || "Digital portfolio of Adrián Salcedo Toca, avant-garde poet and cultural critic.")
+        : (seo?.description || "Portfoli digital d'Adrián Salcedo Toca, poeta avantguardista i crític cultural."),
+      type: "website",
       image: `${BASE}/media/images/sat.png`,
     };
   }
 
-  const titles = SECTION_TITLES[data.section];
-  if (data.article) {
-    let item = null;
-    const s = data.section;
-    const a = data.article;
-    const d = data.json;
-
-    if (s === "obres" && d?.works)    item = d.works.find(x => x.id === a);
-    if (s === "projectes" && d?.projects) item = d.projects.find(x => x.id === a);
-    if (s === "festivals" && d?.festivals) item = d.festivals.find(x => x.id === a);
-    if (s === "premis" && d?.awards)   item = d.awards.find(x => x.id === a);
+  if (article) {
+    const item = findItem(json, section, article);
 
     if (item) {
       const t = isEn ? (item.title_en || item.title) : item.title;
-      let desc = "";
-      if (s === "premis") {
-        desc = isEn ? (item.content_en?.[0] || "") : (item.content?.[0] || "");
-      } else {
-        const c = isEn ? (item.content_en || item.content) : item.content;
-        desc = Array.isArray(c) ? c.join(" ") : (c || "");
-      }
-      desc = desc.replace(/<[^>]+>/g, "").trim();
-      if (desc.length > 300) desc = desc.slice(0, 297) + "...";
+      const raw = isEn ? (item.content_en || item.content) : item.content;
+      const desc = stripHtml(Array.isArray(raw) ? raw.join(" ") : raw).slice(0, 300);
 
       let image = null;
       if (item.images?.[0]?.src) {
@@ -79,23 +85,23 @@ function getMeta(data) {
       };
     }
 
+    const fallback = article.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
     return {
-      title: `${a.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase())} | Adrián Salcedo Toca`,
-      desc:  isEn ? "Avant-garde poetry by Adrián Salcedo Toca." : "Poesia avantguardista d'Adrián Salcedo Toca.",
-      type:  "article",
+      title: `${fallback} | Adrián Salcedo Toca`,
+      desc: isEn ? "Avant-garde poetry by Adrián Salcedo Toca." : "Poesia avantguardista d'Adrián Salcedo Toca.",
+      type: "article",
       image: `${BASE}/media/images/sat.png`,
     };
   }
 
-  if (titles) {
-    const pageTitle = `${titles[isEn ? "en" : "ca"]} | Adrián Salcedo Toca`;
-    const pageDesc = isEn
-      ? `Explore the ${titles.en.toLowerCase()} of Adrián Salcedo Toca.`
-      : `Explora la secció de ${titles.ca.toLowerCase()} d'Adrián Salcedo Toca.`;
+  const t = SECTION_TITLES[section];
+  if (t) {
     return {
-      title: pageTitle,
-      desc:  pageDesc,
-      type:  "website",
+      title: `${t[isEn ? "en" : "ca"]} | Adrián Salcedo Toca`,
+      desc: isEn
+        ? `Explore the ${t.en.toLowerCase()} of Adrián Salcedo Toca.`
+        : `Explora la secció de ${t.ca.toLowerCase()} d'Adrián Salcedo Toca.`,
+      type: "website",
       image: `${BASE}/media/images/sat.png`,
     };
   }
@@ -103,29 +109,13 @@ function getMeta(data) {
   return null;
 }
 
-function buildHead(meta, lang, canonical) {
-  const ogLocale = lang === "en" ? "en_GB" : "ca_ES";
-  return `
-    <title>${escapeHtml(meta.title)}</title>
-    <meta name="description" content="${escapeHtml(meta.desc)}">
-    <link rel="canonical" href="${escapeHtml(canonical)}">
-    <meta property="og:title" content="${escapeHtml(meta.title)}">
-    <meta property="og:description" content="${escapeHtml(meta.desc)}">
-    <meta property="og:url" content="${escapeHtml(canonical)}">
-    <meta property="og:type" content="${meta.type}">
-    <meta property="og:locale" content="${ogLocale}">
-    <meta property="og:image" content="${escapeHtml(meta.image)}">
-    <meta name="twitter:card" content="${meta.type === "article" && meta.image !== `${BASE}/media/images/sat.png` ? "summary_large_image" : "summary"}">
-    <meta name="twitter:title" content="${escapeHtml(meta.title)}">
-    <meta name="twitter:description" content="${escapeHtml(meta.desc)}">
-    <meta name="twitter:image" content="${escapeHtml(meta.image)}">
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"${meta.type === "article" ? "Article" : "WebPage"}","name":"${escapeHtml(meta.title).replace(/"/g, '\\"')}","description":"${escapeHtml(meta.desc).replace(/"/g, '\\"')}","url":"${canonical}"}</script>`;
-}
-
 export default async (request, context) => {
   const url = new URL(request.url);
+
   const ext = url.pathname.split(".").pop();
-  if (ext && ext !== "html") return context.next();
+  if (ext && ["css", "js", "json", "png", "jpg", "jpeg", "gif", "svg", "webp", "mp4", "mp3", "pdf", "woff", "woff2", "ico", "xml", "txt"].includes(ext)) {
+    return context.next();
+  }
 
   const segments = url.pathname.split("/").filter(Boolean);
   let lang = "ca";
@@ -147,20 +137,48 @@ export default async (request, context) => {
   const jsonFile = section === "home" ? "home.json" : `${section}.json`;
   const json = await readJson(jsonFile);
 
-  const meta = getMeta({ section, article, lang, json });
+  const meta = buildMeta({ section, article, lang, json });
   if (!meta) return context.next();
 
   const canonical = `${BASE}${url.pathname}`;
   const res = await context.next();
   const html = await res.text();
 
-  const newHead = buildHead(meta, lang, canonical);
-  const modified = html.replace(/<title>.*?<\/title>([\s\S]*?)(<\/head>)/, `${newHead}\n$1$2`);
+  const ogLocale = lang === "en" ? "en_GB" : "ca_ES";
+  const ogType = meta.type;
+  const twCard = ogType === "article" && meta.image !== `${BASE}/media/images/sat.png` ? "summary_large_image" : "summary";
+
+  const headBlock = `<title>${esc(meta.title)}</title>
+    <meta name="description" content="${esc(meta.desc)}">
+    <link rel="canonical" href="${esc(canonical)}">
+    <meta property="og:title" content="${esc(meta.title)}">
+    <meta property="og:description" content="${esc(meta.desc)}">
+    <meta property="og:url" content="${esc(canonical)}">
+    <meta property="og:type" content="${ogType}">
+    <meta property="og:locale" content="${ogLocale}">
+    <meta property="og:image" content="${esc(meta.image)}">
+    <meta name="twitter:card" content="${twCard}">
+    <meta name="twitter:title" content="${esc(meta.title)}">
+    <meta name="twitter:description" content="${esc(meta.desc)}">
+    <meta name="twitter:image" content="${esc(meta.image)}">`;
+
+  const modified = html
+    .replace(/<title>[^<]*<\/title>/, headBlock.split("\n")[0])
+    .replace(/<meta name="description" content="[^"]*">/, `<meta name="description" content="${esc(meta.desc)}">`)
+    .replace(/<link rel="canonical" href="[^"]*">/, `<link rel="canonical" href="${esc(canonical)}">`)
+    .replace(/<meta property="og:title" content="[^"]*">/, `<meta property="og:title" content="${esc(meta.title)}">`)
+    .replace(/<meta property="og:description" content="[^"]*">/, `<meta property="og:description" content="${esc(meta.desc)}">`)
+    .replace(/<meta property="og:url" content="[^"]*">/, `<meta property="og:url" content="${esc(canonical)}">`)
+    .replace(/<meta property="og:type" content="[^"]*">/, `<meta property="og:type" content="${ogType}">`)
+    .replace(/<meta property="og:locale" content="[^"]*">/, `<meta property="og:locale" content="${ogLocale}">`)
+    .replace(/<meta property="og:image" content="[^"]*">/, `<meta property="og:image" content="${esc(meta.image)}">`)
+    .replace(/<meta name="twitter:card" content="[^"]*">/, `<meta name="twitter:card" content="${twCard}">`)
+    .replace(/<meta name="twitter:title" content="[^"]*">/, `<meta name="twitter:title" content="${esc(meta.title)}">`)
+    .replace(/<meta name="twitter:description" content="[^"]*">/, `<meta name="twitter:description" content="${esc(meta.desc)}">`)
+    .replace(/<meta name="twitter:image" content="[^"]*">/, `<meta name="twitter:image" content="${esc(meta.image)}">`);
 
   return new Response(modified, {
-    status: 200,
+    status: res.status,
     headers: { "content-type": "text/html; charset=utf-8" },
   });
 };
-
-export const config = { path: "/*" };
