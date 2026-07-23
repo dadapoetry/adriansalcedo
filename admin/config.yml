@@ -224,7 +224,7 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol (CA)", name: "title", widget: "string" }
-                   - { label: "Title (EN)", name: "title_en", widget: "string" }
+                  - { label: "Title (EN)", name: "title_en", widget: "string" }
               - label: "SEO"
                 name: "seo"
                 widget: "object"
@@ -310,7 +310,7 @@ collections:
                 required: false
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
-                   - { label: "Títol", name: "title", widget: "string" }
+                  - { label: "Títol", name: "title", widget: "string" }
               - label: "SEO"
                 name: "seo"
                 widget: "object"
