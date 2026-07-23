@@ -22,7 +22,13 @@
         "El projecte es troba actualment en curs. La recepció de peces per a la segona entrega és oberta. "
       ],
       "id": "projecte-1",
-      "image": "/media/images/dadapoetry copia.jpg"
+      "image": "/media/images/dadapoetry copia.jpg",
+      "seo": {
+        "title": "Dada Poetry (ISSN: 3137-6738)",
+        "title_en": "Dada Poetry (ISSN: 3137-6738)",
+        "description": "Dada Poetry és una plataforma d'experimentació i publicació digital independent nascuda de la fatiga cultural que generen els continguts editorials plans i homogenis.",
+        "description_en": "Dada Poetry is an independent digital platform for experimentation and publishing, created in response to the cultural fatigue produced by flat, homogenized editorial content."
+      }
     },
     {
       "issn": "3137-7912",
@@ -44,7 +50,13 @@
         "Project is currently active and open for international contributions."
       ],
       "id": "projecte-2",
-      "image": "/media/images/ag0.png"
+      "image": "/media/images/ag0.png",
+      "seo": {
+        "title": "Avant-garde zero (ISSN: 3137-7912)",
+        "title_en": "Avant-garde zero (ISSN: 3137-7912)",
+        "description": "Avant-garde zero is a digital magazine established as the zero point of a new international avant-garde.",
+        "description_en": "Avant-garde zero is a digital magazine established as the zero point of a new international avant-garde."
+      }
     }
   ]
 }
