@@ -61,7 +61,7 @@ const App = {
     }
     const logoEl = document.getElementById('site-logo');
     if (logoEl && this.siteData.site.logo) {
-      logoEl.innerHTML = `<img src="${this.siteData.site.logo}" alt="Logotip" class="site-logo-img" />`;
+      logoEl.innerHTML = `<img src="${this.siteData.site.logo}" alt="Adrián Salcedo Toca" class="site-logo-img" />`;
     }
     if (searchTrigger) {
       searchTrigger.href = this.lang === 'en' ? '/en/cerca' : '/cerca';
@@ -94,6 +94,9 @@ const App = {
   },
 
   updateMeta(section, article) {
+    const baseUrl = 'https://adriansalcedo.com';
+    const cleanUrl = window.location.pathname;
+
     let pageTitle = 'Adrián Salcedo Toca';
     let pageDesc = this.lang === 'en'
       ? 'Digital portfolio of Adrián Salcedo Toca, avant-garde poet and cultural critic.'
@@ -109,15 +112,109 @@ const App = {
     }
 
     document.title = pageTitle;
+
+    document.documentElement.lang = this.lang === 'en' ? 'en' : 'ca';
+
+    const canonical = `${baseUrl}${cleanUrl}`;
+    const linkCanonical = document.querySelector('link[rel="canonical"]');
+    if (linkCanonical) linkCanonical.setAttribute('href', canonical);
+
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) metaDesc.setAttribute('content', pageDesc);
 
     const ogTitle = document.querySelector('meta[property="og:title"]');
     const ogDesc = document.querySelector('meta[property="og:description"]');
     const ogUrl = document.querySelector('meta[property="og:url"]');
+    const ogType = document.querySelector('meta[property="og:type"]');
+    const ogLocale = document.querySelector('meta[property="og:locale"]');
+    const ogImage = document.querySelector('meta[property="og:image"]');
     if (ogTitle) ogTitle.setAttribute('content', pageTitle);
     if (ogDesc) ogDesc.setAttribute('content', pageDesc);
-    if (ogUrl) ogUrl.setAttribute('content', window.location.href);
+    if (ogUrl) ogUrl.setAttribute('content', canonical);
+    if (ogLocale) ogLocale.setAttribute('content', this.lang === 'en' ? 'en_GB' : 'ca_ES');
+
+    if (article) {
+      if (ogType) ogType.setAttribute('content', 'article');
+    } else {
+      if (ogType) ogType.setAttribute('content', 'website');
+    }
+
+    if (!article && section === 'home') {
+      if (ogImage) ogImage.setAttribute('content', `${baseUrl}/media/images/sat.png`);
+    }
+
+    const twCard = document.querySelector('meta[name="twitter:card"]');
+    const twTitle = document.querySelector('meta[name="twitter:title"]');
+    const twDesc = document.querySelector('meta[name="twitter:description"]');
+    const twImage = document.querySelector('meta[name="twitter:image"]');
+    if (twTitle) twTitle.setAttribute('content', pageTitle);
+    if (twDesc) twDesc.setAttribute('content', pageDesc);
+    if (!article && section === 'home') {
+      if (twImage) twImage.setAttribute('content', `${baseUrl}/media/images/sat.png`);
+    }
+
+    this.injectStructuredData(section, article, pageTitle, pageDesc, canonical);
+  },
+
+  injectStructuredData(section, article, title, desc, canonical) {
+    const baseUrl = 'https://adriansalcedo.com';
+    const existing = document.getElementById('dynamic-schema');
+    if (existing) existing.remove();
+
+    let schema = null;
+
+    if (section === 'home' && !article) {
+      schema = {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "name": title,
+        "description": desc,
+        "url": canonical,
+        "mainEntity": {
+          "@type": "Person",
+          "name": "Adrián Salcedo Toca",
+          "url": baseUrl
+        }
+      };
+    } else if (section === 'obres' && !article) {
+      schema = {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": title,
+        "description": desc,
+        "url": canonical,
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Adrián Salcedo Toca",
+          "url": baseUrl
+        }
+      };
+    } else if (article) {
+      schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": desc,
+        "url": canonical,
+        "author": {
+          "@type": "Person",
+          "name": "Adrián Salcedo Toca",
+          "url": baseUrl
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Adrián Salcedo Toca"
+        }
+      };
+    }
+
+    if (schema) {
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.id = 'dynamic-schema';
+      script.textContent = JSON.stringify(schema);
+      document.head.appendChild(script);
+    }
   },
 
   setMetaImage(src) {
@@ -125,8 +222,10 @@ const App = {
     const imageSrc = src.startsWith('http') ? src : `https://adriansalcedo.com${src}`;
     const ogImage = document.querySelector('meta[property="og:image"]');
     const twImage = document.querySelector('meta[name="twitter:image"]');
+    const twCard = document.querySelector('meta[name="twitter:card"]');
     if (ogImage) ogImage.setAttribute('content', imageSrc);
     if (twImage) twImage.setAttribute('content', imageSrc);
+    if (twCard) twCard.setAttribute('content', 'summary_large_image');
   },
 
   async renderSection(section, article) {

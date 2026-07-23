@@ -7,12 +7,21 @@
 <meta name="description" content="Portfoli oficial d'Adrián Salcedo Toca. Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.">
 <meta name="robots" content="index, follow">
 <meta name="author" content="Adrián Salcedo Toca">
+<meta name="theme-color" content="#000000">
 
 <link rel="icon" type="image/png" href="/media/images/sat.png">
 <link rel="canonical" href="https://adriansalcedo.com">
 <link rel="alternate" hreflang="ca" href="https://adriansalcedo.com">
 <link rel="alternate" hreflang="en" href="https://adriansalcedo.com/en">
-<link rel="stylesheet" href="/css/style.css?v=5">
+<link rel="manifest" href="/manifest.json">
+<link rel="alternate" type="application/rss+xml" title="Adrián Salcedo Toca" href="/feed.xml">
+<link rel="stylesheet" href="/css/style.css?v=6">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://instagram.com">
+<link rel="dns-prefetch" href="https://twitter.com">
+<link rel="dns-prefetch" href="https://youtube.com">
+<link rel="dns-prefetch" href="https://tiktok.com">
 <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
 
@@ -24,14 +33,40 @@
   "givenName": "Adrián",
   "familyName": "Salcedo Toca",
   "jobTitle": "Poeta avantguardista i crític cultural",
+  "description": "Poeta avantguardista, comunicador i crític cultural. Membre de l'Associació d'Escriptors en Llengua Catalana (AELC).",
   "url": "https://adriansalcedo.com",
+  "image": "https://adriansalcedo.com/media/images/sat.png",
+  "email": "contacte@adriansalcedo.com",
+  "nationality": { "@type": "Country", "name": "Spain" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Mataró", "addressRegion": "Catalunya", "addressCountry": "ES" },
+  "knowsLanguage": ["ca", "en", "es"],
+  "hasOccupation": [
+    { "@type": "Occupation", "name": "Poeta", "occupationLocation": { "@type": "Country", "name": "Spain" } },
+    { "@type": "Occupation", "name": "Crític cultural", "occupationLocation": { "@type": "Country", "name": "Spain" } }
+  ],
+  "award": [
+    "Premi Marta Pessarrodona de Poesia 2021",
+    "Finalista VII Certamen Art Jove de Poesia Salvador Iborra"
+  ],
   "sameAs": [
     "https://instagram.com/asalcedotoca",
     "https://twitter.com/asalcedotoca",
     "https://youtube.com/@asalcedotoca",
     "https://tiktok.com/@asalcedotoca"
-  ],
-  "knowsLanguage": ["ca", "en", "es"]
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Adrián Salcedo Toca",
+  "url": "https://adriansalcedo.com",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://adriansalcedo.com/cerca?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
 }
 </script>
 
@@ -85,13 +120,30 @@
 </aside>
 
 <main id="main-content">
+  <noscript>
+    <h2>Adrián Salcedo Toca — Poeta avantguardista</h2>
+    <p>Portfoli oficial d'Adrián Salcedo Toca. Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.</p>
+    <p>Nascut el 1994 i resident al Maresme. Guardonat amb el Premi Marta Pessarrodona de Poesia 2021 i dues vegades finalista del Certamen Salvador Iborra.</p>
+    <h3>Seccions</h3>
+    <ul>
+      <li><a href="/obres">Obres</a></li>
+      <li><a href="/projectes">Projectes</a></li>
+      <li><a href="/festivals">Festivals</a></li>
+      <li><a href="/premis">Premis</a></li>
+      <li><a href="/premsa">Premsa</a></li>
+      <li><a href="/quisoc">Qui soc</a></li>
+      <li><a href="/arxiu">Arxiu</a></li>
+      <li><a href="/cerca">Cerca</a></li>
+    </ul>
+    <p>Contacte: <a href="mailto:contacte@adriansalcedo.com">contacte@adriansalcedo.com</a></p>
+    <p><a href="/sitemap.xml">Sitemap</a></p>
+  </noscript>
 </main>
 
-<script src="https://identity.netlify.com/v1/netlify-identity-widget.js" defer></script>
-<script src="/js/content-loader.js?v=4"></script>
-<script src="/js/renderers.js?v=4"></script>
-<script src="/js/router.js?v=4"></script>
-<script src="/js/search.js?v=4"></script>
-<script src="/js/app.js?v=4"></script>
+<script src="/js/content-loader.js?v=5"></script>
+<script src="/js/renderers.js?v=5"></script>
+<script src="/js/router.js?v=5"></script>
+<script src="/js/search.js?v=5"></script>
+<script src="/js/app.js?v=5"></script>
 </body>
 </html>

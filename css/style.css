@@ -593,41 +593,6 @@ strong {
   margin-bottom: 10px;
 }
 
-.ag0-info p {
-  margin-bottom: 10px;
-}
-
-.ag0-issue {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.45;
-  margin-bottom: 15px;
-}
-
-.ag0-articles {
-  list-style: none;
-  margin-bottom: 15px;
-}
-
-.ag0-articles li {
-  margin-bottom: 8px;
-  padding-left: 15px;
-  position: relative;
-}
-
-.ag0-articles li::before {
-  content: "\00b7";
-  color: var(--red-dot);
-  font-weight: 700;
-  position: absolute;
-  left: 0;
-}
-
-.ag0-articles a {
-  font-size: 13px;
-}
-
 /* ===== CONTACT CTA ===== */
 .contact-cta {
   display: block;
@@ -895,6 +860,46 @@ img[loading="lazy"].loaded {
   opacity: 0.5;
 }
 
+noscript {
+  display: block;
+  padding: 40px 0;
+}
+
+noscript h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+noscript p {
+  font-size: 13px;
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+
+noscript ul {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+noscript ul li {
+  margin-bottom: 8px;
+  padding-left: 15px;
+  position: relative;
+}
+
+noscript ul li::before {
+  content: "\00b7";
+  color: var(--red-dot);
+  font-weight: 700;
+  position: absolute;
+  left: 0;
+}
+
+noscript a {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   #site-logo {
     display: none;
@@ -995,13 +1000,6 @@ img[loading="lazy"].loaded {
 
   .socials {
     margin: 0;
-  }
-
-  main {
-    margin-left: 0;
-    margin-right: 0;
-    width: 100%;
-    padding: 20px 24px;
   }
 
   .image-pair {

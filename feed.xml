@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Adrián Salcedo Toca</title>
+    <link>https://adriansalcedo.com</link>
+    <description>Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.</description>
+    <language>ca</language>
+    <copyright>Adrián Salcedo Toca // © 2026</copyright>
+    <lastBuildDate>Tue, 22 Jul 2026 00:00:00 +0200</lastBuildDate>
+    <atom:link href="https://adriansalcedo.com/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>CRIT — Debut editorial</title>
+      <link>https://adriansalcedo.com/obres/obra-crit</link>
+      <description>Debut editorial amb Pont del Petroli Edicions. Finalista del VII Certamen Art Jove de Poesia Salvador Iborra.</description>
+      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-crit</guid>
+    </item>
+    <item>
+      <title>Revista Barretdefum 11</title>
+      <link>https://adriansalcedo.com/obres/obra-barretdefum</link>
+      <description>Participació en la revista de poesia visual de Pont del Petroli Edicions amb un díptic cal·ligramàtic.</description>
+      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-barretdefum</guid>
+    </item>
+    <item>
+      <title>Revista Caldesa nº 7</title>
+      <link>https://adriansalcedo.com/obres/obra-caldesa</link>
+      <description>Col·laboració poètica en el setè volum d'aquesta publicació independent.</description>
+      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-caldesa</guid>
+    </item>
+    <item>
+      <title>POEMOT — Poema de 10 metres</title>
+      <link>https://adriansalcedo.com/obres/obra-poemot</link>
+      <description>Poema de 10 metres. Fusió de text surrealista, collage i gravat.</description>
+      <pubDate>Fri, 01 Jan 2024 00:00:00 +0100</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-poemot</guid>
+    </item>
+  </channel>
+</rss>

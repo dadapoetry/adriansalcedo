@@ -8,7 +8,7 @@ const Renderers = {
 
   socialLinks(data) {
     return Object.values(data.social).map(s =>
-      `<a href="${s.url}" target="_blank" rel="noopener noreferrer"><i class="${s.icon}"></i></a>`
+      `<a href="${s.url}" target="_blank" rel="noopener noreferrer me"><i class="${s.icon}"></i></a>`
     ).join('\n');
   },
 
