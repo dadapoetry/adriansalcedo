@@ -106,7 +106,6 @@ function buildPage(m) {
   return html;
 }
 
-const redirects = [];
 let count = 0;
 
 function writePage(urlPath, html) {
@@ -116,8 +115,6 @@ function writePage(urlPath, html) {
     : path.join(ROOT, urlPath.slice(1) + '.html');
   fs.mkdirSync(path.dirname(filePath), { recursive: true });
   fs.writeFileSync(filePath, html, 'utf8');
-  const redirectTarget = isHome ? urlPath + 'index.html' : urlPath + '.html';
-  redirects.push(`${urlPath}  ${redirectTarget}  200`);
   count++;
 }
 
@@ -156,10 +153,5 @@ for (const [section, cfg] of Object.entries(SECTIONS)) {
   }
 }
 
-redirects.push('/admin/*    /admin/index.html    200');
-redirects.push('/*    /index.html    200');
-
-fs.writeFileSync(path.join(ROOT, '_redirects'), redirects.join('\n') + '\n', 'utf8');
-
 console.log(`[build-seo] ${count} HTML files generated`);
-console.log(`[build-seo] _redirects: ${redirects.length} rules`);
+console.log(`[build-seo] Redirects handled by netlify.toml [[redirects]]`);

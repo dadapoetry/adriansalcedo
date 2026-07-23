@@ -52,4 +52,59 @@
     Cache-Control = "no-cache"
     X-Frame-Options = "SAMEORIGIN"
 
+# Pre-rendered article pages (wildcard rules per section)
+[[redirects]]
+  from = "/obres/:slug"
+  to = "/obres/:slug.html"
+  status = 200
 
+[[redirects]]
+  from = "/en/obres/:slug"
+  to = "/en/obres/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/projectes/:slug"
+  to = "/projectes/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/projectes/:slug"
+  to = "/en/projectes/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/festivals/:slug"
+  to = "/festivals/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/festivals/:slug"
+  to = "/en/festivals/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/premis/:slug"
+  to = "/premis/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/premis/:slug"
+  to = "/en/premis/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/premsa/:slug"
+  to = "/premsa/:slug.html"
+  status = 200
+
+[[redirects]]
+  from = "/en/premsa/:slug"
+  to = "/en/premsa/:slug.html"
+  status = 200
+
+# SPA fallback (must be last)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
