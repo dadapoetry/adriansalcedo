@@ -1,6 +1,6 @@
 [build]
   publish = "."
-  command = "node scripts/build-seo.js"
+  command = "npm run build:seo"
 
 [build.processing]
   skip_processing = false

@@ -1,0 +1,7 @@
+{
+  "name": "adriansalcedo",
+  "private": true,
+  "scripts": {
+    "build:seo": "node scripts/build-seo.js"
+  }
+}
