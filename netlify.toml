@@ -1,5 +1,6 @@
 [build]
   publish = "."
+  command = "node scripts/build-seo.js"
 
 [build.processing]
   skip_processing = false
@@ -52,6 +53,4 @@
     Cache-Control = "no-cache"
     X-Frame-Options = "SAMEORIGIN"
 
-[[edge_functions]]
-  path = "/*"
-  function = "seo"
+
