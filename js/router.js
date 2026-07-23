@@ -103,7 +103,8 @@ const App = {
       : 'Portfoli digital d\'Adrián Salcedo Toca, poeta avantguardista i crític cultural.';
 
     if (article) {
-      pageTitle = `${article.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())} | Adrián Salcedo Toca`;
+      const fallbackTitle = article.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+      pageTitle = `${fallbackTitle} | Adrián Salcedo Toca`;
     } else if (this.sectionTitles[section]) {
       pageTitle = `${this.sectionTitles[section][this.lang]} | Adrián Salcedo Toca`;
       pageDesc = this.lang === 'en'
@@ -111,8 +112,44 @@ const App = {
         : `Explora la secció de ${this.sectionTitles[section].ca.toLowerCase()} d'Adrián Salcedo Toca.`;
     }
 
-    document.title = pageTitle;
+    this._applyMetaTags(pageTitle, pageDesc, section, article);
+  },
 
+  updateArticleSEO(item, section) {
+    if (!item) return;
+    const isEn = this.lang === 'en';
+    const seo = item.seo || {};
+
+    let seoTitle = isEn ? (seo.title_en || seo.title) : seo.title;
+    let seoDesc = isEn ? (seo.description_en || seo.description) : seo.description;
+
+    if (seoTitle) {
+      seoTitle = seoTitle + ' | Adrián Salcedo Toca';
+    } else {
+      const rawTitle = isEn ? (item.title_en || item.title) : item.title;
+      seoTitle = rawTitle ? rawTitle + ' | Adrián Salcedo Toca' : null;
+    }
+
+    if (!seoDesc) {
+      const raw = isEn ? (item.content_en || item.content) : item.content;
+      if (raw) {
+        const stripped = (Array.isArray(raw) ? raw.join(' ') : raw).replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+        seoDesc = stripped.slice(0, 300) || null;
+      }
+    }
+
+    if (seoTitle || seoDesc) {
+      const currentTitle = seoTitle || document.title;
+      const currentDesc = seoDesc || '';
+      this._applyMetaTags(currentTitle, currentDesc, section, item.id || true);
+    }
+  },
+
+  _applyMetaTags(pageTitle, pageDesc, section, article) {
+    const baseUrl = 'https://adriansalcedo.com';
+    const cleanUrl = window.location.pathname;
+
+    document.title = pageTitle;
     document.documentElement.lang = this.lang === 'en' ? 'en' : 'ca';
 
     const canonical = `${baseUrl}${cleanUrl}`;
@@ -284,7 +321,7 @@ const App = {
       listLayer.innerHTML = '<p style="opacity:0.3;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;animation:pulse 1.2s ease-in-out infinite;">carregant...</p>';
     }
 
-    await this.loadContent(section, sectionEl);
+    await this.loadContent(section, sectionEl, article);
 
     sectionEl.style.display = 'block';
     sectionEl.classList.add('active');
@@ -318,7 +355,7 @@ const App = {
     }
   },
 
-  async loadContent(section, sectionEl) {
+  async loadContent(section, sectionEl, article) {
     const listLayer = sectionEl.querySelector('.list-layer');
     if (!listLayer) return;
 
@@ -383,6 +420,10 @@ const App = {
           ${p.image ? `<img src="${p.image}" style="max-width: ${p.imageWidth || '50%'}; height: auto; margin: 15px 0;" alt="${p.imageAlt || ''}" loading="lazy" />` : ''}
           ${Renderers.paragraphs(content)}`;
       });
+      if (article) {
+        const match = data.projects.find(p => p.id === article);
+        if (match) this.updateArticleSEO(match, section);
+      }
     } else if (section === 'obres' && data.works) {
       listLayer.innerHTML = `<h2>${isEn ? 'Works' : 'Obres'}</h2>
         <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="${prefix}/obres/${w.id}">${w.title}</a></li>`).join('')}</ul>`;
@@ -400,6 +441,10 @@ const App = {
           ${Renderers.images(w.images, this.lang)}
           ${Renderers.videos(w.videos, this.lang)}`;
       });
+      if (article) {
+        const match = data.works.find(w => w.id === article);
+        if (match) this.updateArticleSEO(match, section);
+      }
     } else if (section === 'festivals' && data.festivals) {
       const sectionTitle = isEn ? (data.title_en || data.title || 'Festivals') : (data.title || 'Festivals');
       listLayer.innerHTML = `<h2>${sectionTitle}</h2>
@@ -420,6 +465,10 @@ const App = {
           ${Renderers.images(f.images, this.lang)}
           ${Renderers.videos(f.videos, this.lang)}`;
       });
+      if (article) {
+        const match = data.festivals.find(f => f.id === article);
+        if (match) this.updateArticleSEO(match, section);
+      }
     } else if (section === 'premis' && data.awards) {
       listLayer.innerHTML = `<h2>${isEn ? 'Awards' : 'Premis'}</h2>
         <ul class="item-list">${data.awards.map(a => `<li><a class="item-link" href="${prefix}/premis/${a.id}">${isEn ? (a.title_en || a.title) : a.title}</a></li>`).join('')}</ul>`;
@@ -438,6 +487,10 @@ const App = {
           ${Renderers.images(a.images, this.lang)}
           ${Renderers.videos(a.videos, this.lang)}`;
       });
+      if (article) {
+        const match = data.awards.find(a => a.id === article);
+        if (match) this.updateArticleSEO(match, section);
+      }
     } else if (section === 'premsa') {
       listLayer.innerHTML = `<h2>${isEn ? (data.title_en || data.title) : data.title}</h2>
         ${data.articles ? Renderers.pressItems(data.articles, isEn) : ''}`;

@@ -174,6 +174,15 @@ collections:
               - { label: "Estat", name: "status", widget: "select", options: ["active", "inactive", "archived"], required: false }
               - { label: "Contingut (CA)", name: "content", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
               - { label: "Content (EN)", name: "content_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+              - label: "SEO"
+                name: "seo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Títol SEO (CA)", name: "title", widget: "string", required: false }
+                  - { label: "SEO title (EN)", name: "title_en", widget: "string", required: false }
+                  - { label: "Descripció SEO (CA)", name: "description", widget: "text", required: false }
+                  - { label: "SEO description (EN)", name: "description_en", widget: "text", required: false }
 
   - name: "festivals"
     label: "Festivals i actuacions"
@@ -215,7 +224,16 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol (CA)", name: "title", widget: "string" }
-                  - { label: "Title (EN)", name: "title_en", widget: "string" }
+                   - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - label: "SEO"
+                name: "seo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Títol SEO (CA)", name: "title", widget: "string", required: false }
+                  - { label: "SEO title (EN)", name: "title_en", widget: "string", required: false }
+                  - { label: "Descripció SEO (CA)", name: "description", widget: "text", required: false }
+                  - { label: "SEO description (EN)", name: "description_en", widget: "text", required: false }
 
   - name: "obres"
     label: "Obres"
@@ -250,6 +268,15 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
+              - label: "SEO"
+                name: "seo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Títol SEO (CA)", name: "title", widget: "string", required: false }
+                  - { label: "SEO title (EN)", name: "title_en", widget: "string", required: false }
+                  - { label: "Descripció SEO (CA)", name: "description", widget: "text", required: false }
+                  - { label: "SEO description (EN)", name: "description_en", widget: "text", required: false }
 
   - name: "premis"
     label: "Premis"
@@ -283,7 +310,16 @@ collections:
                 required: false
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
-                  - { label: "Títol", name: "title", widget: "string" }
+                   - { label: "Títol", name: "title", widget: "string" }
+              - label: "SEO"
+                name: "seo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Títol SEO (CA)", name: "title", widget: "string", required: false }
+                  - { label: "SEO title (EN)", name: "title_en", widget: "string", required: false }
+                  - { label: "Descripció SEO (CA)", name: "description", widget: "text", required: false }
+                  - { label: "SEO description (EN)", name: "description_en", widget: "text", required: false }
 
   - name: "quisoc"
     label: "Qui soc"
@@ -340,6 +376,15 @@ collections:
               - { label: "URL", name: "url", widget: "string", required: false }
               - { label: "Idioma", name: "language", widget: "select", options: ["ca", "en", "es"] }
               - { label: "Tipus", name: "type", widget: "select", options: ["interview", "article", "review", "feature"] }
+              - label: "SEO"
+                name: "seo"
+                widget: "object"
+                required: false
+                fields:
+                  - { label: "Títol SEO (CA)", name: "title", widget: "string", required: false }
+                  - { label: "SEO title (EN)", name: "title_en", widget: "string", required: false }
+                  - { label: "Descripció SEO (CA)", name: "description", widget: "text", required: false }
+                  - { label: "SEO description (EN)", name: "description_en", widget: "text", required: false }
 
   - name: "arxiu"
     label: "Arxiu"

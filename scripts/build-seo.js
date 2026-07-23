@@ -39,13 +39,22 @@ function meta(desc, lang, section, article) {
 
   if (seo.item) {
     const item = seo.item;
+    const itemSeo = item.seo || {};
     const t = isEn ? (item.title_en || item.title) : item.title;
     const raw = isEn ? (item.content_en || item.content) : item.content;
-    title = t + ' | Adrián Salcedo Toca';
-    const desc = stripHtml(Array.isArray(raw) ? raw.join(' ') : raw).slice(0, 300);
-    description = desc || (item.publication
-      ? (isEn ? 'Article by Adrián Salcedo Toca.' : "Article d'Adrián Salcedo Toca.")
-      : (isEn ? 'Avant-garde poetry by Adrián Salcedo Toca.' : "Poesia avantguardista d'Adrián Salcedo Toca."));
+
+    const seoTitle = isEn ? (itemSeo.title_en || itemSeo.title) : itemSeo.title;
+    title = seoTitle ? seoTitle + ' | Adrián Salcedo Toca' : t + ' | Adrián Salcedo Toca';
+
+    const seoDesc = isEn ? (itemSeo.description_en || itemSeo.description) : itemSeo.description;
+    if (seoDesc) {
+      description = seoDesc;
+    } else {
+      const contentDesc = stripHtml(Array.isArray(raw) ? raw.join(' ') : raw).slice(0, 300);
+      description = contentDesc || (item.publication
+        ? (isEn ? 'Article by Adrián Salcedo Toca.' : "Article d'Adrián Salcedo Toca.")
+        : (isEn ? 'Avant-garde poetry by Adrián Salcedo Toca.' : "Poesia avantguardista d'Adrián Salcedo Toca."));
+    }
     ogType = 'article';
     if (item.images && item.images[0] && item.images[0].src) {
       image = item.images[0].src.startsWith('http') ? item.images[0].src : BASE + item.images[0].src;
