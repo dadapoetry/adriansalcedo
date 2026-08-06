@@ -3,6 +3,14 @@
   "title_en": "Press",
   "articles": [
     {
+      "date": "2026-07-31",
+      "id": "caracters",
+      "publication": "Revista Caràcters. Universitat de València",
+      "title": "El son porpra i el cant dels alats. Sobre “Crit”, d’Adrián Salcedo Toca",
+      "language": "ca",
+      "type": "review"
+    },
+    {
       "date": "2026-02-04",
       "id": "garraf",
       "publication": "Tot ho sap",
@@ -21,15 +29,6 @@
       "type": "interview"
     },
     {
-      "date": "2025-12-04",
-      "id": "press-4",
-      "publication": "TV MATARÓ",
-      "title": "Adrián Salcedo publica el poemari ‘CRIT’, el seu primer llibre",
-      "url": "https://www.tvmataro.cat/cultura/adrian-salcedo-publica-el-poemari-crit-el-seu-primer-llibre",
-      "language": "ca",
-      "type": "interview"
-    },
-    {
       "id": "press-1",
       "date": "2025-11-10",
       "publication": "Barcelona Ciutat de Literatura - UNESCO",
@@ -44,6 +43,15 @@
       "publication": "3 Viles Mèdia",
       "title": "Entrevista al poeta Adrián Salcedo",
       "url": "https://www.youtube.com/watch?v=u-EEqCWD1o4&t=332s",
+      "language": "ca",
+      "type": "interview"
+    },
+    {
+      "date": "2025-12-04",
+      "id": "press-4",
+      "publication": "TV MATARÓ",
+      "title": "Adrián Salcedo publica el poemari ‘CRIT’, el seu primer llibre",
+      "url": "https://www.tvmataro.cat/cultura/adrian-salcedo-publica-el-poemari-crit-el-seu-primer-llibre",
       "language": "ca",
       "type": "interview"
     },
