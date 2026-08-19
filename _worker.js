@@ -170,7 +170,7 @@ export default {
 
     if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
 
-    if (path.startsWith("/admin")) {
+    if (path === "/admin" || path === "/admin/" || path === "/admin/index.html") {
       return env.ASSETS.fetch(new Request(new URL("/admin/index.html", url)));
     }
 
