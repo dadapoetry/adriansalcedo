@@ -26,6 +26,8 @@
     "instagram": { "url": "https://instagram.com/asalcedotoca", "icon": "fab fa-instagram", "label": "Instagram" },
     "twitter": { "url": "https://twitter.com/asalcedotoca", "icon": "fab fa-twitter", "label": "Twitter" },
     "youtube": { "url": "https://youtube.com/@asalcedotoca", "icon": "fab fa-youtube", "label": "YouTube" },
-    "tiktok": { "url": "https://tiktok.com/@asalcedotoca", "icon": "fab fa-tiktok", "label": "TikTok" }
+    "tiktok": { "url": "https://tiktok.com/@asalcedotoca", "icon": "fab fa-tiktok", "label": "TikTok" },
+    "goodreads": { "url": "https://goodreads.com/asalcedotoca", "icon": "fa-solid fa-book", "label": "Goodreads" },
+    "wikidata": { "url": "https://www.wikidata.org/wiki/Q138498786", "icon": "fab fa-wikipedia-w", "label": "Wikidata" }
   }
 }

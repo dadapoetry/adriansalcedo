@@ -79,6 +79,14 @@ const Renderers = {
     return `<ul class="item-list">${items.map(i => `<li>${i}</li>`).join('')}</ul>`;
   },
 
+  links(links, lang) {
+    if (!links || !links.length) return '';
+    const isEn = lang === 'en';
+    return `<div class="item-links" style="margin: 20px 0;">${links.map(l =>
+      `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>`
+    ).join(' \u00B7 ')}</div>`;
+  },
+
   timeline(events, lang) {
     if (!events || !events.length) return '';
     const isEn = lang === 'en';

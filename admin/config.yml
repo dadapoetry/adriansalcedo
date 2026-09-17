@@ -80,6 +80,20 @@ collections:
                   - { label: "URL", name: "url", widget: "string", required: false }
                   - { label: "Etiqueta", name: "label", widget: "string", required: false }
                   - { label: "Icona", name: "icon", widget: "string", required: false }
+              - label: "Goodreads"
+                name: "goodreads"
+                widget: "object"
+                fields:
+                  - { label: "URL", name: "url", widget: "string", required: false }
+                  - { label: "Etiqueta", name: "label", widget: "string", required: false }
+                  - { label: "Icona", name: "icon", widget: "string", required: false }
+              - label: "Wikidata"
+                name: "wikidata"
+                widget: "object"
+                fields:
+                  - { label: "URL", name: "url", widget: "string", required: false }
+                  - { label: "Etiqueta", name: "label", widget: "string", required: false }
+                  - { label: "Icona", name: "icon", widget: "string", required: false }
 
   - name: "inici"
     label: "Inici (Home)"
@@ -268,6 +282,14 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
+              - label: "Enllaços externs"
+                name: "links"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Etiqueta (CA)", name: "label", widget: "string" }
+                  - { label: "Label (EN)", name: "label_en", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
               - label: "SEO"
                 name: "seo"
                 widget: "object"
