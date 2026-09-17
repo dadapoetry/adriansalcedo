@@ -438,6 +438,7 @@ const App = {
         existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${w.title}</h3>
           ${Renderers.paragraphs(isEn ? (w.content_en || w.content) : w.content)}
+          ${Renderers.buyLinks(w.buyLinks, this.lang)}
           ${Renderers.links(w.links, this.lang)}
           ${Renderers.images(w.images, this.lang)}
           ${Renderers.videos(w.videos, this.lang)}`;

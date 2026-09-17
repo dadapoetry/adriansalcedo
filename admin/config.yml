@@ -290,6 +290,14 @@ collections:
                   - { label: "Etiqueta (CA)", name: "label", widget: "string" }
                   - { label: "Label (EN)", name: "label_en", widget: "string", required: false }
                   - { label: "URL", name: "url", widget: "string" }
+              - label: "Llibreries en línia (On comprar-lo)"
+                name: "buyLinks"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Llibreria (CA)", name: "label", widget: "string" }
+                  - { label: "Bookstore (EN)", name: "label_en", widget: "string", required: false }
+                  - { label: "URL", name: "url", widget: "string" }
               - label: "SEO"
                 name: "seo"
                 widget: "object"

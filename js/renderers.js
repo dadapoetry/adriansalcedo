@@ -87,6 +87,18 @@ const Renderers = {
     ).join(' \u00B7 ')}</div>`;
   },
 
+  buyLinks(list, lang) {
+    if (!list || !list.length) return '';
+    const isEn = lang === 'en';
+    return `<div class="buy-links" style="margin: 25px 0;">
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${isEn ? 'Where to buy' : 'On comprar-lo'}</h4>
+      ${list.map(l => `
+        <p style="margin: 6px 0;">
+          <a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>
+        </p>`).join('')}
+    </div>`;
+  },
+
   timeline(events, lang) {
     if (!events || !events.length) return '';
     const isEn = lang === 'en';
