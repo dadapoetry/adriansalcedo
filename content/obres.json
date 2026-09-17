@@ -1,12 +1,14 @@
 {
   "works": [
     {
+      "image_position": "top",
       "content_en": [
         "<strong>CRIT</strong> is Adrián Salcedo Toca's debut book, published by <strong>Pont del Petroli Edicions</strong> in late 2025.",
         "The book was shortlisted in the seventh edition of the Salvador Iborra Young Poetry Award, organized by the Association of Catalan Language Writers (AELC).",
         "<strong>CRIT</strong> is built as an architecture that is at once hermetic and intimate, elevated and incandescent, political and deeply personal. Through a succession of surrealist images, the multiplicity of cries becomes both the poem's guiding thread and a strategy for unsettling the reader, who has grown accustomed to finding emotional resolution at the end of every poem.",
         "The volume features a foreword by the poet <strong>Meritxell Cucurella-Jorba</strong> and concludes with an afterword by fellow poet <strong>Raquel Casas Agustí</strong>."
       ],
+      "videos_position": "middle",
       "buyLinks": [
         {
           "label": "Dòria Llibres",
@@ -67,8 +69,6 @@
       ],
       "type": "publication",
       "id": "obra-crit",
-      "image_position": "middle",
-      "videos_position": "middle",
       "year": 2025,
       "seo": {
         "title": "Crit (ISBN: 979-13-990643-5-3)",
