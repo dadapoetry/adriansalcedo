@@ -31,6 +31,11 @@
           "label": "Goodreads",
           "label_en": "Goodreads",
           "url": "https://www.goodreads.com/book/show/245131158-crit"
+        },
+        {
+          "label": "Compra'l ara",
+          "label_en": "Buy now",
+          "url": "https://www.doriallibres.com/products/173731-crit.html"
         }
       ],
       "type": "publication",
