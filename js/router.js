@@ -440,10 +440,12 @@ const App = {
           ${w.image_position === 'top' ? Renderers.images(w.images, this.lang) : ''}
           ${w.videos_position === 'top' ? Renderers.videos(w.videos, this.lang) : ''}
           ${Renderers.paragraphs(isEn ? (w.content_en || w.content) : w.content)}
+          ${w.image_position === 'middle' ? Renderers.images(w.images, this.lang) : ''}
+          ${w.videos_position === 'middle' ? Renderers.videos(w.videos, this.lang) : ''}
           ${Renderers.buyLinks(w.buyLinks, this.lang)}
           ${Renderers.links(w.links, this.lang)}
-          ${w.image_position !== 'top' ? Renderers.images(w.images, this.lang) : ''}
-          ${w.videos_position !== 'top' ? Renderers.videos(w.videos, this.lang) : ''}`;
+          ${w.image_position !== 'top' && w.image_position !== 'middle' ? Renderers.images(w.images, this.lang) : ''}
+          ${w.videos_position !== 'top' && w.videos_position !== 'middle' ? Renderers.videos(w.videos, this.lang) : ''}`;
       });
       if (article) {
         const match = data.works.find(w => w.id === article);

@@ -67,6 +67,8 @@
       ],
       "type": "publication",
       "id": "obra-crit",
+      "image_position": "middle",
+      "videos_position": "middle",
       "year": 2025,
       "seo": {
         "title": "Crit (ISBN: 979-13-990643-5-3)",
