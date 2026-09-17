@@ -82,9 +82,12 @@ const Renderers = {
   links(links, lang) {
     if (!links || !links.length) return '';
     const isEn = lang === 'en';
-    return `<div class="item-links" style="margin: 20px 0;">${links.map(l =>
-      `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>`
-    ).join(' \u00B7 ')}</div>`;
+    return `<div class="item-links" style="margin: 25px 0;">
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${isEn ? 'Read more' : 'Llegeix-ne més'}</h4>
+      ${links.map(l =>
+        `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>`
+      ).join(' \u00B7 ')}
+    </div>`;
   },
 
   buyLinks(list, lang) {

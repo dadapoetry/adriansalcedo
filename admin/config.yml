@@ -282,7 +282,7 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
-              - label: "Enllaços externs"
+              - label: "Llegeix-ne més"
                 name: "links"
                 widget: "list"
                 required: false
