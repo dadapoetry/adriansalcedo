@@ -298,6 +298,8 @@ collections:
                   - { label: "Llibreria (CA)", name: "label", widget: "string" }
                   - { label: "Bookstore (EN)", name: "label_en", widget: "string", required: false }
                   - { label: "URL", name: "url", widget: "string" }
+              - { label: "Posició de la imatge", name: "image_position", widget: "select", options: ["bottom", "top"], default: "bottom", required: false }
+              - { label: "Posició dels vídeos", name: "videos_position", widget: "select", options: ["bottom", "top"], default: "bottom", required: false }
               - label: "SEO"
                 name: "seo"
                 widget: "object"

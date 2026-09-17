@@ -437,11 +437,13 @@ const App = {
         }
         existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${w.title}</h3>
+          ${w.image_position === 'top' ? Renderers.images(w.images, this.lang) : ''}
+          ${w.videos_position === 'top' ? Renderers.videos(w.videos, this.lang) : ''}
           ${Renderers.paragraphs(isEn ? (w.content_en || w.content) : w.content)}
           ${Renderers.buyLinks(w.buyLinks, this.lang)}
           ${Renderers.links(w.links, this.lang)}
-          ${Renderers.images(w.images, this.lang)}
-          ${Renderers.videos(w.videos, this.lang)}`;
+          ${w.image_position !== 'top' ? Renderers.images(w.images, this.lang) : ''}
+          ${w.videos_position !== 'top' ? Renderers.videos(w.videos, this.lang) : ''}`;
       });
       if (article) {
         const match = data.works.find(w => w.id === article);
