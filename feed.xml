@@ -6,35 +6,105 @@
     <description>Poesia avantguardista, videopoesia, crònica cultural i projectes editorials.</description>
     <language>ca</language>
     <copyright>Adrián Salcedo Toca // © 2026</copyright>
-    <lastBuildDate>Tue, 22 Jul 2026 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 13:23:53 GMT</lastBuildDate>
     <atom:link href="https://adriansalcedo.com/feed.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>CRIT — Debut editorial</title>
+      <title>Elquenòvol.cat</title>
+      <link>https://adriansalcedo.com/obres/obra-elquenovol</link>
+      <description>Interfície digital i projecte de data poetry vinculat als mètodes de l'Oulipo. L'arquitectura del web es regeix per una base de dades viva que canvia en bucle l'ordre dels versos en temps real per esquivar les dinàmiques de retenció algorítmica.</description>
+      <pubDate>Thu, 31 Dec 2026 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-elquenovol</guid>
+    </item>
+    <item>
+      <title>Crit (ISBN: 979-13-990643-5-3)</title>
       <link>https://adriansalcedo.com/obres/obra-crit</link>
-      <description>Debut editorial amb Pont del Petroli Edicions. Finalista del VII Certamen Art Jove de Poesia Salvador Iborra.</description>
-      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <description>CRIT és el debut editorial d'Adrián Salcedo Toca, publicat per Pont del Petroli Edicions a finals de l'any 2025. El llibre va ser seleccionat com a obra finalista de la VII edició del Certamen Art Jove de Poesia Salvador Iborra, impulsat per l'Associació d'Escriptors en Llengua Catalana (AELC). Crit es construeix com una arquitectura hermètica i alhora propera, elevada i ardent, política i íntima.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
       <guid>https://adriansalcedo.com/obres/obra-crit</guid>
     </item>
     <item>
       <title>Revista Barretdefum 11</title>
       <link>https://adriansalcedo.com/obres/obra-barretdefum</link>
-      <description>Participació en la revista de poesia visual de Pont del Petroli Edicions amb un díptic cal·ligramàtic.</description>
-      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <description>Participació en la revista de poesia visual de Pont del Petroli Edicions amb un díptic cal·ligramàtic. L'obra connecta l'avantguarda artística amb conceptes de la física quàntica mitjançant una relectura de l'últim manifest futurista de Joan Salvat-Papasseit.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
       <guid>https://adriansalcedo.com/obres/obra-barretdefum</guid>
     </item>
     <item>
       <title>Revista Caldesa nº 7</title>
       <link>https://adriansalcedo.com/obres/obra-caldesa</link>
-      <description>Col·laboració poètica en el setè volum d'aquesta publicació independent.</description>
-      <pubDate>Fri, 01 Jan 2025 00:00:00 +0100</pubDate>
+      <description>Col·laboració poètica en el setè volum d'aquesta publicació independent. L'edició està centrada monogràficament en la temàtica de l'alcohol i acull un cal·ligrama d'arrel apollineriana.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
       <guid>https://adriansalcedo.com/obres/obra-caldesa</guid>
     </item>
     <item>
-      <title>POEMOT — Poema de 10 metres</title>
+      <title>Vídeopoema &quot;Silenci&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp1</link>
+      <description></description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp1</guid>
+    </item>
+    <item>
+      <title>Vídeopoema &quot;Bressol d'estiu&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp2</link>
+      <description>Obra seleccionada i projectada internacionalment al Festival NUDO de videopoesia (seus de Barcelona i Gran Canaria). Projecte de creació independent realitzat sota la direcció, interpretació, text, espai sonor i muntatge complet de l'autor.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp2</guid>
+    </item>
+    <item>
+      <title>Vídeopoema &quot;Doble veu&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp3</link>
+      <description>Peça d'experimentació sonora que va formar part de la programació oficial del Festival NUDO. L'estructura rítmica i el text es modulen completament en directe mitjançant una estació de looping BOSS RC-505 MKI.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp3</guid>
+    </item>
+    <item>
+      <title>Antologia Bastarda</title>
+      <link>https://adriansalcedo.com/obres/obra-antologia</link>
+      <description>L'Antologia Bastarda (@asalcedotoca) és un projecte que trasllada l'estil de la literatura nativa d'Instagram al llibre i viceversa. La segona edició amplia la proposta com un nou gir sobre els límits de la poesia digital i els codis clàssics del gènere.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-antologia</guid>
+    </item>
+    <item>
+      <title>Vídeopoema amb IA &quot;Alguns cercles&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp4</link>
+      <description>Col·laboració amb la poeta Laia M. Llobera. Primer vídeopoema en català fent servir tècniques de creació audiovisual amb IA.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp4</guid>
+    </item>
+    <item>
+      <title>Vídeopoema &quot;Fragments de suïcidi&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp6</link>
+      <description>Peça projectada al Festival NUDO que s'estableix com un punt d'inflexió formal en la trajectòria de l'autor. El dispositiu audiovisual aborda la noció de l'existència i el suïcidi com un eix crític que fractura els discursos actuals.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp6</guid>
+    </item>
+    <item>
+      <title>Vídeopoema &quot;Camps d'anti-refugi&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp7</link>
+      <description>Projecte audiovisual de marcada dimensió poètica i política. Denúncia gairebé formal de la tendència literària al refugi, la sanació i l'autoajuda.</description>
+      <pubDate>Wed, 31 Dec 2025 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp7</guid>
+    </item>
+    <item>
+      <title>POEMOT (Poema de 10 metres)</title>
       <link>https://adriansalcedo.com/obres/obra-poemot</link>
-      <description>Poema de 10 metres. Fusió de text surrealista, collage i gravat.</description>
-      <pubDate>Fri, 01 Jan 2024 00:00:00 +0100</pubDate>
+      <description>Peça poètica de gran format executada sobre un rotlle de deu metres de paper, exposada a la Biblioteca de Vilassar de Mar i el Museu de Sant Pol de Mar. L'obra utilitza el concepte de dazibao xinès com a eina d'ocupació mitjançant la fusió de text surrealista, teatre brechtià, collage i gravat.</description>
+      <pubDate>Sat, 31 Dec 2022 12:00:00 GMT</pubDate>
       <guid>https://adriansalcedo.com/obres/obra-poemot</guid>
+    </item>
+    <item>
+      <title>Vídeopoema &quot;L'aigua és un joc&quot;</title>
+      <link>https://adriansalcedo.com/obres/obra-vp5</link>
+      <description>Peça audiovisual de poesia guanyadora del Premi de Poesia Marta Pessarrodona de 2021. Obra realitzada amb el dispositiu magnètic Playtronica, el qual emet sons cada vegada que el circuit magnètic es tanca. En aquest cas, sota l'aigua d'un got.</description>
+      <pubDate>Fri, 31 Dec 2021 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-vp5</guid>
+    </item>
+    <item>
+      <title>Quaderns d'hiperpoesia</title>
+      <link>https://adriansalcedo.com/obres/obra-quaderns</link>
+      <description>Sèrie de plaquettes experimentals publicades per Edicions del Perdedor i Edicions de la subversió subversiva que inclou els títols &quot;Superpòsit&quot; (2021) i &quot;Vós és teu Carrer Gant tot!&quot;. Propostes crues centrades en la poesia visual, el collage i la ruptura de la sintaxi.</description>
+      <pubDate>Fri, 31 Dec 2021 12:00:00 GMT</pubDate>
+      <guid>https://adriansalcedo.com/obres/obra-quaderns</guid>
     </item>
   </channel>
 </rss>
