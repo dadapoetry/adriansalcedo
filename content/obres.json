@@ -7,6 +7,33 @@
         "<strong>CRIT</strong> is built as an architecture that is at once hermetic and intimate, elevated and incandescent, political and deeply personal. Through a succession of surrealist images, the multiplicity of cries becomes both the poem's guiding thread and a strategy for unsettling the reader, who has grown accustomed to finding emotional resolution at the end of every poem.",
         "The volume features a foreword by the poet <strong>Meritxell Cucurella-Jorba</strong> and concludes with an afterword by fellow poet <strong>Raquel Casas Agustí</strong>."
       ],
+      "buyLinks": [
+        {
+          "label": "Dòria Llibres",
+          "label_en": "Dòria Llibres",
+          "url": "https://www.doriallibres.com/products/173731-crit.html"
+        },
+        {
+          "label": "Llibreria Calders",
+          "label_en": "Llibreria Calders",
+          "url": "https://www.llibreriacalders.com/products/56033-crit.html"
+        },
+        {
+          "label": "Llibreria Carrer Major",
+          "label_en": "Llibreria Carrer Major",
+          "url": "https://www.llibreriacarrermajor.cat/cat/libro/crit_292482"
+        },
+        {
+          "label": "Llibreria No Llegiu",
+          "label_en": "Llibreria No Llegiu",
+          "url": "https://www.nollegiu.com/es/libro/crit_112496"
+        },
+        {
+          "label": "Llibres.cat",
+          "label_en": "Llibres.cat",
+          "url": "https://www.llibres.cat/products/571400-crit.html"
+        }
+      ],
       "title": "Crit (ISBN: 979-13-990643-5-3)",
       "images": [
         {
@@ -33,7 +60,6 @@
           "url": "https://www.goodreads.com/book/show/245131158-crit"
         }
       ],
-      "buyLinks": [],
       "type": "publication",
       "id": "obra-crit",
       "year": 2025,
