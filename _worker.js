@@ -170,10 +170,13 @@ export default {
 
     if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
 
-    if (path !== "/" && path.endsWith("/") && !path.startsWith("/admin")) {
-      const dest = new URL(path.replace(/\/+$/, ""), url);
-      dest.search = url.search;
-      return Response.redirect(dest, 301);
+    if (path !== "/" && !path.startsWith("/admin")) {
+      const clean = path.replace(/\/+$/, "").replace(/(\/index)?\.html$/i, "");
+      if (clean !== path) {
+        const dest = new URL(clean === "" ? "/" : clean, url);
+        dest.search = url.search;
+        return Response.redirect(dest, 301);
+      }
     }
 
     if (path === "/admin" || path === "/admin/index.html") {
