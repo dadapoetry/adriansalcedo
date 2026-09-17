@@ -58,12 +58,15 @@
           "label": "Goodreads",
           "label_en": "Goodreads",
           "url": "https://www.goodreads.com/book/show/245131158-crit"
+        },
+        {
+          "label": "Caràcters (Universitat de València)",
+          "label_en": "Caràcters (Universitat de València)",
+          "url": "https://divulgacionturia.uv.es/index.php/caracters/article/view/1029/674"
         }
       ],
       "type": "publication",
       "id": "obra-crit",
-      "image_position": "top",
-      "videos_position": "top",
       "year": 2025,
       "seo": {
         "title": "Crit (ISBN: 979-13-990643-5-3)",
