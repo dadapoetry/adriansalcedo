@@ -170,7 +170,13 @@ export default {
 
     if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
 
-    if (path === "/admin" || path === "/admin/" || path === "/admin/index.html") {
+    if (path === "/admin" || path === "/admin/index.html") {
+      const dest = new URL("/admin/", url);
+      dest.search = url.search;
+      return Response.redirect(dest, 301);
+    }
+
+    if (path === "/admin/") {
       return env.ASSETS.fetch(new Request(new URL("/admin/index.html", url)));
     }
 
