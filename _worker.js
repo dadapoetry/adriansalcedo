@@ -72,7 +72,7 @@ async function getMeta(pathname, env) {
   let title = base.title;
   let description = base.desc;
   let image = DEFAULT_IMAGE;
-  let url = `${SITE_URL}${pathname}`;
+  let url = `${SITE_URL}${path}`;
   let ogType = "website";
 
   if (section === "home" && !articleId) {
@@ -169,6 +169,12 @@ export default {
     if (path.startsWith("/api/")) return env.ASSETS.fetch(request);
 
     if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
+
+    if (path !== "/" && path.endsWith("/") && !path.startsWith("/admin")) {
+      const dest = new URL(path.replace(/\/+$/, ""), url);
+      dest.search = url.search;
+      return Response.redirect(dest, 301);
+    }
 
     if (path === "/admin" || path === "/admin/index.html") {
       const dest = new URL("/admin/", url);
