@@ -29,34 +29,6 @@
         "description": "Dada Poetry és una plataforma d'experimentació i publicació digital independent nascuda de la fatiga cultural que generen els continguts editorials plans i homogenis.",
         "description_en": "Dada Poetry is an independent digital platform for experimentation and publishing, created in response to the cultural fatigue produced by flat, homogenized editorial content."
       }
-    },
-    {
-      "issn": "3137-7912",
-      "imageWidth": "100%",
-      "imageAlt": "Avant-garde zero",
-      "url": "https://ag0.surge.sh",
-      "content_en": [
-        "<strong>Avant-garde zero</strong> (<a href=\"https://ag0.surge.sh\" target=\"_blank\" class=\"inline-link\">ag0.surge.sh</a>) is a digital magazine established as the zero point of a new international avant-garde.",
-        "The publication is dedicated to theorizing and putting into practice the foundational principles.",
-        "Launched in English to connect with creators who share the conviction that a new avant-garde is vital to overcome the current crisis of art.",
-        "Project is currently active and open for international contributions."
-      ],
-      "status": "active",
-      "title": "Avant-garde zero",
-      "content": [
-        "<strong>Avant-garde zero</strong> (<a href=\"https://ag0.surge.sh\" target=\"_blank\" class=\"inline-link\">ag0.surge.sh</a>) is a digital magazine established as the zero point of a new international avant-garde.",
-        "The publication is dedicated to theorizing and putting into practice the foundational principles.",
-        "Launched in English to connect with creators who share the conviction that a new avant-garde is vital to overcome the current crisis of art.",
-        "Project is currently active and open for international contributions."
-      ],
-      "id": "projecte-2",
-      "image": "/media/images/ag0.png",
-      "seo": {
-        "title": "Avant-garde zero (ISSN: 3137-7912)",
-        "title_en": "Avant-garde zero (ISSN: 3137-7912)",
-        "description": "Avant-garde zero is a digital magazine established as the zero point of a new international avant-garde.",
-        "description_en": "Avant-garde zero is a digital magazine established as the zero point of a new international avant-garde."
-      }
     }
   ]
 }
