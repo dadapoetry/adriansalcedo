@@ -269,11 +269,97 @@ function applyMeta(html, meta) {
   return applySchema(html, meta.schema);
 }
 
+/* ── Auth del CMS (Decap) ──────────────────────────────────────────────
+   Les credencials de GitHub OAuth viuen al panell de Cloudflare
+   (GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SITE_URL). Aquesta lògica ha de
+   viure al worker perquè, amb _worker.js al directori de sortida,
+   Cloudflare Pages ignora completament el directori /functions. */
+
+function authError(message, status) {
+  return new Response(message, {
+    status,
+    headers: { "Content-Type": "text/html;charset=utf-8", "Cache-Control": "no-store" },
+  });
+}
+
+// El CMS obre /api/auth en un pop-up; des d'aquí el llencem a GitHub.
+function authStart(url, env) {
+  const clientId = env.GITHUB_CLIENT_ID;
+  if (!clientId) return authError("GitHub OAuth not configured: missing GITHUB_CLIENT_ID.", 500);
+
+  const siteUrl = env.SITE_URL || SITE_URL;
+  const redirectUri = url.searchParams.get("redirect_uri") || `${siteUrl}/admin/`;
+  const state = JSON.stringify({ redirect_uri: redirectUri, nonce: crypto.randomUUID() });
+
+  const github = new URL("https://github.com/login/oauth/authorize");
+  github.searchParams.set("client_id", clientId);
+  github.searchParams.set("scope", "public_repo,user");
+  github.searchParams.set("state", state);
+
+  return new Response(null, {
+    status: 302,
+    headers: { Location: github.toString(), "Cache-Control": "no-store" },
+  });
+}
+
+// GitHub torna aquí amb ?code=...; el canviem per un token i el deixem al
+// localStorage on el backend de Decap el va a llegir.
+async function authCallback(url, env) {
+  const clientId = env.GITHUB_CLIENT_ID;
+  const clientSecret = env.GITHUB_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    return authError("GitHub OAuth not configured: missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET.", 500);
+  }
+
+  const code = url.searchParams.get("code");
+  if (!code) return authError("Missing ?code from GitHub.", 400);
+
+  const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code }),
+  });
+  if (!tokenRes.ok) return authError(`GitHub token exchange failed with status ${tokenRes.status}.`, 502);
+
+  const data = await tokenRes.json();
+  if (!data.access_token) return authError(`GitHub error: ${data.error_description || data.error || "unknown"}.`, 400);
+
+  const user = JSON.stringify({ backendName: "github", token: data.access_token, scope: data.scope || "repo" });
+  const html = `<!DOCTYPE html>
+<html lang="ca">
+<head><meta charset="utf-8"><title>Iniciant sessió</title></head>
+<body>
+<p id="status">Iniciant sessió…</p>
+<script>
+try {
+  var user = ${user};
+  localStorage.setItem("github-token", user);
+  localStorage.setItem("netlify-cms-user", user);
+  if (window.opener) {
+    window.opener.location.reload();
+    setTimeout(function () { window.close(); }, 1000);
+  } else {
+    window.location.href = "/admin/";
+  }
+} catch (e) {
+  document.getElementById("status").textContent = "Error: " + e.message;
+}
+</script>
+</body>
+</html>`;
+
+  return new Response(html, {
+    headers: { "Content-Type": "text/html;charset=utf-8", "Cache-Control": "no-store" },
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    if (path === "/api/auth") return authStart(url, env);
+    if (path === "/api/auth/callback") return authCallback(url, env);
     if (path.startsWith("/api/")) return env.ASSETS.fetch(request);
 
     if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
