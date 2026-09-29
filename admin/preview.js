@@ -68,6 +68,118 @@ function renderSEO(entry, prefix) {
   );
 }
 
+function getBlockVal(block, key, fallback) {
+  if (!block) return (fallback || '');
+  if (block.get) {
+    var v = block.get(key);
+    return v !== undefined && v !== null ? v : (fallback || '');
+  }
+  return block[key] !== undefined && block[key] !== null ? block[key] : (fallback || '');
+}
+
+function renderBlock(block, i, getAsset) {
+  if (!block) return null;
+  var type = getBlockVal(block, 'type', '');
+  switch (type) {
+    case 'heading':
+      return h('h4', { key: i, style: { margin: '14px 0 6px', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.7 } }, getBlockVal(block, 'text', ''));
+    case 'prose': {
+      var txt = getBlockVal(block, 'text', []);
+      if (!txt || !txt.map) return null;
+      return h('div', { key: i, className: 'preview-content' }, txt.map(function (p, pi) {
+        return h('p', { key: pi }, p);
+      }).toArray());
+    }
+    case 'poem': {
+      var lines = getBlockVal(block, 'lines', []);
+      if (!lines || !lines.map) return null;
+      return h('div', { key: i, style: { padding: '12px 16px', background: 'var(--bg-elevated)', borderRadius: '6px', margin: '10px 0', fontStyle: 'italic' } },
+        lines.map(function (line, li) { return h('p', { key: li, style: { margin: 0 } }, line); }).toArray()
+      );
+    }
+    case 'quote': {
+      var text = getBlockVal(block, 'text', '');
+      var author = getBlockVal(block, 'author', '');
+      var role = getBlockVal(block, 'role', '');
+      return h('blockquote', { key: i, style: { borderLeft: '3px solid var(--accent)', paddingLeft: '12px', margin: '10px 0', opacity: 0.92 } },
+        text ? h('p', {}, '"' + text + '"') : null,
+        (author || role) ? h('footer', { style: { fontSize: '0.85rem', marginTop: '4px' } }, [author, role].filter(Boolean).join(' — ')) : null
+      );
+    }
+    case 'image': {
+      var src = '';
+      if (block.get) src = getAssetSrc({ getIn: function (p) { return block.get(p[1]); } }, ['src'], getAsset) || block.get('src', '');
+      else src = block.src || '';
+      return src ? h('img', { key: i, src: src, style: { maxWidth: '100%', borderRadius: '6px', margin: '8px 0' } }) : null;
+    }
+    case 'gallery': {
+      var imgs = getBlockVal(block, 'images', []);
+      if (!imgs || !imgs.map) return null;
+      return h('div', { key: i, style: { display: 'flex', flexWrap: 'wrap', gap: '10px', margin: '8px 0' } },
+        imgs.map(function (img, gi) {
+          var s = '';
+          if (img && img.get) s = getAssetSrc({ getIn: function (p) { return img.get(p[1]); } }, ['src'], getAsset) || img.get('src', '');
+          else if (img) s = img.src || '';
+          return s ? h('img', { key: gi, src: s, style: { maxWidth: '48%', borderRadius: '6px' } }) : null;
+        }).toArray()
+      );
+    }
+    case 'video': {
+      var url = getBlockVal(block, 'url', '');
+      var vtitle = getBlockVal(block, 'title', url);
+      return url ? h('p', { key: i, style: { color: 'var(--accent)', margin: '6px 0' } }, vtitle) : null;
+    }
+    case 'audio': {
+      var aurl = getBlockVal(block, 'url', '');
+      return aurl ? h('audio', { key: i, controls: true, src: aurl, style: { maxWidth: '100%' } }) : null;
+    }
+    case 'links':
+    case 'buy': {
+      var items = getBlockVal(block, 'items', []);
+      if (!items || !items.map) return null;
+      return h('div', { key: i, style: { margin: '6px 0' } }, items.map(function (it, li) {
+        var label = it ? getBlockVal(it, 'label', '') : '';
+        var iurl = it ? getBlockVal(it, 'url', '') : '';
+        return label ? h('p', { key: li, style: { margin: '2px 0' } },
+          h('a', { href: iurl, target: '_blank', style: { color: 'var(--accent)' } }, label))
+          : null;
+      }).toArray());
+    }
+    case 'list': {
+      var litems = getBlockVal(block, 'items', []);
+      if (!litems || !litems.map) return null;
+      return h('ul', { key: i, style: { margin: '6px 0 6px 18px' } }, litems.map(function (x, li) {
+        return h('li', { key: li, style: { listStyle: 'disc', marginLeft: '6px' } }, x);
+      }).toArray());
+    }
+    case 'meta':
+    case 'credits': {
+      var mitems = getBlockVal(block, 'items', []);
+      if (!mitems || !mitems.map) return null;
+      var mtitle = getBlockVal(block, 'title', '');
+      return h('div', { key: i, style: { margin: '8px 0' } },
+        mtitle ? h('h5', { style: { margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6, fontSize: '0.75rem' } }, mtitle) : null,
+        h('div', { style: { display: 'flex', flexWrap: 'wrap', gap: '6px' } }, mitems.map(function (m, mi) {
+          var label = m ? getBlockVal(m, 'label', '') : '';
+          var value = m ? getBlockVal(m, 'value', '') : '';
+          var name = m ? getBlockVal(m, 'name', '') : '';
+          var content = label ? (label + (value ? ': ' + value : '')) : (name || value);
+          return content ? h('span', { key: mi, className: 'preview-tag' }, content) : null;
+        }).toArray())
+      );
+    }
+    default:
+      return null;
+  }
+}
+
+function renderBlocks(blocks, getAsset) {
+  if (!blocks || !blocks.map || !blocks.size) return null;
+  return blocks.map(function (b, i) {
+    return renderBlock(b, i, getAsset);
+  }).toArray();
+}
+
 
 /* ─── OBRES (Works) ─── */
 CMS.registerPreviewTemplate('obres', createClass({
@@ -85,6 +197,7 @@ CMS.registerPreviewTemplate('obres', createClass({
         var content = work.get('content');
         var images = work.get('images');
         var seo = work.get('seo');
+        var blocks = work.get('blocks');
 
         return h('div', { key: i, style: { marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid var(--border-subtle)' } },
           type ? h('span', { className: 'preview-tag' }, type) : null,
@@ -92,6 +205,10 @@ CMS.registerPreviewTemplate('obres', createClass({
           year ? h('p', { className: 'preview-meta' }, year) : null,
           content ? h('div', { className: 'preview-content' }, renderParagraphs(content)) : null,
           images ? renderImages(images, this.props.getAsset) : null,
+          blocks ? h('div', { style: { marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed var(--border-subtle)' } },
+            h('h3', { style: { fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 } }, 'Blocs (modular)'),
+            renderBlocks(blocks, this.props.getAsset)
+          ) : null,
           seo ? renderSEO(h, '', function () { return seo; }) : null
         );
       }.bind(this)).toArray()
@@ -117,6 +234,7 @@ CMS.registerPreviewTemplate('festivals', createClass({
         var contentList = fest.get('contentList');
         var images = fest.get('images');
         var videos = fest.get('videos');
+        var blocks = fest.get('blocks');
 
         return h('div', { key: i, style: { marginBottom: '40px', paddingBottom: '40px', borderBottom: '1px solid var(--border-subtle)' } },
           label ? h('span', { className: 'preview-tag' }, label) : null,
@@ -125,6 +243,10 @@ CMS.registerPreviewTemplate('festivals', createClass({
           content ? h('div', { className: 'preview-content' }, renderParagraphs(content)) : null,
           contentList ? h('div', { className: 'preview-content' }, renderList(contentList)) : null,
           images ? renderImages(images, this.props.getAsset) : null,
+          blocks ? h('div', { style: { marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed var(--border-subtle)' } },
+            h('h3', { style: { fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 } }, 'Blocs (modular)'),
+            renderBlocks(blocks, this.props.getAsset)
+          ) : null,
           videos && videos.size ? h('div', { style: { marginTop: '12px' } },
             h('h3', {}, 'Vídeos'),
             videos.map(function (vid, vi) {
@@ -155,13 +277,18 @@ CMS.registerPreviewTemplate('premis', createClass({
         var year = award.get('year', '');
         var content = award.get('content');
         var images = award.get('images');
+        var blocks = award.get('blocks');
 
         return h('div', { key: i, style: { marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid var(--border-subtle)' } },
           category ? h('span', { className: 'preview-tag' }, category) : null,
           h('h2', {}, title),
           year ? h('p', { className: 'preview-meta' }, year) : null,
           content ? h('div', { className: 'preview-content' }, renderParagraphs(content)) : null,
-          images ? renderImages(images, this.props.getAsset) : null
+          images ? renderImages(images, this.props.getAsset) : null,
+          blocks ? h('div', { style: { marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed var(--border-subtle)' } },
+            h('h3', { style: { fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 } }, 'Blocs (modular)'),
+            renderBlocks(blocks, this.props.getAsset)
+          ) : null
         );
       }.bind(this)).toArray()
     );
@@ -214,6 +341,7 @@ CMS.registerPreviewTemplate('projectes', createClass({
         var status = proj.get('status', '');
         var issn = proj.get('issn', '');
         var content = proj.get('content');
+        var blocks = proj.get('blocks');
         var image = getAssetSrc(entry.getIn(['data', 'projects']).get(i).set('src', proj.get('image')), ['src'], this.props.getAsset) || proj.get('image', '');
 
         return h('div', { key: i, style: { marginBottom: '32px', paddingBottom: '32px', borderBottom: '1px solid var(--border-subtle)' } },
@@ -221,7 +349,11 @@ CMS.registerPreviewTemplate('projectes', createClass({
           h('h2', {}, title),
           issn ? h('p', { className: 'preview-meta' }, 'ISSN: ' + issn) : null,
           image ? h('img', { src: image, style: { maxWidth: '100%', borderRadius: '6px', margin: '8px 0' } }) : null,
-          content ? h('div', { className: 'preview-content' }, renderParagraphs(content)) : null
+          content ? h('div', { className: 'preview-content' }, renderParagraphs(content)) : null,
+          blocks ? h('div', { style: { marginTop: '10px', paddingTop: '10px', borderTop: '1px dashed var(--border-subtle)' } },
+            h('h3', { style: { fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em', opacity: 0.6 } }, 'Blocs (modular)'),
+            renderBlocks(blocks, this.props.getAsset)
+          ) : null
         );
       }.bind(this)).toArray()
     );
@@ -282,6 +414,68 @@ CMS.registerPreviewTemplate('quisoc', createClass({
           );
         }).toArray()
       ) : null
+    );
+  }
+}));
+
+
+/* ─── BIBLIOGRAFIA ─── */
+CMS.registerPreviewTemplate('bibliografia', createClass({
+  render: function () {
+    var entry = this.props.entry;
+    var items = entry.getIn(['data', 'items']);
+    if (!items || !items.size) return h('div', { className: 'cms-preview' }, h('p', {}, 'Cap publicació configurada.'));
+
+    return h('div', { className: 'cms-preview' },
+      h('h1', {}, getVal(entry, ['title'], 'Bibliografia')),
+      getVal(entry, ['description'], '') ? h('p', { className: 'preview-meta' }, getVal(entry, ['description'], '')) : null,
+      items.map(function (item, i) {
+        var title = item.get('title', '');
+        var type = item.get('type', '');
+        var year = item.get('year', '');
+        var publisher = item.get('publisher', '');
+        var role = item.get('role', '');
+        var url = item.get('url', '');
+
+        return h('div', { key: i, style: { display: 'flex', gap: '14px', marginBottom: '18px', padding: '14px', background: 'var(--bg-elevated)', borderRadius: '6px' } },
+          year ? h('strong', { style: { color: 'var(--accent)', minWidth: '44px' } }, year) : null,
+          h('div', {},
+            h('h3', { style: { margin: 0 } }, title),
+            [type, publisher, role].filter(Boolean).length ? h('p', { className: 'preview-meta', style: { margin: '4px 0 0' } }, [type, publisher, role].filter(Boolean).join(' · ')) : null,
+            url ? h('a', { href: url, target: '_blank', style: { color: 'var(--accent)', fontSize: '0.85rem' } }, url) : null
+          )
+        );
+      }.bind(this)).toArray()
+    );
+  }
+}));
+
+
+/* ─── AGENDA ─── */
+CMS.registerPreviewTemplate('agenda', createClass({
+  render: function () {
+    var entry = this.props.entry;
+    var events = entry.getIn(['data', 'events']);
+    if (!events || !events.size) return h('div', { className: 'cms-preview' },
+      h('h1', {}, getVal(entry, ['title'], 'Agenda')),
+      h('p', { className: 'preview-meta' }, 'Encara no hi ha esdeveniments programats.')
+    );
+
+    return h('div', { className: 'cms-preview' },
+      h('h1', {}, getVal(entry, ['title'], 'Agenda')),
+      getVal(entry, ['description'], '') ? h('p', { className: 'preview-meta' }, getVal(entry, ['description'], '')) : null,
+      events.map(function (ev, i) {
+        var title = ev.get('title', '');
+        var date = ev.get('date', '');
+        var venue = ev.get('venue', '');
+        var city = ev.get('city', '');
+        var time = ev.get('time', '');
+
+        return h('div', { key: i, style: { marginBottom: '16px', padding: '12px 14px', background: 'var(--bg-elevated)', borderRadius: '6px' } },
+          h('h3', { style: { margin: 0 } }, title),
+          h('p', { className: 'preview-meta', style: { margin: '4px 0 0' } }, [date, time, venue, city].filter(Boolean).join(' · '))
+        );
+      }.bind(this)).toArray()
     );
   }
 }));

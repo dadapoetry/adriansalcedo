@@ -60,6 +60,18 @@
       "label": "Arxiu",
       "path": "/arxiu",
       "label_en": "Archive"
+    },
+    {
+      "id": "bibliografia",
+      "label": "Bibliografia",
+      "path": "/bibliografia",
+      "label_en": "Bibliography"
+    },
+    {
+      "id": "agenda",
+      "label": "Agenda",
+      "path": "/agenda",
+      "label_en": "Agenda"
     }
   ],
   "social": {

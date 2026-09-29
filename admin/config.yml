@@ -188,6 +188,106 @@ collections:
               - { label: "Estat", name: "status", widget: "select", options: ["active", "inactive", "archived"], required: false }
               - { label: "Contingut (CA)", name: "content", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
               - { label: "Content (EN)", name: "content_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
+              - &blocks_widget
+                label: "Blocs de contingut (modular)"
+                name: "blocks"
+                widget: "list"
+                required: false
+                collapsed: true
+                summary: "{{fields.type}}"
+                types:
+                  - label: "Encapçalament"
+                    name: "heading"
+                    fields:
+                      - { label: "Text (CA)", name: "text", widget: "string" }
+                      - { label: "Text (EN)", name: "text_en", widget: "string", required: false }
+                  - label: "Prosa"
+                    name: "prose"
+                    fields:
+                      - { label: "Paràgrafs (CA)", name: "text", widget: "list", field: { label: "Paràgraf", name: "p", widget: "text" } }
+                      - { label: "Paragraphs (EN)", name: "text_en", widget: "list", field: { label: "Paragraph", name: "p", widget: "text" }, required: false }
+                  - label: "Poema"
+                    name: "poem"
+                    fields:
+                      - { label: "Versos (CA)", name: "lines", widget: "list", field: { label: "Vers", name: "line", widget: "string" } }
+                      - { label: "Lines (EN)", name: "lines_en", widget: "list", field: { label: "Line", name: "line", widget: "string" }, required: false }
+                  - label: "Cita"
+                    name: "quote"
+                    fields:
+                      - { label: "Text (CA)", name: "text", widget: "text" }
+                      - { label: "Text (EN)", name: "text_en", widget: "text", required: false }
+                      - { label: "Autor/a", name: "author", widget: "string", required: false }
+                      - { label: "Rol", name: "role", widget: "string", required: false }
+                  - label: "Imatge"
+                    name: "image"
+                    fields:
+                      - { label: "Fitxer", name: "src", widget: "image" }
+                      - { label: "Alt (CA)", name: "alt", widget: "string", required: false }
+                      - { label: "Alt (EN)", name: "alt_en", widget: "string", required: false }
+                      - { label: "Amplada", name: "width", widget: "string", default: "100%", required: false }
+                  - label: "Galeria"
+                    name: "gallery"
+                    fields:
+                      - label: "Imatges"
+                        name: "images"
+                        widget: "list"
+                        fields:
+                          - { label: "Fitxer", name: "src", widget: "image" }
+                          - { label: "Alt (CA)", name: "alt", widget: "string", required: false }
+                          - { label: "Alt (EN)", name: "alt_en", widget: "string", required: false }
+                          - { label: "Amplada", name: "width", widget: "string", default: "100%", required: false }
+                  - label: "Vídeo"
+                    name: "video"
+                    fields:
+                      - { label: "URL YouTube", name: "url", widget: "string" }
+                      - { label: "Títol (CA)", name: "title", widget: "string", required: false }
+                      - { label: "Títol (EN)", name: "title_en", widget: "string", required: false }
+                  - label: "Àudio"
+                    name: "audio"
+                    fields:
+                      - { label: "URL MP3", name: "url", widget: "string" }
+                      - { label: "Títol", name: "title", widget: "string", required: false }
+                  - label: "Enllaços"
+                    name: "links"
+                    fields:
+                      - label: "Enllaços"
+                        name: "items"
+                        widget: "list"
+                        fields:
+                          - { label: "Etiqueta (CA)", name: "label", widget: "string" }
+                          - { label: "Label (EN)", name: "label_en", widget: "string", required: false }
+                          - { label: "URL", name: "url", widget: "string" }
+                  - label: "Comprar"
+                    name: "buy"
+                    fields:
+                      - label: "Llibreries"
+                        name: "items"
+                        widget: "list"
+                        fields:
+                          - { label: "Llibreria (CA)", name: "label", widget: "string" }
+                          - { label: "Bookstore (EN)", name: "label_en", widget: "string", required: false }
+                          - { label: "URL", name: "url", widget: "string" }
+                  - label: "Llista"
+                    name: "list"
+                    fields:
+                      - { label: "Elements (CA)", name: "items", widget: "list", field: { label: "Element", name: "item", widget: "text" } }
+                      - { label: "Items (EN)", name: "items_en", widget: "list", field: { label: "Item", name: "item", widget: "text" }, required: false }
+                  - label: "Metadades"
+                    name: "meta"
+                    fields:
+                      - label: "Dades"
+                        name: "items"
+                        widget: "list"
+                        fields:
+                          - { label: "Etiqueta (CA)", name: "label", widget: "string" }
+                          - { label: "Label (EN)", name: "label_en", widget: "string", required: false }
+                          - { label: "Valor", name: "value", widget: "string" }
+                  - label: "Crèdits"
+                    name: "credits"
+                    fields:
+                      - { label: "Títol (CA)", name: "title", widget: "string", required: false }
+                      - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+                      - { label: "Persones / entitats", name: "items", widget: "list", field: { label: "Nom", name: "name", widget: "string" } }
               - label: "SEO"
                 name: "seo"
                 widget: "object"
@@ -239,6 +339,7 @@ collections:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol (CA)", name: "title", widget: "string" }
                   - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - *blocks_widget
               - label: "SEO"
                 name: "seo"
                 widget: "object"
@@ -274,7 +375,9 @@ collections:
                 required: false
                 fields:
                   - { label: "Fitxer", name: "src", widget: "image" }
-                  - { label: "Alt text", name: "alt", widget: "string" }
+                  - { label: "Alt text (CA)", name: "alt", widget: "string", required: false }
+                  - { label: "Alt text (EN)", name: "alt_en", widget: "string", required: false }
+                  - { label: "Amplada", name: "width", widget: "string", default: "100%", required: false }
               - label: "Vídeos"
                 name: "videos"
                 widget: "list"
@@ -282,6 +385,20 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
+              - label: "Recepció crítica (cites)"
+                name: "reviews"
+                widget: "list"
+                required: false
+                fields:
+                  - { label: "Text de la cita", name: "text", widget: "text" }
+                  - { label: "Autor/a", name: "author", widget: "string" }
+                  - { label: "Rol / mitjà", name: "role", widget: "string", required: false }
+              - label: "Col·laboradors / crèdits"
+                name: "contributors"
+                widget: "list"
+                required: false
+                field: { label: "Nom", name: "name", widget: "string" }
+              - *blocks_widget
               - label: "Llegeix-ne més"
                 name: "links"
                 widget: "list"
@@ -343,6 +460,7 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
+              - *blocks_widget
               - label: "SEO"
                 name: "seo"
                 widget: "object"
@@ -430,3 +548,60 @@ collections:
           - { label: "Títol (EN)", name: "title_en", widget: "string" }
           - { label: "Descripció", name: "description", widget: "text" }
           - { label: "Etiquetes", name: "tags", widget: "list", field: { label: "Etiqueta", name: "tag", widget: "string" } }
+
+  - name: "bibliografia"
+    label: "Bibliografia"
+    description: "Llibres, revistes i publicacions (CA + EN)"
+    files:
+      - file: "content/bibliografia.json"
+        label: "Bibliografia"
+        name: "bibliografia"
+        fields:
+          - { label: "Títol (CA)", name: "title", widget: "string" }
+          - { label: "Títol (EN)", name: "title_en", widget: "string" }
+          - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
+          - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
+          - label: "Publicacions"
+            name: "items"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Títol (CA)", name: "title", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+              - { label: "Tipus (CA)", name: "type", widget: "string" }
+              - { label: "Type (EN)", name: "type_en", widget: "string", required: false }
+              - { label: "Any", name: "year", widget: "number", value_type: "int" }
+              - { label: "Editorial", name: "publisher", widget: "string", required: false }
+              - { label: "Publisher (EN)", name: "publisher_en", widget: "string", required: false }
+              - { label: "Rol (CA)", name: "role", widget: "string", required: false }
+              - { label: "Role (EN)", name: "role_en", widget: "string", required: false }
+              - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
+              - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
+              - { label: "URL", name: "url", widget: "string", required: false }
+
+  - name: "agenda"
+    label: "Agenda"
+    description: "Properes lectures i actuacions"
+    files:
+      - file: "content/agenda.json"
+        label: "Agenda"
+        name: "agenda"
+        fields:
+          - { label: "Títol (CA)", name: "title", widget: "string" }
+          - { label: "Títol (EN)", name: "title_en", widget: "string" }
+          - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
+          - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
+          - label: "Esdeveniments"
+            name: "events"
+            widget: "list"
+            fields:
+              - { label: "ID", name: "id", widget: "string" }
+              - { label: "Títol (CA)", name: "title", widget: "string" }
+              - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
+              - { label: "Data (YYYY-MM-DD)", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Hora", name: "time", widget: "string", required: false }
+              - { label: "Lloc", name: "venue", widget: "string", required: false }
+              - { label: "Ciutat", name: "city", widget: "string", required: false }
+              - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
+              - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
+              - { label: "URL", name: "url", widget: "string", required: false }

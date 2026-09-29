@@ -20,7 +20,9 @@
     { "id": "premsa", "label": "Press", "path": "/en/premsa", "label_en": "Press" },
     { "id": "premis", "label": "Awards", "path": "/en/premis", "label_en": "Awards" },
     { "id": "quisoc", "label": "About", "path": "/en/quisoc", "label_en": "About" },
-    { "id": "arxiu", "label": "Archive", "path": "/en/arxiu", "label_en": "Archive" }
+    { "id": "arxiu", "label": "Archive", "path": "/en/arxiu", "label_en": "Archive" },
+    { "id": "bibliografia", "label": "Bibliography", "path": "/en/bibliografia", "label_en": "Bibliography" },
+    { "id": "agenda", "label": "Agenda", "path": "/en/agenda", "label_en": "Agenda" }
   ],
   "social": {
     "instagram": { "url": "https://instagram.com/asalcedotoca", "icon": "fab fa-instagram", "label": "Instagram" },

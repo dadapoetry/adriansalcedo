@@ -1045,3 +1045,186 @@ noscript a {
     font-size: 9px;
   }
 }
+
+/* ===== MODULAR BLOCKS ===== */
+.block-heading {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  margin: 34px 0 4px;
+}
+
+.poem-block {
+  margin: 20px 0;
+  padding: 18px 20px;
+  border-left: 2px solid var(--text);
+}
+
+.poem-line {
+  font-size: 15px;
+  line-height: 1.8;
+  margin: 0 0 6px 0;
+}
+
+.meta-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0;
+}
+
+.meta-chip {
+  display: inline-block;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 4px 9px;
+  border: 1px solid var(--text);
+  opacity: 0.75;
+}
+
+.credits-line .meta-chip {
+  text-transform: none;
+  letter-spacing: 0;
+  opacity: 1;
+}
+
+/* ===== BIBLIOGRAFIA ===== */
+.bibliografia-list {
+  margin: 20px 0 30px;
+}
+
+.bibliografia-item {
+  display: flex;
+  gap: 20px;
+  padding: 18px 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.bibliografia-item:first-of-type {
+  border-top: 0;
+}
+
+.bibliografia-year {
+  font-size: 14px;
+  font-weight: 700;
+  min-width: 56px;
+}
+
+.bibliografia-info h3 {
+  font-size: 15px;
+  margin: 0 0 6px 0;
+}
+
+.bibliografia-meta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+.bibliografia-desc {
+  margin: 0 0 6px 0;
+}
+
+/* ===== AGENDA ===== */
+.agenda-list {
+  margin: 20px 0;
+}
+
+.agenda-section-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+  margin: 30px 0 12px;
+}
+
+.agenda-section-label:first-child {
+  margin-top: 0;
+}
+
+.agenda-item {
+  padding: 14px 0;
+  border-top: 1px solid var(--border-light);
+}
+
+.agenda-item:first-of-type {
+  border-top: 0;
+}
+
+.agenda-date {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.agenda-title {
+  margin-bottom: 2px;
+}
+
+.agenda-venue {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+/* ===== ARXIU DINÀMIC ===== */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.filter-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  opacity: 0.5;
+}
+
+.filter-select {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--text);
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.archive-wrap {
+  margin: 0 0 30px;
+}
+
+.archive-list {
+  list-style: none;
+}
+
+.archive-item {
+  padding: 8px 0;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.archive-item:first-child {
+  border-top: 0;
+}
+
+.archive-meta {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.4;
+  white-space: nowrap;
+  align-self: center;
+}

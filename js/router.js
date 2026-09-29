@@ -11,7 +11,9 @@ const App = {
     'quisoc': { ca: 'Qui soc', en: 'About' },
     'premsa': { ca: 'Premsa', en: 'Press' },
     'cerca': { ca: 'Cerca', en: 'Search' },
-    'arxiu': { ca: 'Arxiu', en: 'Archive' }
+    'arxiu': { ca: 'Arxiu', en: 'Archive' },
+    'bibliografia': { ca: 'Bibliografia', en: 'Bibliography' },
+    'agenda': { ca: 'Agenda', en: 'Agenda' }
   },
 
   async init() {
@@ -362,7 +364,7 @@ const App = {
     const isEn = this.lang === 'en';
     const prefix = isEn ? '/en' : '';
 
-    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca'];
+    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca', 'bibliografia', 'agenda'];
     if (!validSections.includes(section)) {
       listLayer.innerHTML = `
         <div class="error-404">
@@ -414,11 +416,13 @@ const App = {
           existing.id = p.id;
           sectionEl.appendChild(existing);
         }
-        const content = isEn ? (p.content_en || p.content) : p.content;
+        const body = (p.blocks && p.blocks.length)
+          ? Renderers.blocks(p.blocks, this.lang)
+          : `${p.image ? `<img src="${p.image}" style="max-width: ${p.imageWidth || '50%'}; height: auto; margin: 15px 0;" alt="${p.imageAlt || ''}" loading="lazy" />` : ''}
+          ${Renderers.paragraphs(isEn ? (p.content_en || p.content) : p.content)}`;
         existing.innerHTML = `<a href="${prefix}/projectes" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${p.title}${p.issn ? ` (ISSN: ${p.issn})` : ''}</h3>
-          ${p.image ? `<img src="${p.image}" style="max-width: ${p.imageWidth || '50%'}; height: auto; margin: 15px 0;" alt="${p.imageAlt || ''}" loading="lazy" />` : ''}
-          ${Renderers.paragraphs(content)}`;
+          ${body}`;
       });
       if (article) {
         const match = data.projects.find(p => p.id === article);
@@ -435,9 +439,9 @@ const App = {
           existing.id = w.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
-          <h3>${w.title}</h3>
-          ${w.image_position === 'top' ? Renderers.images(w.images, this.lang) : ''}
+        const body = (w.blocks && w.blocks.length)
+          ? Renderers.blocks(w.blocks, this.lang)
+          : `${w.image_position === 'top' ? Renderers.images(w.images, this.lang) : ''}
           ${w.videos_position === 'top' ? Renderers.videos(w.videos, this.lang) : ''}
           ${Renderers.paragraphs(isEn ? (w.content_en || w.content) : w.content)}
           ${Renderers.links(w.links, this.lang)}
@@ -446,6 +450,9 @@ const App = {
           ${Renderers.buyLinks(w.buyLinks, this.lang)}
           ${w.image_position !== 'top' && w.image_position !== 'middle' ? Renderers.images(w.images, this.lang) : ''}
           ${w.videos_position !== 'top' && w.videos_position !== 'middle' ? Renderers.videos(w.videos, this.lang) : ''}`;
+        existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+          <h3>${w.title}</h3>
+          ${body}`;
       });
       if (article) {
         const match = data.works.find(w => w.id === article);
@@ -463,13 +470,16 @@ const App = {
           existing.id = f.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="${prefix}/festivals" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
-          <h3>${isEn ? (f.title_en || f.title) : f.title}</h3>
-          ${f.label ? `<div class="performance-type">${f.label}</div>` : ''}
+        const body = (f.blocks && f.blocks.length)
+          ? Renderers.blocks(f.blocks, this.lang)
+          : `${f.label ? `<div class="performance-type">${f.label}</div>` : ''}
           ${Renderers.paragraphs(isEn ? (f.content_en || f.content) : f.content)}
           ${isEn ? ((f.contentList_en && f.contentList_en.length) ? Renderers.contentList(f.contentList_en) : (f.contentList && f.contentList.length ? Renderers.contentList(f.contentList) : '')) : ((f.contentList && f.contentList.length) ? Renderers.contentList(f.contentList) : '')}
           ${Renderers.images(f.images, this.lang)}
           ${Renderers.videos(f.videos, this.lang)}`;
+        existing.innerHTML = `<a href="${prefix}/festivals" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+          <h3>${isEn ? (f.title_en || f.title) : f.title}</h3>
+          ${body}`;
       });
       if (article) {
         const match = data.festivals.find(f => f.id === article);
@@ -486,12 +496,15 @@ const App = {
           existing.id = a.id;
           sectionEl.appendChild(existing);
         }
-        existing.innerHTML = `<a href="${prefix}/premis" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
-          <h3>${isEn ? (a.title_en || a.title) : a.title}</h3>
-          <p class="featured-meta">${a.year} · ${a.category}</p>
+        const body = (a.blocks && a.blocks.length)
+          ? Renderers.blocks(a.blocks, this.lang)
+          : `<p class="featured-meta">${a.year} · ${a.category}</p>
           ${Renderers.paragraphs(isEn ? (a.content_en || a.content) : a.content)}
           ${Renderers.images(a.images, this.lang)}
           ${Renderers.videos(a.videos, this.lang)}`;
+        existing.innerHTML = `<a href="${prefix}/premis" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+          <h3>${isEn ? (a.title_en || a.title) : a.title}</h3>
+          ${body}`;
       });
       if (article) {
         const match = data.awards.find(a => a.id === article);
@@ -500,10 +513,25 @@ const App = {
     } else if (section === 'premsa') {
       listLayer.innerHTML = `<h2>${isEn ? (data.title_en || data.title) : data.title}</h2>
         ${data.articles ? Renderers.pressItems(data.articles, isEn) : ''}`;
+    } else if (section === 'bibliografia' && data.items) {
+      const title = isEn ? (data.title_en || data.title) : data.title;
+      listLayer.innerHTML = Renderers.bibliography(data.items, this.lang, title);
+    } else if (section === 'agenda') {
+      const title = isEn ? (data.title_en || data.title) : data.title;
+      const desc = isEn ? (data.description_en || data.description) : data.description;
+      listLayer.innerHTML = Renderers.agenda(data.events || [], this.lang, title, desc);
     } else if (section === 'arxiu') {
       const title = isEn ? (data.title_en || data.title) : data.title;
+      const [obres, festivals, premis, projectes, bibliografia] = await Promise.all([
+        ContentLoader.load('obres'),
+        ContentLoader.load('festivals'),
+        ContentLoader.load('premis'),
+        ContentLoader.load('projectes'),
+        ContentLoader.load('bibliografia')
+      ]);
       listLayer.innerHTML = `<h2>${title}</h2>
         <p>${data.description || ''}</p>
+        ${Renderers.archive({ obres, festivals, premis, projectes, bibliografia }, this.lang, prefix)}
         ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/cerca?q=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
     }
 
@@ -522,6 +550,12 @@ const App = {
       if (link && link.getAttribute('href') && link.getAttribute('href').startsWith('/') && !link.target) {
         e.preventDefault();
         await this.navigateTo(link.getAttribute('href'));
+      }
+    });
+
+    document.addEventListener('change', e => {
+      if (e.target && (e.target.id === 'archive-kind' || e.target.id === 'archive-year')) {
+        if (window.__archiveRender) window.__archiveRender();
       }
     });
 

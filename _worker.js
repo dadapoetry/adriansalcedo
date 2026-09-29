@@ -12,6 +12,8 @@ const SECTION_META = {
     quisoc: { title: "Qui soc", desc: "Biografia i trajectòria professional d'Adrián Salcedo Toca — poeta, artista i editor." },
     arxiu: { title: "Arxiu", desc: "Arxiu i cercador del portfoli d'Adrián Salcedo Toca." },
     cerca: { title: "Cerca", desc: "Cerca al portfoli d'Adrián Salcedo Toca." },
+    bibliografia: { title: "Bibliografia", desc: "Llibres, revistes i publicacions on apareix l'obra d'Adrián Salcedo Toca." },
+    agenda: { title: "Agenda", desc: "Properes lectures, recitals i actuacions d'Adrián Salcedo Toca." },
   },
   en: {
     home: { title: "Home — Avant-garde poet", desc: "Official portfolio of Adrián Salcedo Toca — avant-garde poet and artist. Works, festivals, awards and projects." },
@@ -23,6 +25,8 @@ const SECTION_META = {
     quisoc: { title: "About", desc: "Biography and professional trajectory of Adrián Salcedo Toca — poet, artist and editor." },
     arxiu: { title: "Archive", desc: "Archive and search for the Adrián Salcedo Toca portfolio." },
     cerca: { title: "Search", desc: "Search the Adrián Salcedo Toca portfolio." },
+    bibliografia: { title: "Bibliography", desc: "Books, magazines and publications featuring the work of Adrián Salcedo Toca." },
+    agenda: { title: "Agenda", desc: "Upcoming readings, recitals and performances by Adrián Salcedo Toca." },
   },
 };
 
@@ -34,6 +38,8 @@ const SECTION_TO_JSON = {
   premsa: "/content/premsa.json",
   quisoc: "/content/quisoc.json",
   arxiu: "/content/arxiu.json",
+  bibliografia: "/content/bibliografia.json",
+  agenda: "/content/agenda.json",
 };
 
 function extractId(pathname, section) {

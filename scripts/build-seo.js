@@ -16,6 +16,8 @@ const SECTIONS = {
   quisoc:    { key: null,         ca: 'Qui soc',                             en: 'About' },
   arxiu:     { key: null,         ca: 'Arxiu',                               en: 'Archive' },
   cerca:     { key: null,         ca: 'Cerca',                               en: 'Search' },
+  bibliografia: { key: null,      ca: 'Bibliografia',                        en: 'Bibliography' },
+  agenda:    { key: null,         ca: 'Agenda',                              en: 'Agenda' },
 };
 
 function esc(s) {
@@ -179,6 +181,8 @@ const SECTION_SPLIT = {
   premsa:    ['monthly', '0.7'],
   arxiu:     ['monthly', '0.7'],
   cerca:     ['monthly', '0.3'],
+  bibliografia: ['monthly', '0.7'],
+  agenda:    ['weekly', '0.8'],
 };
 
 const smUrls = [sitemapUrl(BASE + '/', { changefreq: 'weekly', priority: '1.0' }), sitemapUrl(BASE + '/en', { changefreq: 'weekly', priority: '1.0' })];
