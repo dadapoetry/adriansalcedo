@@ -23,19 +23,25 @@
       "id": "obres",
       "label": "Obres",
       "path": "/obres",
-      "label_en": "Works"
+      "label_en": "Works",
+      "seo_title": "Obres i poesia avantguardista",
+      "seo_title_en": "Works and avant-garde poetry"
     },
     {
       "id": "projectes",
       "label": "Projectes",
       "path": "/projectes",
-      "label_en": "Projects"
+      "label_en": "Projects",
+      "seo_title": "Projectes poètics",
+      "seo_title_en": "Poetic projects"
     },
     {
       "id": "festivals",
       "label": "Festivals",
       "path": "/festivals",
-      "label_en": "Festivals"
+      "label_en": "Festivals",
+      "seo_title": "Festivals i exposicions",
+      "seo_title_en": "Festivals and exhibitions"
     },
     {
       "id": "premsa",
@@ -47,13 +53,21 @@
       "id": "premis",
       "label": "Premis",
       "path": "/premis",
-      "label_en": "Awards"
+      "label_en": "Awards",
+      "seo_title": "Premis i reconeixements",
+      "seo_title_en": "Awards and recognition"
     },
     {
       "id": "quisoc",
       "label": "Qui soc",
       "path": "/quisoc",
       "label_en": "About"
+    },
+    {
+      "id": "contacte",
+      "label": "Contacte",
+      "path": "/contacte",
+      "label_en": "Contact"
     },
     {
       "id": "arxiu",
@@ -77,32 +91,37 @@
   "social": {
     "instagram": {
       "url": "https://instagram.com/asalcedotoca",
-      "icon": "fab fa-instagram",
+      "icon": "instagram",
       "label": "Instagram"
     },
     "twitter": {
       "url": "https://twitter.com/asalcedotoca",
-      "icon": "fab fa-twitter",
+      "icon": "twitter",
       "label": "Twitter"
     },
     "youtube": {
       "url": "https://youtube.com/@asalcedotoca",
-      "icon": "fab fa-youtube",
+      "icon": "youtube",
       "label": "YouTube"
     },
     "tiktok": {
       "url": "https://tiktok.com/@asalcedotoca",
-      "icon": "fab fa-tiktok",
+      "icon": "tiktok",
       "label": "TikTok"
     },
     "goodreads": {
       "url": "https://www.goodreads.com/asalcedotoca",
-      "icon": "fa-solid fa-book",
+      "icon": "goodreads",
       "label": "Goodreads"
+    },
+    "wikipedia": {
+      "url": "https://ca.wikipedia.org/wiki/Adri%C3%A1n_Salcedo_Toca",
+      "icon": "wikipedia",
+      "label": "Viquipèdia"
     },
     "wikidata": {
       "url": "https://www.wikidata.org/wiki/Q138498786",
-      "icon": "fab fa-wikipedia-w",
+      "icon": "wikidata",
       "label": "Wikidata"
     }
   }

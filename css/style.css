@@ -115,9 +115,12 @@ nav a {
   font-size: 13px;
 }
 
-nav a:hover,
+nav a:hover {
+  opacity: 0.55;
+}
+
 nav a.active {
-  opacity: 0.3;
+  opacity: 0.45;
 }
 
 .sidebar-bottom {
@@ -159,7 +162,7 @@ nav a.active {
   letter-spacing: 0.1em;
   color: var(--text);
   text-decoration: none;
-  opacity: 0.3;
+  opacity: 0.6;
   transition: opacity var(--transition-fast);
   padding: 4px 10px;
   border: 1px solid transparent;
@@ -187,19 +190,36 @@ nav a.active {
 
 .socials {
   display: flex;
-  gap: 15px;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
 }
 
 .socials a {
   color: var(--text);
-  font-size: 14px;
+  font-size: 10px;
   text-decoration: none;
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transition: opacity var(--transition-fast);
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+  min-height: 24px;
 }
 
 .socials a:hover {
-  opacity: 0.3;
-  transform: translateY(-2px);
+  opacity: 0.55;
+}
+
+.social-icon {
+  flex: none;
+  display: block;
+}
+
+.social-label {
+  opacity: 0.7;
 }
 
 .search-trigger {
@@ -207,12 +227,66 @@ nav a.active {
   color: var(--text);
   text-decoration: none;
   transition: opacity var(--transition-fast);
-  display: inline-block;
-  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-height: 24px;
 }
 
 .search-trigger:hover {
-  opacity: 0.3;
+  opacity: 0.55;
+}
+
+/* ===== CTA ROW ===== */
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  align-items: baseline;
+}
+
+/* ===== CONTACT PAGE ===== */
+.contact-intro {
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 90%;
+}
+
+.contact-mail {
+  font-size: 20px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+.contact-mail a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--text);
+  padding-bottom: 2px;
+  transition: opacity var(--transition-fast);
+}
+
+.contact-mail a:hover {
+  opacity: 0.55;
+}
+
+.contact-block {
+  margin: 34px 0 0;
+}
+
+.contact-block .socials {
+  gap: 6px 18px;
+}
+
+.references {
+  margin: 30px 0 0;
+}
+
+.references p {
+  font-size: 13px;
+  margin-bottom: 0;
 }
 
 /* ===== SIDEBAR RIGHT ===== */
@@ -244,7 +318,7 @@ aside.sidebar-right {
   font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  opacity: 0.25;
+  opacity: 0.45;
   color: var(--text);
 }
 
@@ -264,7 +338,7 @@ aside.sidebar-right {
 }
 
 .scroll-top:hover {
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 /* ===== MAIN ===== */
@@ -347,7 +421,7 @@ ul.item-list li::before {
 }
 
 .item-link:hover {
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 .back-link {
@@ -361,7 +435,7 @@ ul.item-list li::before {
 }
 
 .back-link:hover {
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 a.inline-link {
@@ -371,7 +445,7 @@ a.inline-link {
 }
 
 a.inline-link:hover {
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 #section-quisoc.active .view-layer.active {
@@ -396,7 +470,7 @@ strong {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin-bottom: 30px;
 }
 
@@ -443,7 +517,7 @@ strong {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.4;
+  opacity: 0.6;
   margin-bottom: 20px;
 }
 
@@ -458,7 +532,7 @@ strong {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  opacity: 0.35;
+  opacity: 0.6;
   margin-bottom: 20px;
   font-weight: 400;
 }
@@ -475,7 +549,8 @@ strong {
 }
 
 .featured-info h3 {
-  font-size: 18px;
+  font-size: 20px;
+  letter-spacing: 0.02em;
   margin-bottom: 8px;
 }
 
@@ -483,12 +558,12 @@ strong {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.45;
+  opacity: 0.62;
   margin-bottom: 15px;
 }
 
 .featured-image {
-  flex: 0 0 200px;
+  flex: 0 0 230px;
 }
 
 .featured-image img {
@@ -589,7 +664,7 @@ strong {
   letter-spacing: 0.08em;
   padding: 2px 6px;
   border: 1px solid var(--text);
-  opacity: 0.4;
+  opacity: 0.62;
   margin-bottom: 10px;
 }
 
@@ -597,7 +672,7 @@ strong {
 .contact-cta {
   display: block;
   font-size: 10px;
-  opacity: 0.4;
+  opacity: 0.62;
   margin-top: 3px;
   letter-spacing: 0.02em;
 }
@@ -641,7 +716,7 @@ strong {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  opacity: 0.4;
+  opacity: 0.6;
   margin-bottom: 4px;
 }
 
@@ -672,7 +747,7 @@ strong {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin-bottom: 4px;
 }
 
@@ -693,7 +768,7 @@ strong {
   letter-spacing: 0.08em;
   padding: 2px 8px;
   border: 1px solid var(--text);
-  opacity: 0.5;
+  opacity: 0.62;
   margin-bottom: 8px;
 }
 
@@ -721,7 +796,7 @@ strong {
 
 .search-input::placeholder {
   color: var(--text);
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 .search-results {
@@ -743,7 +818,7 @@ strong {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.4;
+  opacity: 0.6;
   margin-bottom: 4px;
 }
 
@@ -767,7 +842,7 @@ strong {
 }
 
 .tag:hover {
-  opacity: 0.3;
+  opacity: 0.55;
 }
 
 /* ===== EDITION BLOCK ===== */
@@ -857,7 +932,7 @@ img[loading="lazy"].loaded {
 }
 
 .error-404 p {
-  opacity: 0.5;
+  opacity: 0.65;
 }
 
 noscript {
@@ -938,8 +1013,8 @@ noscript a {
   }
 
   #contact-email a {
-    font-size: 9px;
-    opacity: 0.5;
+    font-size: 10px;
+    opacity: 0.7;
   }
 
   .admin-link {
@@ -1051,7 +1126,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin: 34px 0 4px;
 }
 
@@ -1121,7 +1196,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin-bottom: 6px;
 }
 
@@ -1138,7 +1213,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin: 30px 0 12px;
 }
 
@@ -1168,7 +1243,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.5;
+  opacity: 0.62;
   margin-bottom: 6px;
 }
 
@@ -1187,7 +1262,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  opacity: 0.5;
+  opacity: 0.62;
 }
 
 .filter-select {
@@ -1224,7 +1299,7 @@ noscript a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  opacity: 0.4;
+  opacity: 0.6;
   white-space: nowrap;
   align-self: center;
 }

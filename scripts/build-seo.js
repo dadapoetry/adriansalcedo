@@ -2,22 +2,22 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = __dirname + '/..';
-const TEMPLATE = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const CONTENT = path.join(ROOT, 'content');
 
 const BASE = 'https://adriansalcedo.com';
 
 const SECTIONS = {
-  obres:     { key: 'works',      ca: 'Obres i poesia avantguardista',       en: 'Works and avant-garde poetry' },
-  projectes: { key: 'projects',   ca: 'Projectes poètics',                   en: 'Poetic projects' },
-  festivals: { key: 'festivals',  ca: 'Festivals i exposicions',             en: 'Festivals and exhibitions' },
-  premis:    { key: 'awards',     ca: 'Premis i reconeixements',             en: 'Awards and recognition' },
-  premsa:    { key: 'articles',   ca: 'Premsa',                              en: 'Press' },
-  quisoc:    { key: null,         ca: 'Qui soc',                             en: 'About' },
-  arxiu:     { key: null,         ca: 'Arxiu',                               en: 'Archive' },
-  cerca:     { key: null,         ca: 'Cerca',                               en: 'Search' },
-  bibliografia: { key: null,      ca: 'Bibliografia',                        en: 'Bibliography' },
-  agenda:    { key: null,         ca: 'Agenda',                              en: 'Agenda' },
+  obres: 'works',
+  projectes: 'projects',
+  festivals: 'festivals',
+  premis: 'awards',
+  premsa: 'articles',
+  quisoc: null,
+  contacte: null,
+  arxiu: null,
+  cerca: null,
+  bibliografia: null,
+  agenda: null,
 };
 
 function esc(s) {
@@ -33,7 +33,100 @@ function readJson(name) {
   return JSON.parse(fs.readFileSync(path.join(CONTENT, name), 'utf8'));
 }
 
-function meta(desc, lang, section, article) {
+/* ── Single sources of truth (all editable from /admin) ─────────────── */
+
+// content/seo.json -> { section: { ca, en } } meta descriptions
+const SECTION_DESCS = {};
+try {
+  for (const row of readJson('seo.json').sections || []) {
+    if (!row || !row.key) continue;
+    SECTION_DESCS[row.key] = { ca: row.desc || '', en: row.desc_en || '' };
+  }
+} catch {
+  console.warn('[build-seo] content/seo.json not readable, falling back to generic descriptions');
+}
+
+// content/site.json + content/site.en.json -> { section: { ca, en } } page titles
+const SECTION_TITLES = {};
+try {
+  for (const item of readJson('site.json').nav || []) {
+    if (!item || !item.id) continue;
+    SECTION_TITLES[item.id] = {
+      ca: item.seo_title || item.label || null,
+      en: item.seo_title_en || item.label_en || item.label || null,
+    };
+  }
+  for (const item of readJson('site.en.json').nav || []) {
+    if (!item || !item.id) continue;
+    const row = SECTION_TITLES[item.id] || (SECTION_TITLES[item.id] = { ca: null, en: null });
+    if (!row.ca) row.ca = item.label || null;
+    if (!row.en) row.en = item.label || item.label_en || null;
+  }
+} catch {
+  console.warn('[build-seo] site nav not readable, falling back to section names');
+}
+
+const SITE = (() => { try { return readJson('site.json').site || {}; } catch { return {}; } })();
+const HOME_SEO = (() => { try { return readJson('home.json').seo || {}; } catch { return {}; } })();
+
+/* ── Person schema is generated from content/site.json ────────────────── */
+
+function personSchema() {
+  const socials = (() => { try { return readJson('site.json').social || {}; } catch { return {}; } })();
+  const sameAs = Object.keys(socials)
+    .map((k) => socials[k] && socials[k].url)
+    .filter(Boolean)
+    .sort((a, b) => {
+      const refs = ['wikipedia', 'goodreads', 'wikidata'];
+      const rank = (u) => { const i = refs.findIndex((r) => socials[r] && socials[r].url === u); return i === -1 ? 99 : i; };
+      return rank(a) - rank(b);
+    });
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    'name': SITE.title || 'Adrián Salcedo Toca',
+    'givenName': 'Adrián',
+    'familyName': 'Salcedo Toca',
+    'jobTitle': 'Poeta avantguardista i crític cultural',
+    'description': 'Poeta avantguardista, comunicador i crític cultural. Membre de l\'Associació d\'Escriptors en Llengua Catalana (AELC).',
+    'url': SITE.url || BASE,
+    'image': (SITE.url || BASE) + (SITE.logo || '/media/images/sat.png'),
+    ...(SITE.email ? { email: SITE.email } : {}),
+    'nationality': { '@type': 'Country', 'name': 'Spain' },
+    'address': { '@type': 'PostalAddress', 'addressLocality': 'Mataró', 'addressRegion': 'Catalunya', 'addressCountry': 'ES' },
+    'knowsLanguage': ['ca', 'en', 'es'],
+    'hasOccupation': [
+      { '@type': 'Occupation', 'name': 'Poeta', 'occupationLocation': { '@type': 'Country', 'name': 'Spain' } },
+      { '@type': 'Occupation', 'name': 'Crític cultural', 'occupationLocation': { '@type': 'Country', 'name': 'Spain' } },
+    ],
+    'award': [
+      'Premi Marta Pessarrodona de Poesia 2021',
+      'Finalista VII Certamen Art Jove de Poesia Salvador Iborra',
+    ],
+    'sameAs': sameAs,
+  };
+}
+
+function injectPersonSchema(html) {
+  const block = '<script type="application/ld+json">\r\n' + JSON.stringify(personSchema(), null, 2).replace(/\n/g, '\r\n') + '\r\n</script>';
+  const re = /<script type="application\/ld\+json">\s*[\s\S]*?<\/script>/g;
+  let found = false;
+  const out = html.replace(re, (m) => {
+    if (found || !/"@type":\s*"Person"/.test(m)) return m;
+    found = true;
+    return block;
+  });
+  if (!found) console.warn('[build-seo] Person schema block not found in index.html');
+  return out;
+}
+
+let TEMPLATE = injectPersonSchema(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'));
+if (TEMPLATE !== fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8')) {
+  fs.writeFileSync(path.join(ROOT, 'index.html'), TEMPLATE, 'utf8');
+}
+
+function meta(desc, lang) {
   const isEn = lang === 'en';
   const seo = desc;
 
@@ -63,21 +156,23 @@ function meta(desc, lang, section, article) {
     } else if (item.image) {
       image = item.image.startsWith('http') ? item.image : BASE + item.image;
     } else {
-      image = BASE + '/media/images/sat.png';
+      image = BASE + (SITE.logo || '/media/images/sat.png');
     }
   } else if (seo.title) {
     title = seo.title + ' | Adrián Salcedo Toca';
-    description = isEn
-      ? 'Explore the ' + seo.titleEn.toLowerCase() + ' of Adrián Salcedo Toca.'
-      : 'Explora la secció de ' + seo.title.toLowerCase() + " d'Adrián Salcedo Toca.";
+    description = (desc.section && SECTION_DESCS[desc.section] && (isEn ? SECTION_DESCS[desc.section].en : SECTION_DESCS[desc.section].ca))
+      || SITE.description
+      || (isEn ? 'Portfolio of Adrián Salcedo Toca.' : "Portfoli d'Adrián Salcedo Toca.");
     ogType = 'website';
-    image = BASE + '/media/images/sat.png';
+    image = BASE + (SITE.logo || '/media/images/sat.png');
   } else {
-    title = isEn ? 'Adrián Salcedo Toca — Avant-garde poet' : 'Adrián Salcedo Toca — Poeta avantguardista';
-    description = isEn ? 'Digital portfolio of Adrián Salcedo Toca, avant-garde poet and cultural critic.' : "Portfoli digital d'Adrián Salcedo Toca, poeta avantguardista i crític cultural.";
+    title = isEn ? (HOME_SEO.title_en || HOME_SEO.title) : (HOME_SEO.title || (SITE.title || 'Adrián Salcedo Toca'));
+    description = isEn ? (HOME_SEO.description_en || HOME_SEO.description) : (HOME_SEO.description || SITE.description || '');
     ogType = 'website';
-    image = BASE + '/media/images/sat.png';
+    image = BASE + (SITE.logo || '/media/images/sat.png');
   }
+  if (!title) title = SITE.title || 'Adrián Salcedo Toca';
+  if (!description) description = SITE.description || '';
 
   return { title, description, ogType, image, lang };
 }
@@ -123,13 +218,13 @@ function writePage(urlPath, html) {
 // Home
 for (const lang of ['ca', 'en']) {
   const prefix = lang === 'en' ? '/en' : '';
-  const m = meta({ title: null }, lang, null, null);
+  const m = meta({}, lang);
   m._canonical = BASE + prefix + '/';
   writePage(prefix + '/', buildPage(m));
 }
 
 // Sections and articles
-for (const [section, cfg] of Object.entries(SECTIONS)) {
+for (const [section, itemKey] of Object.entries(SECTIONS)) {
   const jsonName = section + '.json';
   let json;
   try { json = readJson(jsonName); } catch { continue; }
@@ -138,15 +233,18 @@ for (const [section, cfg] of Object.entries(SECTIONS)) {
     const prefix = lang === 'en' ? '/en' : '';
     const isEn = lang === 'en';
 
-    const sectionTitle = isEn ? cfg.title_en || cfg.en : cfg.ca;
+    const sectionTitle = isEn
+      ? (SECTION_TITLES[section] && SECTION_TITLES[section].en)
+      : (SECTION_TITLES[section] && SECTION_TITLES[section].ca);
+    if (!sectionTitle) continue;
 
-    const m = meta({ title: sectionTitle, titleEn: cfg.en }, lang, null, null);
+    const m = meta({ title: sectionTitle, section }, lang);
     m._canonical = BASE + prefix + '/' + section + '/';
     writePage(prefix + '/' + section, buildPage(m));
 
-    if (cfg.key && Array.isArray(json[cfg.key])) {
-      for (const item of json[cfg.key]) {
-        const im = meta({ item }, lang, section, item.id);
+    if (itemKey && Array.isArray(json[itemKey])) {
+      for (const item of json[itemKey]) {
+        const im = meta({ item }, lang);
         if (!im) continue;
         im._canonical = BASE + prefix + '/' + section + '/' + item.id;
         writePage(prefix + '/' + section + '/' + item.id, buildPage(im));
@@ -178,6 +276,7 @@ const SECTION_SPLIT = {
   festivals: ['weekly', '0.9'],
   premis:    ['monthly', '0.8'],
   quisoc:    ['monthly', '0.8'],
+  contacte:  ['monthly', '0.7'],
   premsa:    ['monthly', '0.7'],
   arxiu:     ['monthly', '0.7'],
   cerca:     ['monthly', '0.3'],
@@ -187,19 +286,18 @@ const SECTION_SPLIT = {
 
 const smUrls = [sitemapUrl(BASE + '/', { changefreq: 'weekly', priority: '1.0' }), sitemapUrl(BASE + '/en', { changefreq: 'weekly', priority: '1.0' })];
 
-for (const section of Object.keys(SECTIONS)) {
+for (const [section, itemKey] of Object.entries(SECTIONS)) {
   const split = SECTION_SPLIT[section] || ['monthly', '0.6'];
-  const cfg = SECTIONS[section];
 
   for (const lang of ['ca', 'en']) {
     const prefix = lang === 'en' ? '/en' : '';
     smUrls.push(sitemapUrl(`${BASE}${prefix}/${section}`, { changefreq: split[0], priority: split[1] }));
 
-    if (cfg.key) {
+    if (itemKey) {
       let json;
       try { json = readJson(section + '.json'); } catch { json = null; }
-      if (json && Array.isArray(json[cfg.key])) {
-        for (const item of json[cfg.key]) {
+      if (json && Array.isArray(json[itemKey])) {
+        for (const item of json[itemKey]) {
           smUrls.push(sitemapUrl(`${BASE}${prefix}/${section}/${item.id}`, { changefreq: 'monthly', priority: '0.6' }));
         }
       }

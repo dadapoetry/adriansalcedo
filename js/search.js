@@ -4,7 +4,7 @@ const SearchEngine = {
 
   async buildIndex() {
     if (this.built) return;
-    const sections = ['projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa', 'bibliografia', 'agenda'];
+    const sections = ['projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa', 'bibliografia', 'agenda', 'contacte'];
     for (const section of sections) {
       const data = await ContentLoader.loadSection(section);
       if (!data) continue;
@@ -38,7 +38,7 @@ const SearchEngine = {
 
   renderResults(results, container) {
     if (!results.length) {
-      container.innerHTML = '<p style="opacity: 0.4; font-size: 12px;">No s\'han trobat resultats.</p>';
+      container.innerHTML = '<p style="opacity: 0.65; font-size: 12px;">No s\'han trobat resultats.</p>';
       return;
     }
     container.innerHTML = results.map(r =>
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('input', () => {
       const term = input.value.trim();
       if (term.length < 2) {
-        results.innerHTML = '<p style="opacity: 0.4; font-size: 12px;">Escriu almenys 2 caràcters per cercar.</p>';
+        results.innerHTML = '<p style="opacity: 0.65; font-size: 12px;">Escriu almenys 2 caràcters per cercar.</p>';
         return;
       }
       const hits = SearchEngine.query(term);

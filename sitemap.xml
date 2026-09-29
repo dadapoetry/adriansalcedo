@@ -577,6 +577,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://adriansalcedo.com/contacte</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://adriansalcedo.com/en/contacte</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://adriansalcedo.com/arxiu</loc>
     <lastmod>2026-09-29</lastmod>
     <changefreq>monthly</changefreq>

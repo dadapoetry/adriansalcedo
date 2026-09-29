@@ -1,0 +1,59 @@
+{
+  "sections": [
+    {
+      "key": "obres",
+      "desc": "Obres d'Adrián Salcedo Toca: el llibre CRIT (Pont del Petroli Edicions, 2025), videopoemes, revistes i instal·lacions.",
+      "desc_en": "Works by Adrián Salcedo Toca: the book CRIT (Pont del Petroli Edicions, 2025), videopoems, magazines and installations."
+    },
+    {
+      "key": "projectes",
+      "desc": "Els projectes d'arxiu i edició d'Adrián Salcedo Toca, com Dada Poetry, l'arxiu de poesia de dades en català.",
+      "desc_en": "The archive and publishing projects of Adrián Salcedo Toca, including Dada Poetry, the Catalan data poetry archive."
+    },
+    {
+      "key": "festivals",
+      "desc": "Festivals, recitals, exposicions i intervencions on ha presentat l'obra d'Adrián Salcedo Toca.",
+      "desc_en": "Festivals, readings, exhibitions and interventions featuring the work of Adrián Salcedo Toca."
+    },
+    {
+      "key": "premis",
+      "desc": "Premis i reconeixements d'Adrián Salcedo Toca: Premi Marta Pessarrodona de Poesia i Certamen Art Jove de Poesia Salvador Iborra.",
+      "desc_en": "Awards and recognition of Adrián Salcedo Toca: Marta Pessarrodona Poetry Prize and Salvador Iborra Young Poetry Contest."
+    },
+    {
+      "key": "premsa",
+      "desc": "Entrevistes, ressenyes i reportatges sobre CRIT i l'obra d'Adrián Salcedo Toca: Caràcters, Ràdio 4, TV Mataró, Núvol i Barcelona Ciutat de Literatura.",
+      "desc_en": "Interviews, reviews and features about CRIT and the work of Adrián Salcedo Toca: Caràcters, Ràdio 4, TV Mataró, Núvol and Barcelona City of Literature."
+    },
+    {
+      "key": "quisoc",
+      "desc": "Biografia i trajectòria d'Adrián Salcedo Toca, poeta avantguardista, comunicador i crític cultural del Maresme, membre de l'AELC.",
+      "desc_en": "Biography and trajectory of Adrián Salcedo Toca, avant-garde poet, communicator and cultural critic from Maresme, member of the AELC."
+    },
+    {
+      "key": "contacte",
+      "desc": "Contacte d'Adrián Salcedo Toca per a festivals, col·laboracions, encàrrecs, premsa, tallers i drets d'obra.",
+      "desc_en": "Contact Adrián Salcedo Toca for festivals, collaborations, commissions, press, workshops and rights."
+    },
+    {
+      "key": "arxiu",
+      "desc": "Arxiu cronològic de l'obra d'Adrián Salcedo Toca: llibres, videopoemes, festivals, premis, projectes i publicacions.",
+      "desc_en": "Chronological archive of the work of Adrián Salcedo Toca: books, videopoems, festivals, awards, projects and publications."
+    },
+    {
+      "key": "bibliografia",
+      "desc": "Bibliografia i revistes on apareix l'obra d'Adrián Salcedo Toca, incloent-hi CRIT i Barretdefum.",
+      "desc_en": "Bibliography and magazines featuring the work of Adrián Salcedo Toca, including CRIT and Barretdefum."
+    },
+    {
+      "key": "agenda",
+      "desc": "Properes lectures, recitals i actuacions d'Adrián Salcedo Toca.",
+      "desc_en": "Upcoming readings, recitals and performances by Adrián Salcedo Toca."
+    },
+    {
+      "key": "cerca",
+      "desc": "Cerca al portfoli d'Adrián Salcedo Toca.",
+      "desc_en": "Search the Adrián Salcedo Toca portfolio."
+    }
+  ]
+}

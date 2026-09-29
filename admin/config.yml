@@ -19,12 +19,12 @@ collections:
   - name: "site"
     label: "Configuració del lloc"
     label_singular: "Configuració"
-    description: "Configuració global del lloc web"
+    description: "Configuració global del lloc web (CA i EN)"
     files:
       - file: "content/site.json"
-        label: "Configuració general"
+        label: "Configuració general (CA)"
         name: "site-config"
-        fields:
+        fields: &siteFields
           - label: "Configuració del lloc"
             name: "site"
             widget: "object"
@@ -47,11 +47,13 @@ collections:
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Etiqueta (CA)", name: "label", widget: "string" }
               - { label: "Etiqueta (EN)", name: "label_en", widget: "string" }
+              - { label: "Títol SEO (CA)", name: "seo_title", widget: "string", required: false, hint: "Opcional. Si és buit, s’utilitza l’etiqueta del menú." }
+              - { label: "SEO title (EN)", name: "seo_title_en", widget: "string", required: false, hint: "Optional. Falls back to the menu label." }
               - { label: "Camí", name: "path", widget: "string" }
           - label: "Xarxes socials"
             name: "social"
             widget: "object"
-            fields:
+            fields: &socialFields
               - label: "Instagram"
                 name: "instagram"
                 widget: "object"
@@ -87,6 +89,13 @@ collections:
                   - { label: "URL", name: "url", widget: "string", required: false }
                   - { label: "Etiqueta", name: "label", widget: "string", required: false }
                   - { label: "Icona", name: "icon", widget: "string", required: false }
+              - label: "Viquipèdia / Wikipedia"
+                name: "wikipedia"
+                widget: "object"
+                fields:
+                  - { label: "URL", name: "url", widget: "string", required: false }
+                  - { label: "Etiqueta", name: "label", widget: "string", required: false }
+                  - { label: "Icona", name: "icon", widget: "string", required: false }
               - label: "Wikidata"
                 name: "wikidata"
                 widget: "object"
@@ -94,6 +103,42 @@ collections:
                   - { label: "URL", name: "url", widget: "string", required: false }
                   - { label: "Etiqueta", name: "label", widget: "string", required: false }
                   - { label: "Icona", name: "icon", widget: "string", required: false }
+      - file: "content/site.en.json"
+        label: "Configuració general (EN)"
+        name: "site-config-en"
+        fields: *siteFields
+
+  - name: "seo"
+    label: "Descripcions SEO"
+    label_singular: "Descripció SEO"
+    description: "Meta description de cada secció (CA + EN): el text que veuen Google i les xarxes socials en cada pàgina."
+    files:
+      - file: "content/seo.json"
+        label: "Descripcions per secció"
+        name: "seo-sections"
+        fields:
+          - label: "Seccions"
+            name: "sections"
+            widget: "list"
+            min: 1
+            fields:
+              - label: "Secció"
+                name: "key"
+                widget: "select"
+                options:
+                  - { label: "Obres", value: "obres" }
+                  - { label: "Projectes", value: "projectes" }
+                  - { label: "Festivals", value: "festivals" }
+                  - { label: "Premis", value: "premis" }
+                  - { label: "Premsa", value: "premsa" }
+                  - { label: "Qui soc", value: "quisoc" }
+                  - { label: "Contacte", value: "contacte" }
+                  - { label: "Arxiu", value: "arxiu" }
+                  - { label: "Bibliografia", value: "bibliografia" }
+                  - { label: "Agenda", value: "agenda" }
+                  - { label: "Cerca", value: "cerca" }
+              - { label: "Descripció (CA)", name: "desc", widget: "text" }
+              - { label: "Description (EN)", name: "desc_en", widget: "text", required: false }
 
   - name: "inici"
     label: "Inici (Home)"
@@ -367,6 +412,8 @@ collections:
               - { label: "Títol", name: "title", widget: "string" }
               - { label: "Tipus", name: "type", widget: "select", options: ["publication", "videopoem", "installation", "digital"] }
               - { label: "Any", name: "year", widget: "number", value_type: "int", required: false }
+              - { label: "Editorial", name: "publisher", widget: "string", required: false }
+              - { label: "ISBN", name: "isbn", widget: "string", required: false }
               - { label: "Contingut (CA)", name: "content", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" }, required: false }
               - { label: "Content (EN)", name: "content_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" }, required: false }
               - label: "Imatges"
@@ -578,6 +625,19 @@ collections:
               - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
               - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
               - { label: "URL", name: "url", widget: "string", required: false }
+
+  - name: "contacte"
+    label: "Contacte"
+    description: "Pàgina de contacte (CA + EN). El correu, les xarxes i el CV es configuren a «Configuració del lloc» i «Qui soc»."
+    files:
+      - file: "content/contacte.json"
+        label: "Contacte"
+        name: "contacte"
+        fields:
+          - { label: "Títol (CA)", name: "title", widget: "string" }
+          - { label: "Títol (EN)", name: "title_en", widget: "string", required: false }
+          - { label: "Frase d'introducció (CA)", name: "intro", widget: "string", required: false }
+          - { label: "Intro line (EN)", name: "intro_en", widget: "string", required: false }
 
   - name: "agenda"
     label: "Agenda"

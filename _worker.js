@@ -1,35 +1,6 @@
 const SITE_URL = "https://adriansalcedo.com";
 const DEFAULT_IMAGE = "/media/images/sat.png";
 
-const SECTION_META = {
-  ca: {
-    home: { title: "Inici — Poeta avantguardista", desc: "Portfoli oficial d'Adrián Salcedo Toca — poeta i artista avantguardista. Obres, festivals, premis i projectes." },
-    obres: { title: "Obres i poesia avantguardista", desc: "Explora l'obra poètica i visual d'Adrián Salcedo Toca — llibres, poemes i instal·lacions." },
-    festivals: { title: "Festivals i exposicions", desc: "Festivals i exposicions on Adrián Salcedo Toca ha presentat la seva obra poètica i visual." },
-    premis: { title: "Premis i reconeixements", desc: "Premis i reconeixements rebuts per Adrián Salcedo Toca en el camp de la poesia i l'art." },
-    projectes: { title: "Projectes poètics", desc: "Els projectes artístics i editorials d'Adrián Salcedo Toca." },
-    premsa: { title: "Premsa", desc: "Cobertura mediàtica de l'obra d'Adrián Salcedo Toca." },
-    quisoc: { title: "Qui soc", desc: "Biografia i trajectòria professional d'Adrián Salcedo Toca — poeta, artista i editor." },
-    arxiu: { title: "Arxiu", desc: "Arxiu i cercador del portfoli d'Adrián Salcedo Toca." },
-    cerca: { title: "Cerca", desc: "Cerca al portfoli d'Adrián Salcedo Toca." },
-    bibliografia: { title: "Bibliografia", desc: "Llibres, revistes i publicacions on apareix l'obra d'Adrián Salcedo Toca." },
-    agenda: { title: "Agenda", desc: "Properes lectures, recitals i actuacions d'Adrián Salcedo Toca." },
-  },
-  en: {
-    home: { title: "Home — Avant-garde poet", desc: "Official portfolio of Adrián Salcedo Toca — avant-garde poet and artist. Works, festivals, awards and projects." },
-    obres: { title: "Works and avant-garde poetry", desc: "Explore the poetic and visual works of Adrián Salcedo Toca — books, poems and installations." },
-    festivals: { title: "Festivals and exhibitions", desc: "Festivals and exhibitions featuring Adrián Salcedo Toca's poetic and visual work." },
-    premis: { title: "Awards and recognition", desc: "Awards and recognition received by Adrián Salcedo Toca in poetry and art." },
-    projectes: { title: "Poetic projects", desc: "The artistic and editorial projects of Adrián Salcedo Toca." },
-    premsa: { title: "Press", desc: "Press coverage of Adrián Salcedo Toca's work." },
-    quisoc: { title: "About", desc: "Biography and professional trajectory of Adrián Salcedo Toca — poet, artist and editor." },
-    arxiu: { title: "Archive", desc: "Archive and search for the Adrián Salcedo Toca portfolio." },
-    cerca: { title: "Search", desc: "Search the Adrián Salcedo Toca portfolio." },
-    bibliografia: { title: "Bibliography", desc: "Books, magazines and publications featuring the work of Adrián Salcedo Toca." },
-    agenda: { title: "Agenda", desc: "Upcoming readings, recitals and performances by Adrián Salcedo Toca." },
-  },
-};
-
 const SECTION_TO_JSON = {
   obres: "/content/obres.json",
   festivals: "/content/festivals.json",
@@ -37,10 +8,55 @@ const SECTION_TO_JSON = {
   projectes: "/content/projectes.json",
   premsa: "/content/premsa.json",
   quisoc: "/content/quisoc.json",
+  contacte: "/content/contacte.json",
   arxiu: "/content/arxiu.json",
   bibliografia: "/content/bibliografia.json",
   agenda: "/content/agenda.json",
 };
+
+const cache = {};
+
+function cached(key, loader) {
+  if (!cache[key]) cache[key] = loader();
+  return cache[key];
+}
+
+async function getSeo(env) {
+  return cached("seo", () => fetchJson("/content/seo.json", env));
+}
+
+async function getSite(lang, env) {
+  const file = lang === "en" ? "/content/site.en.json" : "/content/site.json";
+  return cached(`site:${lang}`, () => fetchJson(file, env));
+}
+
+async function getNavTitles(env) {
+  if (cache.navTitles) return cache.navTitles;
+  const site = await getSite("ca", env);
+  const map = {};
+  for (const item of (site && site.nav) || []) {
+    if (!item || !item.id) continue;
+    map[item.id] = {
+      ca: item.seo_title || item.label || null,
+      en: item.seo_title_en || item.label_en || item.label || null,
+    };
+  }
+  cache.navTitles = map;
+  return map;
+}
+
+function sectionTitle(navTitles, lang, section) {
+  const row = navTitles[section];
+  if (row && row[lang]) return row[lang];
+  if (lang === "en") return row ? row.ca : null;
+  return row ? row.en : null;
+}
+
+function sectionDesc(seo, lang, section) {
+  const row = ((seo && seo.sections) || []).find((s) => s && s.key === section);
+  if (!row) return null;
+  return (lang === "en" ? row.desc_en : row.desc) || null;
+}
 
 function extractId(pathname, section) {
   const clean = pathname.replace(/^\/en/, "");
@@ -74,10 +90,13 @@ async function getMeta(pathname, env) {
   const section = segments[0] || "home";
   const articleId = segments.length > 1 ? segments[1] : null;
 
-  const base = SECTION_META[lang][section] || SECTION_META[lang].home;
-  let title = base.title;
-  let description = base.desc;
-  let image = DEFAULT_IMAGE;
+  const [seo, navTitles, site] = await Promise.all([getSeo(env), getNavTitles(env), getSite(lang, env)]);
+  const siteCfg = (site && site.site) || {};
+  const siteName = siteCfg.title || "Adrián Salcedo Toca";
+
+  let title = section === "home" ? siteName : (sectionTitle(navTitles, lang, section) || siteName);
+  let description = sectionDesc(seo, lang, section) || siteCfg.description || "";
+  let image = siteCfg.logo || DEFAULT_IMAGE;
   let url = `${SITE_URL}${path}`;
   let ogType = "website";
 

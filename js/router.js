@@ -1,27 +1,51 @@
 const App = {
   lang: 'ca',
   siteData: null,
+  seoData: null,
+  homeSeo: null,
+  navTitles: null,
   _prevLang: null,
-  sectionTitles: {
-    'home': { ca: 'Inici — Poeta avantguardista', en: 'Home — Avant-garde poet' },
-    'obres': { ca: 'Obres i poesia avantguardista', en: 'Works and avant-garde poetry' },
-    'projectes': { ca: 'Projectes poètics', en: 'Poetic projects' },
-    'festivals': { ca: 'Festivals i exposicions', en: 'Festivals and exhibitions' },
-    'premis': { ca: 'Premis i reconeixements', en: 'Awards and recognition' },
-    'quisoc': { ca: 'Qui soc', en: 'About' },
-    'premsa': { ca: 'Premsa', en: 'Press' },
-    'cerca': { ca: 'Cerca', en: 'Search' },
-    'arxiu': { ca: 'Arxiu', en: 'Archive' },
-    'bibliografia': { ca: 'Bibliografia', en: 'Bibliography' },
-    'agenda': { ca: 'Agenda', en: 'Agenda' }
-  },
 
   async init() {
     this.detectLang();
-    this.siteData = await ContentLoader.loadSite(this.lang);
+    const [site, seo, home, siteCa] = await Promise.all([
+      ContentLoader.loadSite(this.lang),
+      ContentLoader.load('/content/seo.json'),
+      ContentLoader.load('/content/home.json'),
+      ContentLoader.load('/content/site.json')
+    ]);
+    this.siteData = site;
+    this.seoData = seo;
+    this.homeSeo = (home && home.seo) || null;
+    this.navTitles = {};
+    for (const item of (siteCa && siteCa.nav) || []) {
+      if (!item || !item.id) continue;
+      this.navTitles[item.id] = {
+        ca: item.seo_title || item.label || null,
+        en: item.seo_title_en || item.label_en || item.label || null
+      };
+    }
     if (this.siteData) this.renderShell();
     this.handleRouting();
     this.bindEvents();
+  },
+
+  sectionTitle(section) {
+    const fromSeo = this.navTitles && this.navTitles[section];
+    if (fromSeo && fromSeo[this.lang]) return fromSeo[this.lang];
+    const nav = (this.siteData && this.siteData.nav) || [];
+    const item = nav.find((n) => n.id === section)
+      || nav.find((n) => (n.path || '').replace(/^\/en/, '') === '/' + section);
+    if (!item) return null;
+    if (this.lang === 'en') return item.seo_title_en || item.label_en || item.label || null;
+    return item.seo_title || item.label || null;
+  },
+
+  sectionDescription(section) {
+    const rows = (this.seoData && this.seoData.sections) || [];
+    const row = rows.find((s) => s && s.key === section);
+    if (!row) return null;
+    return (this.lang === 'en' ? row.desc_en : row.desc) || null;
   },
 
   detectLang() {
@@ -86,6 +110,7 @@ const App = {
 
     this.updateMeta(currentSection, currentArticle);
     await this.renderSection(currentSection, currentArticle);
+    this.scrollToHash();
 
     const params = new URLSearchParams(window.location.search);
     if (currentSection === 'cerca' && params.has('q')) {
@@ -96,25 +121,28 @@ const App = {
   },
 
   updateMeta(section, article) {
-    const baseUrl = 'https://adriansalcedo.com';
     const cleanUrl = window.location.pathname;
+    const site = (this.siteData && this.siteData.site) || {};
 
-    let pageTitle = 'Adrián Salcedo Toca';
-    let pageDesc = this.lang === 'en'
-      ? 'Digital portfolio of Adrián Salcedo Toca, avant-garde poet and cultural critic.'
-      : 'Portfoli digital d\'Adrián Salcedo Toca, poeta avantguardista i crític cultural.';
+    let pageTitle = site.title || 'Adrián Salcedo Toca';
+    let pageDesc = site.description || '';
 
     if (article) {
       const fallbackTitle = article.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-      pageTitle = `${fallbackTitle} | Adrián Salcedo Toca`;
-    } else if (this.sectionTitles[section]) {
-      pageTitle = `${this.sectionTitles[section][this.lang]} | Adrián Salcedo Toca`;
-      pageDesc = this.lang === 'en'
-        ? `Explore the ${this.sectionTitles[section].en.toLowerCase()} of Adrián Salcedo Toca.`
-        : `Explora la secció de ${this.sectionTitles[section].ca.toLowerCase()} d'Adrián Salcedo Toca.`;
+      pageTitle = `${fallbackTitle} | ${pageTitle}`;
+    } else if (section === 'home' && this.homeSeo) {
+      const seo = this.homeSeo;
+      pageTitle = this.lang === 'en' ? (seo.title_en || seo.title || pageTitle) : (seo.title || pageTitle);
+      pageDesc = this.lang === 'en' ? (seo.description_en || seo.description || pageDesc) : (seo.description || pageDesc);
+    } else {
+      const sectionTitle = this.sectionTitle(section);
+      if (sectionTitle) {
+        pageTitle = `${sectionTitle} | ${pageTitle}`;
+        pageDesc = this.sectionDescription(section) || pageDesc;
+      }
     }
 
-    this._applyMetaTags(pageTitle, pageDesc, section, article);
+    this._applyMetaTags(pageTitle, pageDesc, section, article, null);
   },
 
   updateArticleSEO(item, section) {
@@ -143,12 +171,16 @@ const App = {
     if (seoTitle || seoDesc) {
       const currentTitle = seoTitle || document.title;
       const currentDesc = seoDesc || '';
-      this._applyMetaTags(currentTitle, currentDesc, section, item.id || true);
+      this._applyMetaTags(currentTitle, currentDesc, section, item.id || true, item);
     }
   },
 
-  _applyMetaTags(pageTitle, pageDesc, section, article) {
-    const baseUrl = 'https://adriansalcedo.com';
+  _baseUrl() {
+    return ((this.siteData && this.siteData.site && this.siteData.site.url) || 'https://adriansalcedo.com').replace(/\/$/, '');
+  },
+
+  _applyMetaTags(pageTitle, pageDesc, section, article, item) {
+    const baseUrl = this._baseUrl();
     const cleanUrl = window.location.pathname;
 
     document.title = pageTitle;
@@ -192,11 +224,12 @@ const App = {
       if (twImage) twImage.setAttribute('content', `${baseUrl}/media/images/sat.png`);
     }
 
-    this.injectStructuredData(section, article, pageTitle, pageDesc, canonical);
+    this.injectStructuredData(section, article, pageTitle, pageDesc, canonical, item);
   },
 
-  injectStructuredData(section, article, title, desc, canonical) {
+  injectStructuredData(section, article, title, desc, canonical, item) {
     const baseUrl = 'https://adriansalcedo.com';
+    const isEn = this.lang === 'en';
     const existing = document.getElementById('dynamic-schema');
     if (existing) existing.remove();
 
@@ -215,6 +248,21 @@ const App = {
           "url": baseUrl
         }
       };
+    } else if (section === 'contacte' && !article) {
+      const email = (this.siteData && this.siteData.site && this.siteData.site.email) || '';
+      schema = {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        "name": title,
+        "description": desc,
+        "url": canonical,
+        "mainEntity": {
+          "@type": "Person",
+          "name": (this.siteData && this.siteData.site && this.siteData.site.title) || "Adrián Salcedo Toca",
+          "url": baseUrl,
+          ...(email ? { "email": `mailto:${email}` } : {})
+        }
+      };
     } else if (section === 'obres' && !article) {
       schema = {
         "@context": "https://schema.org",
@@ -229,22 +277,38 @@ const App = {
         }
       };
     } else if (article) {
-      schema = {
-        "@context": "https://schema.org",
+      const isWork = section === 'obres' && item;
+      const crumbs = this._breadcrumbs(section, isEn, item);
+      const isBook = isWork && !!item.isbn;
+      const body = isWork ? {
+        "@type": isBook ? "Book" : "CreativeWork",
+        "name": isEn ? (item.title_en || item.title) : item.title,
+        "author": { "@type": "Person", "name": "Adrián Salcedo Toca", "url": baseUrl },
+        "inLanguage": "ca"
+      } : {
         "@type": "Article",
         "headline": title,
-        "description": desc,
-        "url": canonical,
-        "author": {
-          "@type": "Person",
-          "name": "Adrián Salcedo Toca",
-          "url": baseUrl
-        },
-        "publisher": {
-          "@type": "Person",
-          "name": "Adrián Salcedo Toca"
-        }
+        "author": { "@type": "Person", "name": "Adrián Salcedo Toca", "url": baseUrl },
+        "publisher": { "@type": "Person", "name": "Adrián Salcedo Toca" }
       };
+      if (isWork) {
+        if (item.isbn) body.isbn = item.isbn;
+        if (isBook && item.publisher) body.publisher = { "@type": "Organization", "name": item.publisher };
+        if (item.year) body.datePublished = String(item.year);
+        if (item.images && item.images[0] && item.images[0].src) {
+          body.image = item.images[0].src.startsWith('http') ? item.images[0].src : baseUrl + item.images[0].src;
+        }
+      }
+      body["@context"] = "https://schema.org";
+      body.description = desc;
+      body.url = canonical;
+      body.isPartOf = {
+        "@type": "WebSite",
+        "name": "Adrián Salcedo Toca",
+        "url": baseUrl
+      };
+      if (crumbs) body.breadcrumb = crumbs;
+      schema = body;
     }
 
     if (schema) {
@@ -256,15 +320,64 @@ const App = {
     }
   },
 
+  _breadcrumbs(section, isEn, item) {
+    const baseUrl = this._baseUrl();
+    const prefix = isEn ? '/en' : '';
+    const nav = (this.siteData && this.siteData.nav) || [];
+    const homeItem = nav.find((n) => n.id === 'home');
+    const label = this.sectionTitle(section)
+      || (isEn ? (homeItem && (homeItem.label_en || homeItem.label)) : (homeItem && homeItem.label))
+      || section;
+    const list = [
+      { "@type": "ListItem", position: 1, name: isEn ? "Home" : "Inici", item: baseUrl + (isEn ? "/en" : "/") },
+      { "@type": "ListItem", position: 2, name: label, item: baseUrl + prefix + '/' + section }
+    ];
+    if (item && (item.title || item.title_en)) {
+      list.push({ "@type": "ListItem", position: 3, name: isEn ? (item.title_en || item.title) : item.title, item: baseUrl + prefix + '/' + section + '/' + (item.id || '') });
+    }
+    return { "@type": "BreadcrumbList", itemListElement: list };
+  },
+
   setMetaImage(src) {
     if (!src) return;
-    const imageSrc = src.startsWith('http') ? src : `https://adriansalcedo.com${src}`;
+    const imageSrc = src.startsWith('http') ? src : `${this._baseUrl()}${src}`;
     const ogImage = document.querySelector('meta[property="og:image"]');
     const twImage = document.querySelector('meta[name="twitter:image"]');
     const twCard = document.querySelector('meta[name="twitter:card"]');
     if (ogImage) ogImage.setAttribute('content', imageSrc);
     if (twImage) twImage.setAttribute('content', imageSrc);
     if (twCard) twCard.setAttribute('content', 'summary_large_image');
+  },
+
+  _references(isEn) {
+    const social = (this.siteData && this.siteData.social) || {};
+    const keys = ['goodreads', 'wikipedia', 'wikidata'];
+    const items = keys.filter(k => social[k]).map(k => social[k]);
+    if (!items.length) return '';
+    return `<div class="references">
+      <h3 class="section-label">${isEn ? 'References' : 'REFERÈNCIES'}</h3>
+      <p>${items.map(s => `<a href="${s.url}" class="inline-link" target="_blank" rel="noopener">${s.label}</a>`).join(' \u00B7 ')}</p>
+    </div>`;
+  },
+
+  scrollToHash() {
+    const hash = window.location.hash;
+    if (!hash || hash.length < 2) return;
+    let target = null;
+    try { target = document.getElementById(decodeURIComponent(hash.slice(1))); } catch (e) { target = null; }
+    if (!target) return;
+    window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  },
+
+  activateMedia(scope) {
+    const frames = (scope || document).querySelectorAll('iframe[data-src]');
+    frames.forEach(f => {
+      if (f.getAttribute('src')) return;
+      f.setAttribute('src', f.getAttribute('data-src'));
+    });
   },
 
   async renderSection(section, article) {
@@ -355,6 +468,9 @@ const App = {
         }
       });
     }
+
+    const activeLayer = sectionEl.querySelector('.view-layer.active');
+    this.activateMedia(activeLayer || sectionEl);
   },
 
   async loadContent(section, sectionEl, article) {
@@ -364,7 +480,7 @@ const App = {
     const isEn = this.lang === 'en';
     const prefix = isEn ? '/en' : '';
 
-    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca', 'bibliografia', 'agenda'];
+    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca', 'bibliografia', 'agenda', 'contacte'];
     if (!validSections.includes(section)) {
       listLayer.innerHTML = `
         <div class="error-404">
@@ -378,7 +494,7 @@ const App = {
 
     let data = await ContentLoader.loadSection(section, this.lang);
     if (!data) {
-      listLayer.innerHTML = '<p style="opacity:0.3;font-size:11px;">No s\'ha pogut carregar el contingut.</p>';
+      listLayer.innerHTML = '<p style="opacity:0.65;font-size:11px;">No s\'ha pogut carregar el contingut.</p>';
       return;
     }
 
@@ -402,8 +518,9 @@ const App = {
         ${Renderers.paragraphs(awtxt)}
         ${Renderers.paragraphs(edu)}
         ${statement ? `<p><em>${statement}</em></p>` : ''}
-        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
-        ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
+        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank" rel="noopener">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
+        ${this._references(isEn)}
+        ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.62; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
     } else if (section === 'projectes' && data.projects) {
       listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
         <ul class="item-list">${data.projects.map(p => `<li><a class="item-link" href="${prefix}/projectes/${p.id}">${p.title}</a></li>`).join('')}</ul>`;
@@ -430,7 +547,7 @@ const App = {
       }
     } else if (section === 'obres' && data.works) {
       listLayer.innerHTML = `<h2>${isEn ? 'Works' : 'Obres'}</h2>
-        <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="${prefix}/obres/${w.id}">${w.title}</a></li>`).join('')}</ul>`;
+        <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="${prefix}/obres/${w.id}">${w.title}</a>${w.year ? `<span class="archive-meta">${[Renderers.kindLabel(w.type, isEn), w.year].filter(Boolean).join(' \u00B7 ')}</span>` : ''}</li>`).join('')}</ul>`;
       data.works.forEach(w => {
         let existing = sectionEl.querySelector(`#${w.id}`);
         if (!existing) {
@@ -439,6 +556,12 @@ const App = {
           existing.id = w.id;
           sectionEl.appendChild(existing);
         }
+        const ficha = [
+          Renderers.kindLabel(w.type, isEn),
+          w.publisher,
+          w.year,
+          w.isbn ? `ISBN: ${w.isbn}` : ''
+        ].filter(Boolean).join(' \u00B7 ');
         const body = (w.blocks && w.blocks.length)
           ? Renderers.blocks(w.blocks, this.lang)
           : `${w.image_position === 'top' ? Renderers.images(w.images, this.lang) : ''}
@@ -447,11 +570,14 @@ const App = {
           ${Renderers.links(w.links, this.lang)}
           ${w.image_position === 'middle' ? Renderers.images(w.images, this.lang) : ''}
           ${w.videos_position === 'middle' ? Renderers.videos(w.videos, this.lang) : ''}
-          ${Renderers.buyLinks(w.buyLinks, this.lang)}
+          ${Renderers.buyLinks(w.buyLinks, this.lang, 'comprar-' + w.id)}
           ${w.image_position !== 'top' && w.image_position !== 'middle' ? Renderers.images(w.images, this.lang) : ''}
-          ${w.videos_position !== 'top' && w.videos_position !== 'middle' ? Renderers.videos(w.videos, this.lang) : ''}`;
+          ${w.videos_position !== 'top' && w.videos_position !== 'middle' ? Renderers.videos(w.videos, this.lang) : ''}
+          ${Renderers.reviews(w.reviews, this.lang)}
+          ${Renderers.contributors(w.contributors, this.lang)}`;
         existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
           <h3>${w.title}</h3>
+          ${ficha ? `<p class="featured-meta">${ficha}</p>` : ''}
           ${body}`;
       });
       if (article) {
@@ -513,6 +639,14 @@ const App = {
     } else if (section === 'premsa') {
       listLayer.innerHTML = `<h2>${isEn ? (data.title_en || data.title) : data.title}</h2>
         ${data.articles ? Renderers.pressItems(data.articles, isEn) : ''}`;
+    } else if (section === 'contacte') {
+      const qu = await ContentLoader.loadSection('quisoc');
+      const site = this.siteData || {};
+      listLayer.innerHTML = Renderers.contact(data, this.lang, {
+        email: site.site ? site.site.email : '',
+        cv: qu ? qu.cv : '',
+        social: site.social || null
+      });
     } else if (section === 'bibliografia' && data.items) {
       const title = isEn ? (data.title_en || data.title) : data.title;
       listLayer.innerHTML = Renderers.bibliography(data.items, this.lang, title);

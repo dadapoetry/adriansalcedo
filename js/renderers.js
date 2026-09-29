@@ -6,9 +6,22 @@ const Renderers = {
     }).join('\n');
   },
 
+  socialIcon(key) {
+    const icons = {
+      instagram: '<rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.2" cy="6.8" r="1.2" fill="currentColor"/>',
+      twitter: '<path d="M4 4 L20 20 M20 4 L4 20" fill="none" stroke="currentColor" stroke-width="1.8"/>',
+      youtube: '<rect x="2.5" y="6" width="19" height="12" rx="3.4" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M10.2 9.6 L15 12 L10.2 14.4 Z" fill="currentColor"/>',
+      tiktok: '<path d="M9.5 4.5 v8.2 a3.3 3.3 0 1 0 3.3 3.3 V4.5 h6.2 v2.6 a6 6 0 0 1 -6.2 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
+      goodreads: '<path d="M12 7.4 C10.5 6 8.5 5.5 5 5.5 V17.8 C8.5 17.8 10.5 18.3 12 19.6 C13.5 18.3 15.5 17.8 19 17.8 V5.5 C15.5 5.5 13.5 6 12 7.4 Z" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M12 7.4 V19.6" fill="none" stroke="currentColor" stroke-width="1.2"/>',
+      wikipedia: '<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 8 L8 16.4 L12 10.6 L16 16.4 L18.4 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>',
+      wikidata: '<path d="M5.5 18.5 V12.5 M9.8 18.5 V6.5 M14.2 18.5 V10.5 M18.5 18.5 V15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>'
+    };
+    return `<svg class="social-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false">${icons[key] || ''}</svg>`;
+  },
+
   socialLinks(data) {
-    return Object.values(data.social).map(s =>
-      `<a href="${s.url}" target="_blank" rel="noopener noreferrer me"><i class="${s.icon}"></i></a>`
+    return Object.entries(data.social).map(([key, s]) =>
+      `<a href="${s.url}" target="_blank" rel="noopener noreferrer me" class="social-link" aria-label="${s.label}" title="${s.label}">${this.socialIcon(s.icon || key)}<span class="social-label">${s.label}</span></a>`
     ).join('\n');
   },
 
@@ -26,11 +39,12 @@ const Renderers = {
     ).join('\n');
   },
 
-  reviews(reviews) {
+  reviews(reviews, lang) {
     if (!reviews || !reviews.length) return '';
+    const isEn = lang === 'en';
     return `
       <div class="reviews-container">
-        <h3>Recepció crítica i lletres</h3>
+        <h3>${isEn ? 'Critical reception' : 'Recepció crítica'}</h3>
         ${reviews.map(r => `
           <div class="review-item">
             <p class="review-text">"${r.text}"</p>
@@ -38,6 +52,15 @@ const Renderers = {
           </div>
         `).join('')}
       </div>`;
+  },
+
+  contributors(list, lang) {
+    if (!list || !list.length) return '';
+    const isEn = lang === 'en';
+    return `<div class="credits-line">
+      <h4 class="section-label">${isEn ? 'Contributors' : 'Col·laboradors'}</h4>
+      <div class="meta-line">${list.map(c => `<span class="meta-chip">${c}</span>`).join('')}</div>
+    </div>`;
   },
 
   images(imgs, lang) {
@@ -58,10 +81,11 @@ const Renderers = {
     if (!vids || !vids.length) return '';
     const isEn = lang === 'en';
     return vids.map(v =>
-      `<div style="padding-bottom: 10px;">
+      `      <div style="padding-bottom: 10px;">
         <iframe width="${v.width || 560}" height="${v.height || 315}"
-          src="${v.url}"
+          data-src="${v.url}"
           title="${isEn ? (v.title_en || v.title) : (v.title || '')}"
+          loading="lazy"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowfullscreen></iframe>
@@ -83,18 +107,18 @@ const Renderers = {
     if (!links || !links.length) return '';
     const isEn = lang === 'en';
     return `<div class="item-links" style="margin: 25px 0;">
-      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${isEn ? 'Read more' : 'Llegeix-ne més'}</h4>
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${isEn ? 'Read more' : 'Llegeix-ne més'}</h4>
       ${links.map(l =>
         `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>`
       ).join(' \u00B7 ')}
     </div>`;
   },
 
-  buyLinks(list, lang) {
+  buyLinks(list, lang, anchorId) {
     if (!list || !list.length) return '';
     const isEn = lang === 'en';
-    return `<div class="buy-links" style="margin: 25px 0;">
-      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${isEn ? 'Where to buy' : 'On comprar-lo'}</h4>
+    return `<div class="buy-links" id="${anchorId || 'comprar'}" style="margin: 25px 0;">
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${isEn ? 'Where to buy' : 'On comprar-lo'}</h4>
       ${list.map(l => `
         <p style="margin: 6px 0;">
           <a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>
@@ -184,7 +208,7 @@ const Renderers = {
         return this.images(b.images, lang);
       case 'video':
         return `<div style="padding-bottom: 10px;">
-        <iframe width="${b.width || 560}" height="${b.height || 315}" src="${b.url}" title="${this._pick(b, 'title', lang) || ''}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="${b.width || 560}" height="${b.height || 315}" data-src="${b.url}" title="${this._pick(b, 'title', lang) || ''}" loading="lazy" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
       </div>`;
       case 'audio':
         return `<div style="padding-bottom: 10px;">
@@ -194,7 +218,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="item-links" style="margin: 25px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${lang === 'en' ? 'Read more' : 'Llegeix-ne més'}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${lang === 'en' ? 'Read more' : 'Llegeix-ne més'}</h4>
         ${items.map(l => `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${this._pick(l, 'label', lang)} \u2192</a>`).join(' \u00B7 ')}
       </div>`;
       }
@@ -202,7 +226,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="buy-links" style="margin: 25px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 12px 0;">${lang === 'en' ? 'Where to buy' : 'On comprar-lo'}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${lang === 'en' ? 'Where to buy' : 'On comprar-lo'}</h4>
         ${items.map(l => `<p style="margin: 6px 0;"><a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${this._pick(l, 'label', lang)} \u2192</a></p>`).join('')}
       </div>`;
       }
@@ -220,7 +244,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="credits-line" style="margin: 20px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.5; margin: 0 0 10px 0;">${this._pick(b, 'title', lang) || (lang === 'en' ? 'Credits' : 'Crèdits')}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 10px 0;">${this._pick(b, 'title', lang) || (lang === 'en' ? 'Credits' : 'Crèdits')}</h4>
         <div class="meta-line">${items.map(c => `<span class="meta-chip">${c}</span>`).join('')}</div>
       </div>`;
       }
@@ -306,12 +330,28 @@ const Renderers = {
       body += `<h3 class="agenda-section-label">${isEn ? 'Past' : 'Passades'}</h3>${past.map(item).join('')}`;
     }
     if (!body) {
-      body = `<p style="opacity: 0.5;">${isEn ? 'No public events scheduled at the moment.' : 'No hi ha lectures o actuacions programades de moment.'}</p>`;
+      body = `<p style="opacity: 0.65;">${isEn ? 'No public events scheduled at the moment.' : 'No hi ha lectures o actuacions programades de moment.'}</p>`;
     }
 
     return `<h2>${title}</h2>
       ${desc ? `<p>${desc}</p>` : ''}
       <div class="agenda-list">${body}</div>`;
+  },
+
+  contact(data, lang, opts) {
+    const isEn = lang === 'en';
+    const o = opts || {};
+    const title = isEn ? (data.title_en || data.title) : data.title;
+    const intro = isEn ? (data.intro_en || data.intro) : data.intro;
+    const email = data.email || o.email || '';
+    return `<h2>${title}</h2>
+      ${intro ? `<p class="contact-intro">${intro}</p>` : ''}
+      ${email ? `<p class="contact-mail"><a href="mailto:${email}">${email}</a></p>` : ''}
+      ${o.social ? `<div class="contact-block">
+        <h3 class="section-label">${isEn ? 'You can also find me on' : 'Tamb\u00E9 em pots trobar a'}</h3>
+        ${this.socialLinks({ social: o.social })}
+      </div>` : ''}
+      ${o.cv ? `<p style="margin-top: 30px;"><a class="download-link" href="${o.cv}" target="_blank" rel="noopener">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}`;
   },
 
   archive(src, lang, prefix) {
@@ -350,7 +390,7 @@ const Renderers = {
       rows.sort((a, b) => String(b.year).localeCompare(String(a.year)));
       listEl.innerHTML = rows.length
         ? `<ul class="archive-list">${rows.map(row).join('')}</ul>`
-        : `<p style="opacity: 0.5;">${isEn ? 'No results.' : 'Cap resultat.'}</p>`;
+        : `<p style="opacity: 0.65;">${isEn ? 'No results.' : 'Cap resultat.'}</p>`;
     };
 
     return `
@@ -380,6 +420,9 @@ const Renderers = {
 
     const featuredLink = isEn ? (fw.link_en || fw.link || '/en/obres/obra-crit') : (fw.link || '/obres/obra-crit');
     const bioLink = isEn ? '/en/quisoc' : '/quisoc';
+    const contactLink = isEn ? '/en/contacte' : '/contacte';
+    const workSlug = (featuredLink.split('/').filter(Boolean).pop() || '');
+    const buyLink = /^(https?:)?\/\//.test(featuredLink) || !workSlug ? '' : `${featuredLink}#comprar-${workSlug}`;
 
     let projectCards = '';
     projects.forEach(p => {
@@ -439,7 +482,10 @@ const Renderers = {
             <h3>${isEn ? (fw.title_en || fw.title) : fw.title}</h3>
             <p class="featured-meta">${isEn ? (fw.type_en || fw.type) : fw.type} \u00B7 ${fw.publisher} \u00B7 ${fw.year}</p>
             <p>${isEn ? (fw.description_en || fw.description) : fw.description}</p>
-            <a href="${featuredLink}" class="inline-link">${isEn ? 'Read more \u2192' : 'Llegir-ne m\u00E9s \u2192'}</a>
+            <span class="cta-row">
+              <a href="${featuredLink}" class="inline-link">${isEn ? 'Read more \u2192' : 'Llegir-ne m\u00E9s \u2192'}</a>
+              ${buyLink ? `<a href="${buyLink}" class="inline-link">${isEn ? 'Where to buy \u2192' : 'On comprar-lo \u2192'}</a>` : ''}
+            </span>
           </div>
           <div class="featured-image">
             <img src="${fw.image}" alt="${isEn ? (fw.imageAlt_en || fw.imageAlt || '') : (fw.imageAlt || '')}" loading="lazy" />
@@ -456,7 +502,10 @@ const Renderers = {
 
       <div class="home-bio" id="home-bio">
         <p>${bio}</p>
-        <a href="${bioLink}" class="inline-link">${isEn ? 'Full biography \u2192' : 'Biografia completa \u2192'}</a>
+        <span class="cta-row">
+          <a href="${bioLink}" class="inline-link">${isEn ? 'Full biography \u2192' : 'Biografia completa \u2192'}</a>
+          <a href="${contactLink}" class="inline-link">${isEn ? 'Contact \u2192' : 'Contacte \u2192'}</a>
+        </span>
       </div>`;
   },
 

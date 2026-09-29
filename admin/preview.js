@@ -451,6 +451,49 @@ CMS.registerPreviewTemplate('bibliografia', createClass({
 }));
 
 
+/* ─── CONTACT ─── */
+CMS.registerPreviewTemplate('contacte', createClass({
+  render: function () {
+    var entry = this.props.entry;
+
+    return h('div', { className: 'cms-preview' },
+      h('h1', {}, getVal(entry, ['title'], 'Contacte')),
+      getVal(entry, ['intro'], '') ? h('p', { className: 'preview-content' }, getVal(entry, ['intro'], '')) : null,
+      h('div', { style: { marginTop: '20px', fontSize: '0.85rem', opacity: 0.6 } },
+        'El correu, els enllaços a xarxes, les refer\u00E8ncies verificables (Goodreads, Viquip\u00E8pedia, Wikidata) i el CV es mostren autom\u00E0ticament des de la configuraci\u00F3 del lloc i de la biografia. El correu nom\u00E9s s\u0027edita a \u00ABConfiguraci\u00F3 del lloc\u00BB.'
+      )
+    );
+  }
+}));
+
+
+/* ─── SEO ─── */
+CMS.registerPreviewTemplate('seo', createClass({
+  render: function () {
+    var entry = this.props.entry;
+    var rows = entry.getIn(['data', 'sections']);
+
+    return h('div', { className: 'cms-preview' },
+      h('h1', {}, 'Descripcions SEO per secció'),
+      h('p', { className: 'preview-meta' }, 'Aquests textos són la meta description de cada secció (i el que veuen Google i les xarxes socials).'),
+      rows && rows.size ? rows.map(function (row, i) {
+        var key = row.get('key', '');
+        var desc = row.get('desc', '');
+        var descEn = row.get('desc_en', '');
+        return h('div', { key: i, style: { marginBottom: '18px', padding: '14px', background: 'var(--bg-elevated)', borderRadius: '6px' } },
+          h('strong', { style: { color: 'var(--accent)' } }, '/' + key),
+          desc ? h('p', { style: { margin: '6px 0 0', fontSize: '0.9rem' } }, desc) : null,
+          descEn ? h('p', { className: 'preview-meta', style: { margin: '4px 0 0' } }, 'EN: ' + descEn) : null,
+          h('p', { className: 'preview-meta', style: { margin: '4px 0 0' } },
+            (desc || '').length + ' car\u00E0cters' + (descEn ? ' / ' + descEn.length + ' (EN)' : '')
+          )
+        );
+      }.bind(this)).toArray() : h('p', {}, 'Cap secció configurada.')
+    );
+  }
+}));
+
+
 /* ─── AGENDA ─── */
 CMS.registerPreviewTemplate('agenda', createClass({
   render: function () {
