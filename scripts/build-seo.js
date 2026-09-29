@@ -20,10 +20,6 @@ const SECTIONS = {
   agenda: null,
 };
 
-function esc(s) {
-  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
-}
-
 function stripHtml(s) {
   if (!s) return '';
   return s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
@@ -35,39 +31,8 @@ function readJson(name) {
 
 /* ── Single sources of truth (all editable from /admin) ─────────────── */
 
-// content/seo.json -> { section: { ca, en } } meta descriptions
-const SECTION_DESCS = {};
-try {
-  for (const row of readJson('seo.json').sections || []) {
-    if (!row || !row.key) continue;
-    SECTION_DESCS[row.key] = { ca: row.desc || '', en: row.desc_en || '' };
-  }
-} catch {
-  console.warn('[build-seo] content/seo.json not readable, falling back to generic descriptions');
-}
-
-// content/site.json + content/site.en.json -> { section: { ca, en } } page titles
-const SECTION_TITLES = {};
-try {
-  for (const item of readJson('site.json').nav || []) {
-    if (!item || !item.id) continue;
-    SECTION_TITLES[item.id] = {
-      ca: item.seo_title || item.label || null,
-      en: item.seo_title_en || item.label_en || item.label || null,
-    };
-  }
-  for (const item of readJson('site.en.json').nav || []) {
-    if (!item || !item.id) continue;
-    const row = SECTION_TITLES[item.id] || (SECTION_TITLES[item.id] = { ca: null, en: null });
-    if (!row.ca) row.ca = item.label || null;
-    if (!row.en) row.en = item.label || item.label_en || null;
-  }
-} catch {
-  console.warn('[build-seo] site nav not readable, falling back to section names');
-}
-
 const SITE = (() => { try { return readJson('site.json').site || {}; } catch { return {}; } })();
-const HOME_SEO = (() => { try { return readJson('home.json').seo || {}; } catch { return {}; } })();
+
 
 /* ── Person schema is generated from content/site.json ────────────────── */
 
@@ -124,133 +89,6 @@ function injectPersonSchema(html) {
 let TEMPLATE = injectPersonSchema(fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8'));
 if (TEMPLATE !== fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8')) {
   fs.writeFileSync(path.join(ROOT, 'index.html'), TEMPLATE, 'utf8');
-}
-
-function meta(desc, lang) {
-  const isEn = lang === 'en';
-  const seo = desc;
-
-  let title, description, ogType, image;
-
-  if (seo.item) {
-    const item = seo.item;
-    const itemSeo = item.seo || {};
-    const t = isEn ? (item.title_en || item.title) : item.title;
-    const raw = isEn ? (item.content_en || item.content) : item.content;
-
-    const seoTitle = isEn ? (itemSeo.title_en || itemSeo.title) : itemSeo.title;
-    title = seoTitle ? seoTitle + ' | Adrián Salcedo Toca' : t + ' | Adrián Salcedo Toca';
-
-    const seoDesc = isEn ? (itemSeo.description_en || itemSeo.description) : itemSeo.description;
-    if (seoDesc) {
-      description = seoDesc;
-    } else {
-      const contentDesc = stripHtml(Array.isArray(raw) ? raw.join(' ') : raw).slice(0, 300);
-      description = contentDesc || (item.publication
-        ? (isEn ? 'Article by Adrián Salcedo Toca.' : "Article d'Adrián Salcedo Toca.")
-        : (isEn ? 'Avant-garde poetry by Adrián Salcedo Toca.' : "Poesia avantguardista d'Adrián Salcedo Toca."));
-    }
-    ogType = 'article';
-    if (item.images && item.images[0] && item.images[0].src) {
-      image = item.images[0].src.startsWith('http') ? item.images[0].src : BASE + item.images[0].src;
-    } else if (item.image) {
-      image = item.image.startsWith('http') ? item.image : BASE + item.image;
-    } else {
-      image = BASE + (SITE.logo || '/media/images/sat.png');
-    }
-  } else if (seo.title) {
-    title = seo.title + ' | Adrián Salcedo Toca';
-    description = (desc.section && SECTION_DESCS[desc.section] && (isEn ? SECTION_DESCS[desc.section].en : SECTION_DESCS[desc.section].ca))
-      || SITE.description
-      || (isEn ? 'Portfolio of Adrián Salcedo Toca.' : "Portfoli d'Adrián Salcedo Toca.");
-    ogType = 'website';
-    image = BASE + (SITE.logo || '/media/images/sat.png');
-  } else {
-    title = isEn ? (HOME_SEO.title_en || HOME_SEO.title) : (HOME_SEO.title || (SITE.title || 'Adrián Salcedo Toca'));
-    description = isEn ? (HOME_SEO.description_en || HOME_SEO.description) : (HOME_SEO.description || SITE.description || '');
-    ogType = 'website';
-    image = BASE + (SITE.logo || '/media/images/sat.png');
-  }
-  if (!title) title = SITE.title || 'Adrián Salcedo Toca';
-  if (!description) description = SITE.description || '';
-
-  return { title, description, ogType, image, lang };
-}
-
-function buildPage(m) {
-  if (!m) return null;
-  const langAttr = m.lang === 'en' ? 'en' : 'ca';
-  const ogLocale = m.lang === 'en' ? 'en_GB' : 'ca_ES';
-  const twCard = m.ogType === 'article' && m.image !== BASE + '/media/images/sat.png' ? 'summary_large_image' : 'summary';
-  const canonical = m._canonical;
-
-  let html = TEMPLATE;
-  html = html.replace(/<html lang="[^"]*"/, `<html lang="${langAttr}"`);
-  html = html.replace(/<title>[^<]*<\/title>/, `<title>${esc(m.title)}</title>`);
-  html = html.replace(/(<meta name="description" content=")[^"]*(")/, `$1${esc(m.description)}$2`);
-  html = html.replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${esc(canonical)}$2`);
-  html = html.replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${esc(m.title)}$2`);
-  html = html.replace(/(<meta property="og:description" content=")[^"]*(")/, `$1${esc(m.description)}$2`);
-  html = html.replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${esc(canonical)}$2`);
-  html = html.replace(/(<meta property="og:type" content=")[^"]*(")/, `$1${m.ogType}$2`);
-  html = html.replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${ogLocale}$2`);
-  html = html.replace(/(<meta property="og:image" content=")[^"]*(")/, `$1${esc(m.image)}$2`);
-  html = html.replace(/(<meta name="twitter:card" content=")[^"]*(")/, `$1${twCard}$2`);
-  html = html.replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${esc(m.title)}$2`);
-  html = html.replace(/(<meta name="twitter:description" content=")[^"]*(")/, `$1${esc(m.description)}$2`);
-  html = html.replace(/(<meta name="twitter:image" content=")[^"]*(")/, `$1${esc(m.image)}$2`);
-
-  return html;
-}
-
-let count = 0;
-
-function writePage(urlPath, html) {
-  const isHome = urlPath.endsWith('/');
-  const filePath = isHome
-    ? path.join(ROOT, urlPath.slice(1), 'index.html')
-    : path.join(ROOT, urlPath.slice(1) + '.html');
-  fs.mkdirSync(path.dirname(filePath), { recursive: true });
-  fs.writeFileSync(filePath, html, 'utf8');
-  count++;
-}
-
-// Home
-for (const lang of ['ca', 'en']) {
-  const prefix = lang === 'en' ? '/en' : '';
-  const m = meta({}, lang);
-  m._canonical = BASE + prefix + '/';
-  writePage(prefix + '/', buildPage(m));
-}
-
-// Sections and articles
-for (const [section, itemKey] of Object.entries(SECTIONS)) {
-  const jsonName = section + '.json';
-  let json;
-  try { json = readJson(jsonName); } catch { continue; }
-
-  for (const lang of ['ca', 'en']) {
-    const prefix = lang === 'en' ? '/en' : '';
-    const isEn = lang === 'en';
-
-    const sectionTitle = isEn
-      ? (SECTION_TITLES[section] && SECTION_TITLES[section].en)
-      : (SECTION_TITLES[section] && SECTION_TITLES[section].ca);
-    if (!sectionTitle) continue;
-
-    const m = meta({ title: sectionTitle, section }, lang);
-    m._canonical = BASE + prefix + '/' + section + '/';
-    writePage(prefix + '/' + section, buildPage(m));
-
-    if (itemKey && Array.isArray(json[itemKey])) {
-      for (const item of json[itemKey]) {
-        const im = meta({ item }, lang);
-        if (!im) continue;
-        im._canonical = BASE + prefix + '/' + section + '/' + item.id;
-        writePage(prefix + '/' + section + '/' + item.id, buildPage(im));
-      }
-    }
-  }
 }
 
 // --- Sitemap ---
@@ -348,5 +186,5 @@ fs.writeFileSync(path.join(ROOT, 'feed.xml'), feed, 'utf8');
 
 console.log(`[build-seo] ${smUrls.length} sitemap URLs`);
 console.log(`[build-seo] ${feedItems ? worksSorted.length : 0} feed items`);
-console.log(`[build-seo] sitemap.xml, feed.xml i ${count} HTML prerenderitzats generats`);
+console.log(`[build-seo] index.html (schema Person), sitemap.xml i feed.xml generats`);
 console.log(`[build-seo] en producció les pàgines les serveix _worker.js (Cloudflare) a partir de l'index.html`);
