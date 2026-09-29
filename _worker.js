@@ -324,7 +324,10 @@ async function authCallback(url, env) {
   const data = await tokenRes.json();
   if (!data.access_token) return authError(`GitHub error: ${data.error_description || data.error || "unknown"}.`, 400);
 
-  const user = JSON.stringify({ backendName: "github", token: data.access_token, scope: data.scope || "repo" });
+  const user = { backendName: "github", token: data.access_token, scope: data.scope || "repo" };
+  // El CMS retrieve() fa JSON.parse del que hi ha a localStorage, i valida el
+  // nonce que deixa a sessionStorage en obrir el pop-up. Desem l'objecte
+  // serialitzat (un sol cop) i el nonce de torn, que és el que ell espera.
   const html = `<!DOCTYPE html>
 <html lang="ca">
 <head><meta charset="utf-8"><title>Iniciant sessió</title></head>
@@ -332,9 +335,13 @@ async function authCallback(url, env) {
 <p id="status">Iniciant sessió…</p>
 <script>
 try {
-  var user = ${user};
-  localStorage.setItem("github-token", user);
+  var user = ${JSON.stringify(JSON.stringify(user))};
   localStorage.setItem("netlify-cms-user", user);
+  var auth = sessionStorage.getItem("netlify-cms-auth");
+  if (auth) {
+    var nonce = JSON.parse(auth).nonce;
+    if (window.opener) window.opener.postMessage({ type: "authorization", payload: { token: ${JSON.stringify(data.access_token)}, provider: "github", nonce: nonce } }, window.location.origin);
+  }
   if (window.opener) {
     window.opener.location.reload();
     setTimeout(function () { window.close(); }, 1000);
