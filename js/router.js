@@ -228,10 +228,8 @@ const App = {
   },
 
   injectStructuredData(section, article, title, desc, canonical, item) {
-    const baseUrl = 'https://adriansalcedo.com';
+    const baseUrl = this._baseUrl();
     const isEn = this.lang === 'en';
-    const existing = document.getElementById('dynamic-schema');
-    if (existing) existing.remove();
 
     let schema = null;
 
@@ -311,13 +309,25 @@ const App = {
       schema = body;
     }
 
-    if (schema) {
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.id = 'dynamic-schema';
-      script.textContent = JSON.stringify(schema);
-      document.head.appendChild(script);
+    const existingScript = document.getElementById('dynamic-schema');
+
+    // sense schema per a aquesta pàgina: el del servidor ja no hi serveix
+    if (!schema) {
+      if (existingScript) existingScript.remove();
+      return;
     }
+
+    // el worker pot ja haver renderitzat el schema: el reutilitzem en lloc de duplicar-lo
+    if (existingScript) {
+      existingScript.textContent = JSON.stringify(schema);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'dynamic-schema';
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
   },
 
   _breadcrumbs(section, isEn, item) {

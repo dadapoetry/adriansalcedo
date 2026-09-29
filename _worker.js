@@ -93,12 +93,19 @@ async function getMeta(pathname, env) {
   const [seo, navTitles, site] = await Promise.all([getSeo(env), getNavTitles(env), getSite(lang, env)]);
   const siteCfg = (site && site.site) || {};
   const siteName = siteCfg.title || "Adrián Salcedo Toca";
+  const prefix = isEn ? "/en" : "";
 
-  let title = section === "home" ? siteName : (sectionTitle(navTitles, lang, section) || siteName);
+  const sectionName = sectionTitle(navTitles, lang, section);
+  let title = section === "home" ? siteName : (sectionName ? `${sectionName} | ${siteName}` : siteName);
   let description = sectionDesc(seo, lang, section) || siteCfg.description || "";
   let image = siteCfg.logo || DEFAULT_IMAGE;
   let url = `${SITE_URL}${path}`;
   let ogType = "website";
+  let item = null;
+  let breadcrumb = [
+    { "@type": "ListItem", position: 1, name: isEn ? "Home" : "Inici", item: SITE_URL + (isEn ? "/en" : "/") },
+    { "@type": "ListItem", position: 2, name: sectionName || section, item: `${SITE_URL}${prefix}/${section}` },
+  ];
 
   if (section === "home" && !articleId) {
     const home = await fetchJson("/content/home.json", env);
@@ -120,10 +127,11 @@ async function getMeta(pathname, env) {
       else if (section === "projectes") items = data.projects || [];
       else if (section === "premsa") items = data.articles || [];
 
-      const item = items.find((i) => i.id === articleId);
-      if (item) {
+      const found = items.find((i) => i.id === articleId);
+      if (found) {
+        item = found;
         const itemTitle = isEn ? (item.title_en || item.title) : item.title;
-        title = `${itemTitle} | Adrián Salcedo Toca`;
+        title = `${itemTitle} | ${siteName}`;
 
         const content = isEn ? (item.content_en || item.content) : item.content;
         if (Array.isArray(content) && content.length) {
@@ -152,7 +160,82 @@ async function getMeta(pathname, env) {
     if (data?.description) description = isEn ? (data.description_en || data.description) : data.description;
   }
 
-  return { title, description, image, url, lang, ogType };
+  if (item) {
+    breadcrumb.push({
+      "@type": "ListItem",
+      position: 3,
+      name: isEn ? (item.title_en || item.title) : item.title,
+      item: `${SITE_URL}${prefix}/${section}/${item.id}`,
+    });
+  }
+
+  return { title, description, image, url, lang, ogType, section, articleId, item, siteName, email: siteCfg.email, breadcrumb, schema: buildSchema({ section, articleId, item, isEn, title, description, url, siteName, email: siteCfg.email, breadcrumb }) };
+}
+
+function buildSchema(ctx) {
+  const { section, articleId, item, isEn, title, description, url, siteName, email, breadcrumb } = ctx;
+  const person = {
+    "@type": "Person",
+    name: siteName,
+    url: SITE_URL,
+    ...(email ? { email: `mailto:${email}` } : {}),
+  };
+
+  if (articleId && item) {
+    const isWork = section === "obres";
+    const body = isWork
+      ? {
+          "@type": item.isbn ? "Book" : "CreativeWork",
+          name: isEn ? (item.title_en || item.title) : item.title,
+          ...(item.isbn ? { isbn: item.isbn } : {}),
+          ...(item.publisher ? { publisher: { "@type": "Organization", name: item.publisher } } : {}),
+          ...(item.year ? { datePublished: String(item.year) } : {}),
+          author: person,
+          inLanguage: "ca",
+        }
+      : {
+          "@type": "Article",
+          headline: title,
+          description,
+          url,
+          ...(item.publication || item.category || item.year
+            ? { ...(item.publication ? { articleSection: item.publication } : {}), ...(item.category ? { articleSection: item.category } : {}), ...(item.year ? { datePublished: String(item.year) } : {}) }
+            : {}),
+          author: person,
+          inLanguage: isEn ? "en" : "ca",
+        };
+    return { "@context": "https://schema.org", ...body, breadcrumb: { "@type": "BreadcrumbList", itemListElement: breadcrumb } };
+  }
+
+  if (section === "contacte") {
+    return { "@context": "https://schema.org", "@type": "ContactPage", name: title, description, url, mainEntity: person };
+  }
+
+  if (section === "home") {
+    return { "@context": "https://schema.org", "@type": "ProfilePage", name: title, description, url, mainEntity: person };
+  }
+
+  if (section === "obres") {
+    return {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: title,
+      description,
+      url,
+      isPartOf: { "@type": "WebSite", name: siteName, url: SITE_URL },
+    };
+  }
+
+  return null;
+}
+
+function applySchema(html, schema) {
+  const tag = `<script type="application/ld+json" id="dynamic-schema">\n${JSON.stringify(schema, null, 2).replace(/</g, "\\u003c")}\n</script>`;
+  if (!schema) return html.replace(/<script type="application\/ld\+json" id="dynamic-schema">[\s\S]*?<\/script>\s*/, "");
+  if (html.includes('id="dynamic-schema"')) {
+    return html.replace(/<script type="application\/ld\+json" id="dynamic-schema">[\s\S]*?<\/script>/, tag);
+  }
+  return html.replace("</head>", `${tag}\n</head>`);
 }
 
 function applyMeta(html, meta) {
@@ -183,7 +266,7 @@ function applyMeta(html, meta) {
     html = html.replace(/<link rel="alternate" hreflang="ca" href="[^"]*">/, `<link rel="alternate" hreflang="ca" href="${meta.url}">`);
   }
 
-  return html;
+  return applySchema(html, meta.schema);
 }
 
 export default {

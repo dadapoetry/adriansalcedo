@@ -348,5 +348,5 @@ fs.writeFileSync(path.join(ROOT, 'feed.xml'), feed, 'utf8');
 
 console.log(`[build-seo] ${smUrls.length} sitemap URLs`);
 console.log(`[build-seo] ${feedItems ? worksSorted.length : 0} feed items`);
-console.log(`[build-seo] ${count} HTML files generated`);
-console.log(`[build-seo] Redirects handled by netlify.toml [[redirects]]`);
+console.log(`[build-seo] sitemap.xml, feed.xml i ${count} HTML prerenderitzats generats`);
+console.log(`[build-seo] en producció les pàgines les serveix _worker.js (Cloudflare) a partir de l'index.html`);
