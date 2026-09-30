@@ -408,11 +408,15 @@ ul.item-list li {
   line-height: 1.6;
 }
 
-/* llistats d'obres, festivals, premis...: el tipus va a sota del títol,
-   no enganxat al costat (abans eren dos inline sense separació) */
+/* llista d'obres: el tipus va a sota del títol, no enganxat al costat.
+   Abans l'<a> del títol i l'<span> del tipus eren dos inline seguits,
+   sense cap separació. Altres llistats (projectes, festivals, premis)
+   no renderitzen archive-meta i no els afecta. */
 ul.item-list li .archive-meta {
   display: block;
   margin-top: 2px;
+  white-space: normal;
+  align-self: auto;
 }
 
 ul.item-list li::before {
@@ -1312,9 +1316,4 @@ noscript a {
   opacity: 0.6;
   white-space: nowrap;
   align-self: center;
-}
-
-ul.item-list li .archive-meta {
-  white-space: normal;
-  align-self: auto;
 }
