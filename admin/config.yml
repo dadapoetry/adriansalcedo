@@ -133,8 +133,8 @@ collections:
                   - { label: "Premsa", value: "premsa" }
                   - { label: "Qui soc", value: "quisoc" }
                   - { label: "Contacte", value: "contacte" }
-                   - { label: "Arxiu", value: "arxiu" }
-                   - { label: "Agenda", value: "agenda" }
+                  - { label: "Arxiu", value: "arxiu" }
+                  - { label: "Agenda", value: "agenda" }
                   - { label: "Cerca", value: "cerca" }
               - { label: "Descripció (CA)", name: "desc", widget: "text" }
               - { label: "Description (EN)", name: "desc_en", widget: "text", required: false }
