@@ -20,7 +20,3 @@
 /admin/*
   Cache-Control: no-cache
   X-Frame-Options: SAMEORIGIN
-
-/api/*
-  Access-Control-Allow-Origin: *
-  Cache-Control: public, max-age=1800

@@ -271,57 +271,290 @@ function applyMeta(html, meta) {
 /* ── Auth del CMS (Decap) ──────────────────────────────────────────────
    Les credencials de GitHub OAuth viuen al panell de Cloudflare
    (GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, SITE_URL). Aquesta lògica ha de
-   viure al worker perquè, amb _worker.js al directori de sortida,
-   Cloudflare Pages ignora completament el directori /functions. */
+   viure al worker perquè, amb _worker.js al directori de sortida, Cloudflare
+   Pages ignora completament el directori /functions.
+
+   Garanties del flux (vegeu la doc de GitHub "Authorizing OAuth apps"):
+   - state: 32 bytes aleatoris, comparats al callback amb comparació
+     constant. GitHub: "If the states don't match, then a third party created
+     the request, and you should abort the process."
+   - PKCE S256: el code_verifier només viu en una cookie HttpOnly, de manera
+     que un codi interceptat no es pot canviar sense el secret del navegador.
+   - redirect_uri: sempre fixat al callback del nostre origen. No agafem mai
+     cap URL del query string, per evitar open redirect. */
+
+const OAUTH_COOKIE = "cms_oauth";
+const OAUTH_TTL = 600;
+const ADMIN_CSP = [
+  "default-src 'self'",
+  // Script sense 'unsafe-inline': res de la pagina d'admin pot injectar markup
+  // (títols, descripcions que es renderitzen al preview) però no executar JS.
+  "script-src 'self' https://unpkg.com",
+  // Emotion injecta <style> en temps d'execució, de manera que el style-src
+  // necessita 'unsafe-inline'. No hi ha cap script inline perquè el bootstrap
+  // viu a /admin/bootstrap.js.
+  "style-src 'self' https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'",
+  "font-src 'self' https://fonts.gstatic.com https://unpkg.com data:",
+  "img-src 'self' data: blob: https://avatars.githubusercontent.com https://github.com",
+  "connect-src 'self' https://api.github.com https://uploads.github.com https://raw.githubusercontent.com https://unpkg.com https://fonts.googleapis.com",
+  "worker-src 'self' blob:",
+  "object-src 'none'",
+  "base-uri 'none'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+].join("; ");
 
 function authError(message, status) {
   return new Response(message, {
     status,
-    headers: { "Content-Type": "text/html;charset=utf-8", "Cache-Control": "no-store" },
+    headers: {
+      "Content-Type": "text/html;charset=utf-8",
+      "Cache-Control": "no-store",
+      "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+      "X-Content-Type-Options": "nosniff",
+    },
   });
+}
+
+// ── Auxiliars criptogràfics ────────────────────────────────────────────
+
+function base64url(bytes) {
+  let bin = "";
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function randomToken(byteLength) {
+  const bytes = new Uint8Array(byteLength);
+  crypto.getRandomValues(bytes);
+  return base64url(bytes);
+}
+
+async function sha256Hex(text) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+async function sha256Base64url(text) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+  return base64url(new Uint8Array(digest));
+}
+
+// Comparació constant: no ha de ramificar segons el contingut.
+function safeEqual(a, b) {
+  if (typeof a !== "string" || typeof b !== "string") return false;
+  const len = Math.max(a.length, b.length);
+  let diff = a.length ^ b.length;
+  for (let i = 0; i < len; i++) {
+    diff |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0);
+  }
+  return diff === 0;
+}
+
+function parseCookies(request) {
+  const out = {};
+  const header = request.headers.get("Cookie") || "";
+  for (const part of header.split(";")) {
+    const i = part.indexOf("=");
+    if (i < 0) continue;
+    const key = part.slice(0, i).trim();
+    if (key) out[key] = decodeURIComponent(part.slice(i + 1).trim());
+  }
+  return out;
+}
+
+// Escapa una cadena perquè es pugui incrustar en un <script> de manera segura:
+// JSON.stringify sol no escapa el '</script>'.
+function jsString(value) {
+  return JSON.stringify(value)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026")
+    .replace(/\u2028/g, "\\u2028")
+    .replace(/\u2029/g, "\\u2029");
+}
+
+function oauthCallbackUrl(env) {
+  return env.OAUTH_CALLBACK_URL || `${env.SITE_URL || SITE_URL}/api/auth/callback`;
+}
+
+function clearCookie(response) {
+  response.headers.append(
+    "Set-Cookie",
+    `${OAUTH_COOKIE}=; Path=/api/auth; Max-Age=0; HttpOnly; Secure; SameSite=Lax`
+  );
+  return response;
+}
+
+// ── Gate d'accés a /admin (opcional) ───────────────────────────────────
+// Obert per defecte, per no trencar res sense vol de les variables. Activa'l
+// amb ADMIN_PASSWORD_SHA256 (hex del sha256 de la contrasenya) o
+// ADMIN_PASSWORD (text pla), i ADMIN_USER (per defecte "admin").
+// La millor opció continua sent posar Cloudflare Access per davant del domini.
+async function adminGate(request, env) {
+  const hash = (env.ADMIN_PASSWORD_SHA256 || "").trim().toLowerCase();
+  const plain = env.ADMIN_PASSWORD || "";
+  if (!hash && !plain) return null; // Gate desactivat.
+
+  const header = request.headers.get("Authorization") || "";
+  const match = /^Basic\s+(.+)$/i.exec(header.trim());
+  if (!match) return unauthorized();
+
+  let user = "";
+  let pass = "";
+  try {
+    const decoded = atob(match[1]);
+    const i = decoded.indexOf(":");
+    if (i < 0) return unauthorized();
+    user = decoded.slice(0, i);
+    pass = decoded.slice(i + 1);
+  } catch {
+    return unauthorized();
+  }
+
+  if (!safeEqual(user, env.ADMIN_USER || "admin")) return unauthorized();
+  const ok = hash ? safeEqual(await sha256Hex(pass), hash) : safeEqual(pass, plain);
+  return ok ? null : unauthorized();
+}
+
+function unauthorized() {
+  return new Response(null, {
+    status: 401,
+    headers: {
+      "WWW-Authenticate": 'Basic realm="Admin", charset="UTF-8"',
+      "Cache-Control": "no-store",
+    },
+  });
+}
+
+async function withAdminSecurity(res) {
+  const headers = new Headers(res.headers);
+  headers.set("Content-Security-Policy", ADMIN_CSP);
+  headers.set("X-Frame-Options", "SAMEORIGIN");
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "no-referrer");
+  headers.set("Cache-Control", "no-store");
+  return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
 }
 
 // El CMS obre /api/auth en un pop-up; des d'aquí el llencem a GitHub.
-function authStart(url, env) {
+async function authStart(request, url, env) {
   const clientId = env.GITHUB_CLIENT_ID;
   if (!clientId) return authError("GitHub OAuth not configured: missing GITHUB_CLIENT_ID.", 500);
 
-  const siteUrl = env.SITE_URL || SITE_URL;
-  const redirectUri = url.searchParams.get("redirect_uri") || `${siteUrl}/admin/`;
-  const state = JSON.stringify({ redirect_uri: redirectUri, nonce: crypto.randomUUID() });
+  const callback = oauthCallbackUrl(env);
+  const state = randomToken(32);
+  const codeVerifier = randomToken(48);
+  const codeChallenge = await sha256Base64url(codeVerifier);
 
   const github = new URL("https://github.com/login/oauth/authorize");
   github.searchParams.set("client_id", clientId);
+  github.searchParams.set("redirect_uri", callback);
   github.searchParams.set("scope", "public_repo,user");
   github.searchParams.set("state", state);
+  github.searchParams.set("code_challenge", codeChallenge);
+  github.searchParams.set("code_challenge_method", "S256");
+
+  const payload = JSON.stringify({
+    state,
+    codeVerifier,
+    exp: Date.now() + OAUTH_TTL * 1000,
+  });
+
+  // Scope=/api/auth: el callback és /api/auth/callback. HttpOnly perquè cap
+  // script del CMS pugui llegir el code_verifier. SameSite=Lax permet que
+  // la navegació de retorn des de GitHub (top-level GET) l'enviï.
+  const cookie = `${OAUTH_COOKIE}=${encodeURIComponent(payload)}; Path=/api/auth; Max-Age=${OAUTH_TTL}; HttpOnly; Secure; SameSite=Lax`;
 
   return new Response(null, {
     status: 302,
-    headers: { Location: github.toString(), "Cache-Control": "no-store" },
+    headers: {
+      Location: github.toString(),
+      "Cache-Control": "no-store",
+      "Set-Cookie": cookie,
+      "Content-Security-Policy": "default-src 'none'",
+    },
   });
 }
 
-// GitHub torna aquí amb ?code=...; el canviem per un token i el deixem al
-// localStorage on el backend de Decap el va a llegir.
-async function authCallback(url, env) {
+// GitHub torna aquí amb ?code=...&state=...; el canviem per un token i el
+// deixem al localStorage on el backend de Decap el va a llegir.
+async function authCallback(request, url, env) {
   const clientId = env.GITHUB_CLIENT_ID;
   const clientSecret = env.GITHUB_CLIENT_SECRET;
   if (!clientId || !clientSecret) {
     return authError("GitHub OAuth not configured: missing GITHUB_CLIENT_ID or GITHUB_CLIENT_SECRET.", 500);
   }
 
+  const denied = url.searchParams.get("error");
+  if (denied) {
+    return clearCookie(
+      authError(`GitHub ha denegat l'autorització (${denied}).`, 400)
+    );
+  }
+
   const code = url.searchParams.get("code");
   if (!code) return authError("Missing ?code from GitHub.", 400);
+
+  const state = url.searchParams.get("state");
+  if (!state) {
+    return clearCookie(
+      authError("Missing ?state from GitHub. S'aborta el procés per protecció CSRF.", 400)
+    );
+  }
+
+  const raw = parseCookies(request)[OAUTH_COOKIE];
+  if (!raw) {
+    return authError("Cookie d'auth absent o caducat. Torna a començar l'inici de sessió.", 400);
+  }
+
+  let session;
+  try {
+    session = JSON.parse(raw);
+  } catch {
+    return clearCookie(authError("Cookie d'auth corrupte. Torna a començar.", 400));
+  }
+
+  if (typeof session.exp !== "number" || Date.now() > session.exp) {
+    return clearCookie(authError("L'inici de sessió ha caducat. Torna a començar-lo.", 400));
+  }
+
+  if (!safeEqual(session.state, state)) {
+    return clearCookie(
+      authError(
+        "El state OAuth no coincideix: aquesta petició no l'ha iniciat aquest navegador. S'aborta.",
+        400
+      )
+    );
+  }
+
+  if (typeof session.codeVerifier !== "string" || !session.codeVerifier) {
+    return clearCookie(authError("Falta el code_verifier de PKCE. Torna a començar.", 400));
+  }
 
   const tokenRes = await fetch("https://github.com/login/oauth/access_token", {
     method: "POST",
     headers: { "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({ client_id: clientId, client_secret: clientSecret, code }),
+    body: JSON.stringify({
+      client_id: clientId,
+      client_secret: clientSecret,
+      code,
+      redirect_uri: oauthCallbackUrl(env),
+      code_verifier: session.codeVerifier,
+    }),
   });
-  if (!tokenRes.ok) return authError(`GitHub token exchange failed with status ${tokenRes.status}.`, 502);
+  if (!tokenRes.ok) {
+    return clearCookie(authError(`GitHub token exchange failed with status ${tokenRes.status}.`, 502));
+  }
 
   const data = await tokenRes.json();
-  if (!data.access_token) return authError(`GitHub error: ${data.error_description || data.error || "unknown"}.`, 400);
+  if (!data.access_token) {
+    return clearCookie(
+      authError(`GitHub error: ${data.error_description || data.error || "unknown"}.`, 400)
+    );
+  }
 
   const user = { backendName: "github", token: data.access_token, scope: data.scope || "repo" };
   // El CMS retrieve() fa JSON.parse del que hi ha a localStorage, i valida el
@@ -334,12 +567,11 @@ async function authCallback(url, env) {
 <p id="status">Iniciant sessió…</p>
 <script>
 try {
-  var user = ${JSON.stringify(JSON.stringify(user))};
-  localStorage.setItem("netlify-cms-user", user);
+  localStorage.setItem("netlify-cms-user", ${jsString(JSON.stringify(user))});
   var auth = sessionStorage.getItem("netlify-cms-auth");
   if (auth) {
     var nonce = JSON.parse(auth).nonce;
-    if (window.opener) window.opener.postMessage({ type: "authorization", payload: { token: ${JSON.stringify(data.access_token)}, provider: "github", nonce: nonce } }, window.location.origin);
+    if (window.opener) window.opener.postMessage({ type: "authorization", payload: { token: ${jsString(data.access_token)}, provider: "github", nonce: nonce } }, window.location.origin);
   }
   if (window.opener) {
     window.opener.location.reload();
@@ -354,9 +586,16 @@ try {
 </body>
 </html>`;
 
-  return new Response(html, {
-    headers: { "Content-Type": "text/html;charset=utf-8", "Cache-Control": "no-store" },
-  });
+  return clearCookie(
+    new Response(html, {
+      headers: {
+        "Content-Type": "text/html;charset=utf-8",
+        "Cache-Control": "no-store",
+        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+        "X-Content-Type-Options": "nosniff",
+      },
+    })
+  );
 }
 
 export default {
@@ -364,13 +603,26 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
-    if (path === "/api/auth") return authStart(url, env);
-    if (path === "/api/auth/callback") return authCallback(url, env);
+    // Gate d'accés. Obert si no s'ha configurat cap contrasenya. Cobreix també
+    // /api/auth i /api/auth/callback: deixar el flux OAuth obert faria el gate
+    // il·lusori, perquè un atacant podria començar el login sense contrasenya.
+    const isAdmin = path === "/admin" || path.startsWith("/admin/");
+    const isAuth = path === "/api/auth" || path === "/api/auth/callback";
+    if (isAdmin || isAuth) {
+      const gate = await adminGate(request, env);
+      if (gate) return gate;
+    }
+
+    if (path === "/api/auth") return authStart(request, url, env);
+    if (path === "/api/auth/callback") return authCallback(request, url, env);
     if (path.startsWith("/api/")) return env.ASSETS.fetch(request);
 
-    if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) return env.ASSETS.fetch(request);
+    if (/\.[a-z0-9]+$/i.test(path) && !path.endsWith(".html")) {
+      const res = await env.ASSETS.fetch(request);
+      return isAdmin ? withAdminSecurity(res) : res;
+    }
 
-    if (path !== "/" && !path.startsWith("/admin")) {
+    if (path !== "/" && !isAdmin) {
       const clean = path.replace(/\/+$/, "").replace(/(\/index)?\.html$/i, "");
       if (clean !== path) {
         const dest = new URL(clean === "" ? "/" : clean, url);
@@ -386,7 +638,8 @@ export default {
     }
 
     if (path === "/admin/") {
-      return env.ASSETS.fetch(new Request(new URL("/admin/index.html", url)));
+      const res = await env.ASSETS.fetch(new Request(new URL("/admin/index.html", url)));
+      return withAdminSecurity(res);
     }
 
     const res = await env.ASSETS.fetch(new Request(new URL("/index.html", url.origin + path)));

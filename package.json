@@ -2,6 +2,7 @@
   "name": "adriansalcedo",
   "private": true,
   "scripts": {
-    "build:seo": "node scripts/build-seo.js"
+    "build:seo": "node scripts/build-seo.js",
+    "test": "node test/auth.test.mjs"
   }
 }
