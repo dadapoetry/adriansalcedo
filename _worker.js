@@ -287,12 +287,16 @@ const OAUTH_COOKIE = "cms_oauth";
 const OAUTH_TTL = 600;
 const ADMIN_CSP = [
   "default-src 'self'",
-  // Script sense 'unsafe-inline': res de la pagina d'admin pot injectar markup
-  // (títols, descripcions que es renderitzen al preview) però no executar JS.
-  "script-src 'self' https://unpkg.com",
+  // 'unsafe-eval' és obligatori: el CMS valida el config amb AJV, que compila
+  // el JSON Schema a JavaScript via new Function() en temps de càrrega. Sense
+  // això el panell no puja ni amb un config perfectament vàlid
+  // (decap/netlify-cms#2138). En canvi 'unsafe-inline' queda PROHIBIT: res del
+  // markup renderitzat al preview pot executar script, que és el vector que
+  // importaria per llegir el token del localStorage. Sense script inline cal el
+  // bootstrap a /admin/bootstrap.js.
+  "script-src 'self' https://unpkg.com 'unsafe-eval'",
   // Emotion injecta <style> en temps d'execució, de manera que el style-src
-  // necessita 'unsafe-inline'. No hi ha cap script inline perquè el bootstrap
-  // viu a /admin/bootstrap.js.
+  // necessita 'unsafe-inline'.
   "style-src 'self' https://unpkg.com https://fonts.googleapis.com 'unsafe-inline'",
   "font-src 'self' https://fonts.gstatic.com https://unpkg.com data:",
   "img-src 'self' data: blob: https://avatars.githubusercontent.com https://github.com",

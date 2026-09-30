@@ -207,7 +207,11 @@ check("error de GitHub → 400", denied.status === 400, `status=${denied.status}
 const adminRes = await worker.fetch(get(`${SITE}/admin/`), env);
 const csp = adminRes.headers.get("Content-Security-Policy") || "";
 check("admin rep CSP", csp.length > 0);
+// Contracte de l'CSP de l'admin: 'unsafe-inline' PROHIBIT als scripts (el
+// vector que permet llegir el token del localStorage), 'unsafe-eval' obligatori
+// perquè AJV compila el schema del config amb new Function() (#2138).
 check("CSP sense unsafe-inline als scripts", !/script-src[^;]*'unsafe-inline'/.test(csp), csp);
+check("CSP inclou unsafe-eval als scripts (AJV en temps de càrrega)", /script-src[^;]*'unsafe-eval'/.test(csp), csp);
 check("CSP inclou frame-ancestors", /frame-ancestors/.test(csp));
 check("admin no-store", adminRes.headers.get("Cache-Control") === "no-store");
 
