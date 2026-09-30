@@ -60,7 +60,7 @@ aside.sidebar-left {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  padding: 40px 32px;
   background-color: var(--bg);
   z-index: 100;
   overflow-y: auto;
@@ -102,7 +102,7 @@ nav ul {
 }
 
 nav li {
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 nav a {
@@ -113,6 +113,7 @@ nav a {
   cursor: pointer;
   display: inline-block;
   font-size: 13px;
+  line-height: 1.5;
 }
 
 nav a:hover {
@@ -191,7 +192,7 @@ nav a.active {
 .socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 14px;
+  gap: 8px 16px;
   align-items: center;
 }
 
@@ -202,11 +203,12 @@ nav a.active {
   transition: opacity var(--transition-fast);
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   line-height: 1.6;
   min-height: 24px;
+  padding: 3px 0;
 }
 
 .socials a:hover {
@@ -403,6 +405,14 @@ ul.item-list li {
   margin-bottom: 15px;
   position: relative;
   padding-left: 20px;
+  line-height: 1.6;
+}
+
+/* llistats d'obres, festivals, premis...: el tipus va a sota del títol,
+   no enganxat al costat (abans eren dos inline sense separació) */
+ul.item-list li .archive-meta {
+  display: block;
+  margin-top: 2px;
 }
 
 ul.item-list li::before {
@@ -1302,4 +1312,9 @@ noscript a {
   opacity: 0.6;
   white-space: nowrap;
   align-self: center;
+}
+
+ul.item-list li .archive-meta {
+  white-space: normal;
+  align-self: auto;
 }
