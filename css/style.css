@@ -67,7 +67,7 @@ aside.sidebar-left {
 }
 
 .brand {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .brand-link {
@@ -80,7 +80,7 @@ aside.sidebar-left {
 }
 
 #site-logo {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .site-logo-img {
@@ -102,7 +102,7 @@ nav ul {
 }
 
 nav li {
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 
 nav a {
@@ -192,23 +192,27 @@ nav a.active {
 .socials {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 16px;
+  gap: 2px;
   align-items: center;
 }
 
+/* Icon-only in the sidebar: the label repeats what the icon, the aria-label
+   and the title tooltip already convey, and 7 labelled links force wrap into
+   four rows inside a 176px column. Scoped to .socials so the contact page,
+   which renders the same markup inside .contact-block, keeps its labels. */
 .socials a {
   color: var(--text);
-  font-size: 10px;
   text-decoration: none;
   transition: opacity var(--transition-fast);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  line-height: 1.6;
-  min-height: 24px;
-  padding: 3px 0;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+}
+
+.socials .social-label {
+  display: none;
 }
 
 .socials a:hover {
