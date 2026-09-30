@@ -16,7 +16,7 @@ const Renderers = {
       wikipedia: '<circle cx="12" cy="12" r="8.6" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M5.6 8 L8 16.4 L12 10.6 L16 16.4 L18.4 8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>',
       wikidata: '<path d="M5.5 18.5 V12.5 M9.8 18.5 V6.5 M14.2 18.5 V10.5 M18.5 18.5 V15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square"/>'
     };
-    return `<svg class="social-icon" viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" focusable="false">${icons[key] || ''}</svg>`;
+    return `<svg class="social-icon" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true" focusable="false">${icons[key] || ''}</svg>`;
   },
 
   socialLinks(data) {
@@ -283,29 +283,6 @@ const Renderers = {
     return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g, ' ');
   },
 
-  bibliography(items, lang, title) {
-    const isEn = lang === 'en';
-    const sorted = [...(items || [])].sort((a, b) => (b.year || 0) - (a.year || 0));
-    return `<h2>${title}</h2>
-      ${sorted.map(it => {
-        const t = this._pick(it, 'title', lang);
-        const type = this._pick(it, 'type', lang);
-        const pub = this._pick(it, 'publisher', lang);
-        const role = this._pick(it, 'role', lang);
-        const desc = this._pick(it, 'description', lang);
-        return `
-        <div class="bibliografia-item">
-          <div class="bibliografia-year">${it.year || ''}</div>
-          <div class="bibliografia-info">
-            <h3>${t}</h3>
-            <div class="bibliografia-meta">${[type, pub, role].filter(Boolean).join(' · ')}</div>
-            ${desc ? `<p class="bibliografia-desc">${desc}</p>` : ''}
-            ${it.url ? `<a class="inline-link" href="${it.url}" target="_blank" rel="noopener">${isEn ? 'See more \u2192' : 'Veure m\u00E9s \u2192'}</a>` : ''}
-          </div>
-        </div>`;
-      }).join('')}`;
-  },
-
   agenda(events, lang, title, desc) {
     const isEn = lang === 'en';
     const today = new Date().toISOString().slice(0, 10);
@@ -364,7 +341,6 @@ const Renderers = {
     ((src && src.festivals && src.festivals.festivals) || []).forEach(f => push(this._pick(f, 'title', lang), `${prefix}/festivals/${f.id}`, this.kindLabel(f.label || f.type, isEn), f.year));
     ((src && src.premis && src.premis.awards) || []).forEach(a => push(this._pick(a, 'title', lang), `${prefix}/premis/${a.id}`, isEn ? 'Award' : 'Premi', a.year));
     ((src && src.projectes && src.projectes.projects) || []).forEach(p => push(this._pick(p, 'title', lang), `${prefix}/projectes/${p.id}`, isEn ? 'Project' : 'Projecte', p.year));
-    ((src && src.bibliografia && src.bibliografia.items) || []).forEach(i => push(this._pick(i, 'title', lang), i.url || null, isEn ? 'Bibliography' : 'Bibliografia', i.year));
 
     const kinds = [...new Set(catalog.map(c => c.kind).filter(Boolean))].sort();
     const years = [...new Set(catalog.map(c => c.year).filter(Boolean))].sort((a, b) => b - a);

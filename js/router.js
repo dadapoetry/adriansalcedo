@@ -490,7 +490,7 @@ const App = {
     const isEn = this.lang === 'en';
     const prefix = isEn ? '/en' : '';
 
-    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca', 'bibliografia', 'agenda', 'contacte'];
+    const validSections = ['home', 'quisoc', 'projectes', 'obres', 'festivals', 'premis', 'premsa', 'arxiu', 'cerca', 'agenda', 'contacte'];
     if (!validSections.includes(section)) {
       listLayer.innerHTML = `
         <div class="error-404">
@@ -657,25 +657,21 @@ const App = {
         cv: qu ? qu.cv : '',
         social: site.social || null
       });
-    } else if (section === 'bibliografia' && data.items) {
-      const title = isEn ? (data.title_en || data.title) : data.title;
-      listLayer.innerHTML = Renderers.bibliography(data.items, this.lang, title);
     } else if (section === 'agenda') {
       const title = isEn ? (data.title_en || data.title) : data.title;
       const desc = isEn ? (data.description_en || data.description) : data.description;
       listLayer.innerHTML = Renderers.agenda(data.events || [], this.lang, title, desc);
     } else if (section === 'arxiu') {
       const title = isEn ? (data.title_en || data.title) : data.title;
-      const [obres, festivals, premis, projectes, bibliografia] = await Promise.all([
+      const [obres, festivals, premis, projectes] = await Promise.all([
         ContentLoader.load('obres'),
         ContentLoader.load('festivals'),
         ContentLoader.load('premis'),
-        ContentLoader.load('projectes'),
-        ContentLoader.load('bibliografia')
+        ContentLoader.load('projectes')
       ]);
       listLayer.innerHTML = `<h2>${title}</h2>
         <p>${data.description || ''}</p>
-        ${Renderers.archive({ obres, festivals, premis, projectes, bibliografia }, this.lang, prefix)}
+        ${Renderers.archive({ obres, festivals, premis, projectes }, this.lang, prefix)}
         ${data.tags && data.tags.length ? `<div class="tag-cloud">${data.tags.map(t => `<a href="/cerca?q=${t}" class="tag">${t}</a>`).join('')}</div>` : ''}`;
     }
 

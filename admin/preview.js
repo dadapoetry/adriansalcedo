@@ -419,38 +419,6 @@ CMS.registerPreviewTemplate('quisoc', createClass({
 }));
 
 
-/* ─── BIBLIOGRAFIA ─── */
-CMS.registerPreviewTemplate('bibliografia', createClass({
-  render: function () {
-    var entry = this.props.entry;
-    var items = entry.getIn(['data', 'items']);
-    if (!items || !items.size) return h('div', { className: 'cms-preview' }, h('p', {}, 'Cap publicació configurada.'));
-
-    return h('div', { className: 'cms-preview' },
-      h('h1', {}, getVal(entry, ['title'], 'Bibliografia')),
-      getVal(entry, ['description'], '') ? h('p', { className: 'preview-meta' }, getVal(entry, ['description'], '')) : null,
-      items.map(function (item, i) {
-        var title = item.get('title', '');
-        var type = item.get('type', '');
-        var year = item.get('year', '');
-        var publisher = item.get('publisher', '');
-        var role = item.get('role', '');
-        var url = item.get('url', '');
-
-        return h('div', { key: i, style: { display: 'flex', gap: '14px', marginBottom: '18px', padding: '14px', background: 'var(--bg-elevated)', borderRadius: '6px' } },
-          year ? h('strong', { style: { color: 'var(--accent)', minWidth: '44px' } }, year) : null,
-          h('div', {},
-            h('h3', { style: { margin: 0 } }, title),
-            [type, publisher, role].filter(Boolean).length ? h('p', { className: 'preview-meta', style: { margin: '4px 0 0' } }, [type, publisher, role].filter(Boolean).join(' · ')) : null,
-            url ? h('a', { href: url, target: '_blank', style: { color: 'var(--accent)', fontSize: '0.85rem' } }, url) : null
-          )
-        );
-      }.bind(this)).toArray()
-    );
-  }
-}));
-
-
 /* ─── CONTACT ─── */
 CMS.registerPreviewTemplate('contacte', createClass({
   render: function () {

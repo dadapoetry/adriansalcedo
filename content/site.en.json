@@ -22,7 +22,6 @@
     { "id": "quisoc", "label": "About", "path": "/en/quisoc", "label_en": "About" },
     { "id": "contacte", "label": "Contact", "path": "/en/contacte", "label_en": "Contact" },
     { "id": "arxiu", "label": "Archive", "path": "/en/arxiu", "label_en": "Archive" },
-    { "id": "bibliografia", "label": "Bibliography", "path": "/en/bibliografia", "label_en": "Bibliography" },
     { "id": "agenda", "label": "Agenda", "path": "/en/agenda", "label_en": "Agenda" }
   ],
   "social": {

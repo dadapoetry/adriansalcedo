@@ -4,7 +4,7 @@ const SearchEngine = {
 
   async buildIndex() {
     if (this.built) return;
-    const sections = ['projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa', 'bibliografia', 'agenda', 'contacte'];
+    const sections = ['projectes', 'festivals', 'obres', 'premis', 'quisoc', 'premsa', 'agenda', 'contacte'];
     for (const section of sections) {
       const data = await ContentLoader.loadSection(section);
       if (!data) continue;

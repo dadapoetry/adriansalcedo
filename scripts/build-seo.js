@@ -16,7 +16,6 @@ const SECTIONS = {
   contacte: null,
   arxiu: null,
   cerca: null,
-  bibliografia: null,
   agenda: null,
 };
 
@@ -118,7 +117,6 @@ const SECTION_SPLIT = {
   premsa:    ['monthly', '0.7'],
   arxiu:     ['monthly', '0.7'],
   cerca:     ['monthly', '0.3'],
-  bibliografia: ['monthly', '0.7'],
   agenda:    ['weekly', '0.8'],
 };
 

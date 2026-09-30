@@ -10,7 +10,6 @@ const SECTION_TO_JSON = {
   quisoc: "/content/quisoc.json",
   contacte: "/content/contacte.json",
   arxiu: "/content/arxiu.json",
-  bibliografia: "/content/bibliografia.json",
   agenda: "/content/agenda.json",
 };
 

@@ -207,8 +207,8 @@ nav a.active {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
 }
 
 .socials .social-label {
@@ -257,20 +257,22 @@ nav a.active {
 .contact-intro {
   font-size: 14px;
   line-height: 1.7;
-  max-width: 90%;
+  max-width: 62ch;
+  margin-bottom: 30px;
 }
 
 .contact-mail {
-  font-size: 20px;
-  margin-bottom: 10px;
+  font-size: 17px;
+  margin-bottom: 0;
   word-break: break-word;
 }
 
 .contact-mail a {
+  display: inline-block;
   color: var(--text);
   text-decoration: none;
   border-bottom: 1px solid var(--text);
-  padding-bottom: 2px;
+  padding-bottom: 3px;
   transition: opacity var(--transition-fast);
 }
 
@@ -279,11 +281,38 @@ nav a.active {
 }
 
 .contact-block {
-  margin: 34px 0 0;
+  margin: 44px 0 0;
+  padding-top: 26px;
+  border-top: 1px solid var(--border-light);
 }
 
-.contact-block .socials {
-  gap: 6px 18px;
+.contact-block .section-label {
+  margin-bottom: 18px;
+}
+
+/* Els enllaços socials del contacte no tenenwrapper .socials: són
+   .social-link directes dins de .contact-block. No tenien cap regla
+   (la de .social-block .socials era dead code perquè aquí no hi ha
+   cap element .socials), de manera que sortien com a enllaços blaus
+   per defecte, sense espai entre ells i amb la icona sense alinear. */
+.contact-block .social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 26px 12px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-light);
+  transition: opacity var(--transition-fast), border-color var(--transition-fast);
+}
+
+.contact-block .social-link:hover {
+  opacity: 0.6;
+  border-bottom-color: var(--text);
 }
 
 .references {
@@ -1137,6 +1166,16 @@ noscript a {
   .contact-cta {
     font-size: 9px;
   }
+
+  .contact-block {
+    margin-top: 32px;
+    padding-top: 20px;
+  }
+
+  .contact-block .social-link {
+    margin: 0 18px 10px 0;
+    font-size: 11px;
+  }
 }
 
 /* ===== MODULAR BLOCKS ===== */
@@ -1181,45 +1220,6 @@ noscript a {
   text-transform: none;
   letter-spacing: 0;
   opacity: 1;
-}
-
-/* ===== BIBLIOGRAFIA ===== */
-.bibliografia-list {
-  margin: 20px 0 30px;
-}
-
-.bibliografia-item {
-  display: flex;
-  gap: 20px;
-  padding: 18px 0;
-  border-top: 1px solid var(--border-light);
-}
-
-.bibliografia-item:first-of-type {
-  border-top: 0;
-}
-
-.bibliografia-year {
-  font-size: 14px;
-  font-weight: 700;
-  min-width: 56px;
-}
-
-.bibliografia-info h3 {
-  font-size: 15px;
-  margin: 0 0 6px 0;
-}
-
-.bibliografia-meta {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  opacity: 0.62;
-  margin-bottom: 6px;
-}
-
-.bibliografia-desc {
-  margin: 0 0 6px 0;
 }
 
 /* ===== AGENDA ===== */

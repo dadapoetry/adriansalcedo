@@ -133,9 +133,8 @@ collections:
                   - { label: "Premsa", value: "premsa" }
                   - { label: "Qui soc", value: "quisoc" }
                   - { label: "Contacte", value: "contacte" }
-                  - { label: "Arxiu", value: "arxiu" }
-                  - { label: "Bibliografia", value: "bibliografia" }
-                  - { label: "Agenda", value: "agenda" }
+                   - { label: "Arxiu", value: "arxiu" }
+                   - { label: "Agenda", value: "agenda" }
                   - { label: "Cerca", value: "cerca" }
               - { label: "Descripció (CA)", name: "desc", widget: "text" }
               - { label: "Description (EN)", name: "desc_en", widget: "text", required: false }
@@ -595,36 +594,6 @@ collections:
           - { label: "Títol (EN)", name: "title_en", widget: "string" }
           - { label: "Descripció", name: "description", widget: "text" }
           - { label: "Etiquetes", name: "tags", widget: "list", field: { label: "Etiqueta", name: "tag", widget: "string" } }
-
-  - name: "bibliografia"
-    label: "Bibliografia"
-    description: "Llibres, revistes i publicacions (CA + EN)"
-    files:
-      - file: "content/bibliografia.json"
-        label: "Bibliografia"
-        name: "bibliografia"
-        fields:
-          - { label: "Títol (CA)", name: "title", widget: "string" }
-          - { label: "Títol (EN)", name: "title_en", widget: "string" }
-          - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
-          - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
-          - label: "Publicacions"
-            name: "items"
-            widget: "list"
-            fields:
-              - { label: "ID", name: "id", widget: "string" }
-              - { label: "Títol (CA)", name: "title", widget: "string" }
-              - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
-              - { label: "Tipus (CA)", name: "type", widget: "string" }
-              - { label: "Type (EN)", name: "type_en", widget: "string", required: false }
-              - { label: "Any", name: "year", widget: "number", value_type: "int" }
-              - { label: "Editorial", name: "publisher", widget: "string", required: false }
-              - { label: "Publisher (EN)", name: "publisher_en", widget: "string", required: false }
-              - { label: "Rol (CA)", name: "role", widget: "string", required: false }
-              - { label: "Role (EN)", name: "role_en", widget: "string", required: false }
-              - { label: "Descripció (CA)", name: "description", widget: "text", required: false }
-              - { label: "Description (EN)", name: "description_en", widget: "text", required: false }
-              - { label: "URL", name: "url", widget: "string", required: false }
 
   - name: "contacte"
     label: "Contacte"
