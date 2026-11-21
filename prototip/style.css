@@ -128,43 +128,86 @@ a { color: inherit; text-decoration: none; }
   text-underline-offset: 0.25em;
 }
 
-.text h2 a:hover,
-.title-btn:hover {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.36em;
-}
-
-.title-btn {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: inherit;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-}
-
+/* Panell de detall: full editorial de sèrie, sense cap obertura. */
 .panel--detail {
-  width: clamp(380px, 40vw, 640px);
+  width: clamp(440px, 48vw, 820px);
+  padding: 0;
+  overflow: hidden;
+}
+
+.detail-inner {
+  display: flex;
   flex-direction: column;
-  align-items: stretch;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: var(--rise) clamp(36px, 5vw, 88px) clamp(56px, 9vh, 104px);
 }
 
+/* Mateixa veu que l'enunciat del segon panell. */
 .detail-body {
-  font-size: var(--body);
-  line-height: 1.55;
+  margin-top: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: var(--display);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
 }
 
-.detail-body p { margin: 0 0 14px; }
-.detail-body figure { margin: 0 0 14px; }
+/* Alternança de ritme: full ample com a pausa, full estret com a nota. */
+.panel--detail--wide { width: min(84vw, 1020px); }
+.panel--detail--wide .detail-inner {
+  padding-left: clamp(48px, 8vw, 140px);
+  padding-right: clamp(48px, 8vw, 140px);
+}
+
+.detail-body p { margin: 0 0 0.72em; }
+.detail-body figure { margin: 0.9em 0; }
 .detail-body figure img {
   display: block;
   width: 100%;
   height: auto;
   mix-blend-mode: multiply;
 }
+.detail-body a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.detail-links {
+  margin-top: clamp(20px, 3.5vh, 44px);
+  font-size: var(--meta);
+  line-height: 1.7;
+  opacity: 0.72;
+}
+.detail-links p { margin: 0 0 6px; }
+.detail-links span {
+  margin-right: 8px;
+  font-size: 0.8em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.detail-links a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.lang {
+  margin-bottom: clamp(20px, 3vh, 36px);
+  font-size: var(--meta);
+  opacity: 0.6;
+}
+.lang a[aria-current] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  opacity: 1;
+}
+.panel--end .lang { margin: clamp(24px, 4vh, 44px) 0 0; }
 
 /* Tractament únic de qualsevol imatge, vingui d'on vingui. */
 .panel--media figure {
@@ -184,6 +227,16 @@ a { color: inherit; text-decoration: none; }
   object-position: center;
   mix-blend-mode: multiply;
 }
+
+/* Un parell de fulls en horitzontal trenquen el ritme apilat. */
+.panel--media.panel--side {
+  width: min(78vw, 1080px);
+  flex-direction: row;
+  align-items: center;
+  gap: clamp(32px, 4vw, 72px);
+}
+.panel--side figure { flex: 1 1 55%; height: 72%; }
+.panel--side .text { flex: 1 1 45%; }
 
 .panel--end { min-width: 100vw; }
 
@@ -311,6 +364,10 @@ a { color: inherit; text-decoration: none; }
     gap: 16px;
   }
 
+  .detail-inner { padding-left: 20px; padding-right: 20px; }
+  .panel--detail--wide .detail-inner { padding-left: 20px; padding-right: 20px; }
+  .panel--detail--wide { width: 92vw; }
+
   .panel--cover h1 {
     max-width: 86vw;
     line-height: 1.02;
@@ -324,6 +381,14 @@ a { color: inherit; text-decoration: none; }
   .panel--statement .statement { width: 80vw; }
 
   .panel--media figure { min-height: 150px; }
+
+  .panel--media.panel--side {
+    width: 92vw;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  .panel--side figure { height: auto; }
 
   .panel--end { width: 100vw; min-width: 100vw; }
   .panel--end > * { max-width: 100%; }

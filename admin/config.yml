@@ -170,6 +170,8 @@ collections:
             fields:
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
+              - { label: "Amplada", name: "width", widget: "string", required: false }
+              - { label: "Alçada", name: "height", widget: "number", value_type: "int", required: false }
               - { label: "Subtítol (CA)", name: "subtitle", widget: "string" }
               - { label: "Subtitle (EN)", name: "subtitle_en", widget: "string" }
               - { label: "Declaració (CA)", name: "statement", widget: "text" }
@@ -405,6 +407,8 @@ collections:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol (CA)", name: "title", widget: "string" }
                   - { label: "Title (EN)", name: "title_en", widget: "string" }
+                  - { label: "Amplada (px)", name: "width", widget: "number", value_type: "int", required: false }
+                  - { label: "Alçada (px)", name: "height", widget: "number", value_type: "int", required: false }
               - *blocks_widget
               - label: "SEO"
                 name: "seo"
@@ -514,6 +518,8 @@ collections:
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Any", name: "year", widget: "number", value_type: "int" }
               - { label: "Categoria", name: "category", widget: "string" }
+              - { label: "Paràgraf final (CA)", name: "closing", widget: "text", required: false }
+              - { label: "Closing paragraph (EN)", name: "closing_en", widget: "text", required: false }
               - { label: "Contingut (CA)", name: "content", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
               - { label: "Content (EN)", name: "content_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
               - label: "Imatges"
@@ -523,6 +529,7 @@ collections:
                 fields:
                   - { label: "Fitxer", name: "src", widget: "image" }
                   - { label: "Alt text", name: "alt", widget: "string" }
+                  - { label: "Amplada", name: "width", widget: "string", default: "100%", required: false }
               - label: "Vídeos"
                 name: "videos"
                 widget: "list"
@@ -530,6 +537,8 @@ collections:
                 fields:
                   - { label: "URL YouTube", name: "url", widget: "string" }
                   - { label: "Títol", name: "title", widget: "string" }
+                  - { label: "Amplada (px)", name: "width", widget: "number", value_type: "int", required: false }
+                  - { label: "Alçada (px)", name: "height", widget: "number", value_type: "int", required: false }
               - *blocks_widget
               - label: "SEO"
                 name: "seo"
@@ -549,7 +558,8 @@ collections:
         label: "Biografia"
         name: "quisoc"
         fields:
-          - { label: "Títol", name: "title", widget: "string" }
+          - { label: "Títol (CA)", name: "title", widget: "string" }
+          - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
           - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
           - { label: "Biografia (CA)", name: "biography", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
           - { label: "Biography (EN)", name: "biography_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }

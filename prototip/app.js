@@ -1,4 +1,6 @@
 (() => {
+  const lang = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'ca';
+  document.documentElement.lang = lang;
   const scroller = document.querySelector('#scroller');
   const roll = document.querySelector('#roll');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -12,6 +14,28 @@
     scroller.style.height = `${window.innerHeight + travel}px`;
     window.scrollTo(0, ratio * travel);
     current = ratio * travel;
+  }
+
+  function fitBody(inner, max) {
+    const body = inner.querySelector('.detail-body');
+    const pad = getComputedStyle(inner);
+    const avail = inner.clientHeight - parseFloat(pad.paddingTop) - parseFloat(pad.paddingBottom);
+    const contentH = () => [...inner.children].reduce((total, child) => {
+      const style = getComputedStyle(child);
+      return total + child.getBoundingClientRect().height
+        + parseFloat(style.marginTop || 0) + parseFloat(style.marginBottom || 0);
+    }, 0);
+    let size = parseFloat(getComputedStyle(body).fontSize);
+    body.style.fontSize = `${size}px`;
+    while (contentH() > avail && size > 14) {
+      size -= 1;
+      body.style.fontSize = `${size}px`;
+    }
+    while (contentH() < avail * 0.82 && size < max) {
+      size += 2;
+      body.style.fontSize = `${size}px`;
+    }
+    return size;
   }
 
   function frame() {
@@ -58,7 +82,7 @@
   const asset = (src) => (String(src || '').startsWith('/media/') ? `../${src.slice(1)}` : src);
 
   async function init() {
-    const names = ['site', 'home', 'obres', 'projectes', 'festivals', 'premis', 'premsa', 'quisoc', 'agenda'];
+    const names = ['site', 'site.en', 'home', 'obres', 'projectes', 'festivals', 'premis', 'premsa', 'quisoc', 'agenda', 'labels'];
     let sources;
     try {
       sources = await Promise.all(names.map(load));
@@ -66,21 +90,56 @@
       console.warn('Prototip: JSON no accessible, faig servir la còpia local.', error);
       sources = names.map((name) => (window.PROTOTIP_DATA || {})[name] || {});
     }
-    const [site, home, obres, projectes, festivals, premis, premsa, quisoc, agenda] = sources;
+    const [site, siteEn, home, obres, projectes, festivals, premis, premsa, quisoc, agenda, labels] = sources;
 
-    const s = site.site || {};
+    const L = (key) => {
+      const row = (labels.labels || []).find((item) => item.key === key);
+      return row ? (lang === 'en' ? row.en : row.ca) : '';
+    };
+    const pick = (obj, key) => {
+      if (!obj) return '';
+      const ca = obj[key];
+      if (lang !== 'en') return ca;
+      const en = obj[`${key}_en`];
+      const empty = en == null || (typeof en === 'string' && !en.trim()) || (Array.isArray(en) && !en.length);
+      return empty ? ca : en;
+    };
+    const pickList = (obj, key) => {
+      const value = pick(obj, key);
+      return Array.isArray(value) ? value : (value ? [value] : []);
+    };
+    const kind = (value) => {
+      if (!value) return '';
+      if (['Debut editorial', 'Debut book', 'Editorial debut'].includes(value)) return L('debutWork');
+      const label = L(`kind${value.charAt(0).toUpperCase()}${value.slice(1)}`);
+      return label || value;
+    };
+
+    const s = { ...(site.site || {}), ...((lang === 'en' && siteEn.site) || {}) };
+    const social = (lang === 'en' && siteEn.social) || site.social || {};
     const h = home.hero || {};
     const fw = home.featuredWork || {};
-    const subtitle = String(h.subtitle || '').replace(/^./, (c) => c.toLowerCase());
-    const details = {};
-    let detailId = 0;
-    const heading = (title, detail) => {
+    // El detall complet ve de la fitxa d'obra; s'identifica pel slug de l'enllaç destacat.
+    const work = (obres.works || []).find((w) => w.id === String(fw.link || '').split('/').pop());
+    const featured = work
+      ? { ...work, ...fw, content: work.content, content_en: work.content_en, links: work.links, buyLinks: work.buyLinks, isbn: work.isbn }
+      : fw;
+    const subtitle = String(pick(h, 'subtitle') || '').replace(/^./, (c) => c.toLowerCase());
+
+    document.querySelector('.skip').textContent = L('skipToEnd');
+    document.title = lang === 'en'
+      ? (home.seo?.title_en || s.title)
+      : (home.seo?.title || s.title);
+    const metaTag = document.querySelector('meta[name="description"]');
+    if (metaTag) {
+      metaTag.content = lang === 'en'
+        ? (home.seo?.description_en || s.description || '')
+        : (home.seo?.description || s.description || '');
+    }
+    const langLinks = `<span class="lang"><a href="?lang=ca"${lang === 'ca' ? ' aria-current="true"' : ''}>CA</a><span aria-hidden="true"> / </span><a href="?lang=en"${lang === 'en' ? ' aria-current="true"' : ''}>EN</a></span>`;
+    const heading = (title) => {
       const name = String(title || '');
-      const cls = name.length > 20 ? ' long' : '';
-      if (!detail) return `<h2 class="${cls}">${esc(name)}</h2>`;
-      const id = detailId++;
-      details[id] = detail;
-      return `<h2 class="${cls}"><button type="button" class="title-btn" data-detail="${id}" aria-expanded="false">${esc(name)}</button></h2>`;
+      return `<h2 class="${name.length > 20 ? 'long' : ''}">${esc(name)}</h2>`;
     };
     const lead = (value) => {
       const body = String(value || '');
@@ -89,48 +148,58 @@
 
     const highlighted = (list) => (list || []).filter((item) => item.destacat);
     const imageOf = (item) => item.image || (item.images || [])[0]?.src;
-    const altOf = (item) => item.imageAlt || (item.images || [])[0]?.alt || '';
+    const altOf = (item) => pick(item, 'imageAlt') || pick((item.images || [])[0], 'alt') || '';
     const metaOf = (item) => item.meta || [
-      item.type || item.label || item.category,
-      item.year || (item.date || '').slice(0, 4),
+      kind(pick(item, 'type') || pick(item, 'label') || pick(item, 'category')),
+      item.year || String(pick(item, 'date') || '').slice(0, 4),
       item.publisher,
-      item.venue
+      item.venue,
+      item.isbn ? `ISBN: ${item.isbn}` : ''
     ].filter(Boolean).join(', ');
     const strip = (value) => text(Array.isArray(value) ? value[0] : value);
     const rollItem = (item) => (item.label && !item.title
-      ? { ...item, title: item.label, meta: String(item.year || '') }
+      ? { ...item, title: pick(item, 'label'), meta: String(item.year || '') }
       : item);
-    const detailOf = (item) => {
-      const paragraphs = Array.isArray(item.content) ? item.content : [];
-      let body = paragraphs.length > 1 ? paragraphs.slice(1).join('') : '';
-      if (item.contentList) body += (Array.isArray(item.contentList) ? item.contentList : [item.contentList]).map((x) => `<p>${x}</p>`).join('');
-      if (item.closing) body += `<p>${item.closing}</p>`;
+    const linkRow = (list) => (list || [])
+      .map((link) => `<a href="${esc(link.url)}">${esc(pick(link, 'label') || link.url)}</a>`)
+      .join(' \u00B7 ');
+    const detailOf = (item, leadText) => {
+      const paras = pickList(item, 'content');
+      const body = paras.filter((paragraph) => text(paragraph) !== leadText).join('');
+      const list = pickList(item, 'contentList').map((x) => `<p>${esc(x)}</p>`).join('');
+      const closing = pick(item, 'closing') ? `<p>${pick(item, 'closing')}</p>` : '';
       const media = (item.images || []).slice(1)
-        .map((i) => `<figure><img src="${esc(asset(i.src))}" alt="${esc(i.alt || '')}"></figure>`).join('');
-      const videos = (item.videos || []).map((v) => `<p><a href="${esc(v.url)}">${esc(v.title || '')}</a></p>`).join('');
-      return body + media + videos;
+        .map((i) => `<figure><img src="${esc(asset(i.src))}" alt="${esc(pick(i, 'alt'))}"></figure>`).join('');
+      const videos = (item.videos || []).map((v) => `<p><a href="${esc(v.url)}">${esc(pick(v, 'title') || v.url)}</a></p>`).join('');
+      const buy = linkRow(item.buyLinks);
+      const more = linkRow(item.links);
+      const links = (buy || more)
+        ? `<div class="detail-links">${buy ? `<p><span>${esc(L('whereToBuy'))}</span>${buy}</p>` : ''}${more ? `<p>${more}</p>` : ''}</div>`
+        : '';
+      return { body: body + list + closing + media + videos, links };
     };
 
     const panels = [];
     const add = (html, extra = '') => panels.push(
-      `<section class="panel ${extra}${panels.length % 2 ? ' img-first' : ''}">${html}</section>`
+      `<section class="panel ${extra}${extra.includes('panel--detail') || panels.length % 2 === 0 ? '' : ' img-first'}">${html}</section>`
     );
 
     add(`
+      ${langLinks}
       <h1>${(s.title || '').split(' ').map((word) => `<span>${esc(word)}</span>`).join(' ')}</h1>
       <div class="cover-foot">
-        <p class="identity">${esc(h.title)}, ${esc(subtitle)}</p>
-        <p class="bio">${esc(home.bio)}</p>
+        <p class="identity">${esc(pick(h, 'title'))}, ${esc(subtitle)}</p>
+        <p class="bio">${esc(pick(home, 'bio'))}</p>
       </div>
     `, 'panel--cover');
 
-    if (h.statement) add(`<p class="statement">${esc(h.statement)}</p>`, 'panel--statement');
+    if (pick(h, 'statement')) add(`<p class="statement">${esc(pick(h, 'statement'))}</p>`, 'panel--statement');
 
     const entries = [
-      ...(fw.destacat ? [fw] : []),
+      ...(featured.destacat ? [featured] : []),
       ...highlighted(projectes.projects),
       ...highlighted(festivals.festivals),
-      ...highlighted(obres.works),
+      ...highlighted(obres.works).filter((w) => w !== work),
       ...highlighted(premis.awards),
       ...highlighted(home.featuredProjects),
       ...highlighted(home.currentProjects),
@@ -139,24 +208,33 @@
     ];
     let bio = quisoc.destacat ? `
       <div class="text">
-        <div>${heading(quisoc.title)}</div>
-        ${lead([strip(quisoc.biography), strip(quisoc.education)].filter(Boolean).join(' '))}
+        <div>${heading(pick(quisoc, 'title'))}</div>
+        ${lead([strip(pick(quisoc, 'biography')), strip(pick(quisoc, 'education'))].filter(Boolean).join(' '))}
       </div>
     ` : '';
 
+    let detailCount = 0;
     entries.forEach((item, i) => {
       const image = imageOf(item);
       const meta = metaOf(item);
+      const leadText = strip(pick(item, 'description') || pick(item, 'content'));
       add(`
         <div class="text">
           <div>
-            ${heading(item.title, detailOf(item))}
+            ${heading(pick(item, 'title'))}
             ${meta ? `<p class="meta">${esc(meta)}</p>` : ''}
           </div>
-          ${lead(strip(item.description || item.content))}
+          ${lead(leadText)}
         </div>
         ${image ? `<figure><img src="${esc(asset(image))}" alt="${esc(altOf(item))}"></figure>` : ''}
-      `, 'panel--media');
+      `, `panel--media${i % 3 === 1 ? ' panel--side' : ''}`);
+      const detail = detailOf(item, leadText);
+      if (detail.body || detail.links) {
+        add(
+          `<div class="detail-inner"><div class="detail-body">${detail.body}</div>${detail.links}</div>`,
+          `panel--detail${detailCount++ % 2 ? ' panel--detail--wide' : ''}`
+        );
+      }
       if (bio && i === 1) { add(bio, 'panel--bio'); bio = ''; }
     });
     if (bio) add(bio, 'panel--bio');
@@ -164,47 +242,28 @@
     add(`
       <ul class="press">
         ${highlighted(premsa.articles).slice(0, 3).map((article) => (
-          `<li><span class="meta">${esc(article.publication)}, ${esc((article.date || '').slice(0, 4))}</span><a href="${esc(article.url)}">${esc(article.title)}</a></li>`
+          `<li><span class="meta">${esc(article.publication)}, ${esc(String(pick(article, 'date') || '').slice(0, 4))}</span><a href="${esc(article.url)}">${esc(pick(article, 'title'))}</a></li>`
         )).join('')}
       </ul>
     `, 'panel--press');
 
     add(`
-      <p class="end-cta">${esc(s.cta)}</p>
+      <p class="end-cta">${esc(pick(s, 'cta'))}</p>
       <p class="end-mail"><a href="mailto:${esc(s.email)}">${esc(s.email)}</a></p>
       <p class="social">
-        ${Object.values(site.social || {}).map((item) => (
+        ${Object.values(social).map((item) => (
           `<a href="${esc(item.url)}">${esc(item.label)}</a>`
         )).join(' <span aria-hidden="true">·</span> ')}
       </p>
       <p class="colophon">${esc(s.description)} · ${esc(s.copyright)}</p>
+      ${langLinks}
     `, 'panel--cover panel--end');
 
     roll.innerHTML = panels.join('');
     roll.querySelector('.panel--end').id = 'final';
 
-    roll.addEventListener('click', (event) => {
-      const button = event.target.closest('.title-btn');
-      if (!button) return;
-      const panel = button.closest('.panel');
-      const id = button.dataset.detail;
-      const open = roll.querySelector(`.panel--detail[data-for="${id}"]`);
-      if (open) {
-        open.remove();
-        button.setAttribute('aria-expanded', 'false');
-        measure();
-        window.scrollTo({ top: Math.min(panel.offsetLeft, travel), behavior: reduceMotion ? 'auto' : 'smooth' });
-        return;
-      }
-      const detail = document.createElement('section');
-      detail.className = 'panel panel--detail';
-      detail.dataset.for = id;
-      detail.innerHTML = `<div class="detail-body">${details[id]}</div>`;
-      panel.after(detail);
-      button.setAttribute('aria-expanded', 'true');
-      measure();
-      window.scrollTo({ top: Math.min(detail.offsetLeft, travel), behavior: reduceMotion ? 'auto' : 'smooth' });
-    });
+    const max = parseFloat(getComputedStyle(roll.querySelector('.statement') || roll.querySelector('.text h2')).fontSize);
+    roll.querySelectorAll('.panel--detail .detail-inner').forEach((inner) => fitBody(inner, max));
 
     measure();
     Promise.all([...roll.querySelectorAll('img')].map((img) => img.decode().catch(() => {}))).then(measure);

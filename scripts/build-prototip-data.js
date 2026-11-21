@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const root = path.join(__dirname, '..');
-const names = ['site', 'home', 'obres', 'projectes', 'festivals', 'premis', 'premsa'];
+const names = ['site', 'site.en', 'home', 'obres', 'projectes', 'festivals', 'premis', 'premsa', 'quisoc', 'agenda', 'labels'];
 const data = {};
 
 for (const name of names) {

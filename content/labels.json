@@ -4,6 +4,8 @@
     { "key": "contributors", "ca": "Col·laboradors", "en": "Contributors" },
     { "key": "readMore", "ca": "Llegeix-ne més", "en": "Read more" },
     { "key": "whereToBuy", "ca": "On comprar-lo", "en": "Where to buy" },
+    { "key": "skipToEnd", "ca": "Vés al final", "en": "Skip to end" },
+    { "key": "debutWork", "ca": "Debut editorial", "en": "Debut book" },
     { "key": "read", "ca": "Llegir", "en": "Read" },
     { "key": "credits", "ca": "Crèdits", "en": "Credits" },
     { "key": "kindPublication", "ca": "Publicació", "en": "Publication" },
