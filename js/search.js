@@ -38,7 +38,7 @@ const SearchEngine = {
 
   renderResults(results, container) {
     if (!results.length) {
-      container.innerHTML = '<p style="opacity: 0.65; font-size: 12px;">No s\'han trobat resultats.</p>';
+      container.innerHTML = `<p style="opacity: 0.65; font-size: 12px;">${L('noSearchResults')}</p>`;
       return;
     }
     container.innerHTML = results.map(r =>
@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     input.addEventListener('input', () => {
       const term = input.value.trim();
       if (term.length < 2) {
-        results.innerHTML = '<p style="opacity: 0.65; font-size: 12px;">Escriu almenys 2 caràcters per cercar.</p>';
+        results.innerHTML = `<p style="opacity: 0.65; font-size: 12px;">${L('searchMin')}</p>`;
         return;
       }
       const hits = SearchEngine.query(term);

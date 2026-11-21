@@ -319,6 +319,7 @@
     },
     {
       "id": "obra-poemot",
+      "destacat": true,
       "title": "POEMOT (Poema de 10 metres)",
       "type": "installation",
       "year": 2022,

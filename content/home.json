@@ -47,6 +47,7 @@
     "description_en": "Born in 1994 and based in Maresme. Performed at Festival Poesia i Més, Festival Nosaltres, Festival Nudo Internacional and exhibited at La Pahissa del Marquet. Winner of the Marta Pessarrodona Poetry Prize 2021 and twice finalist of the Salvador Iborra Contest."
   },
   "featuredWork": {
+    "destacat": true,
     "description_en": "Selected as a finalist for the <strong>7th Salvador Iborra Young Art Poetry Contest</strong>.",
     "imageAlt": "Portada Crit",
     "link_en": "/en/obres/obra-crit",

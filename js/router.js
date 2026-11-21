@@ -8,13 +8,15 @@ const App = {
 
   async init() {
     this.detectLang();
-    const [site, seo, home, siteCa] = await Promise.all([
+    const [site, seo, home, siteCa, labels] = await Promise.all([
       ContentLoader.loadSite(this.lang),
       ContentLoader.load('/content/seo.json'),
       ContentLoader.load('/content/home.json'),
-      ContentLoader.load('/content/site.json')
+      ContentLoader.load('/content/site.json'),
+      ContentLoader.load('/content/labels.json')
     ]);
     this.siteData = site;
+    Renderers.labels = (labels && labels.labels) || [];
     this.seoData = seo;
     this.homeSeo = (home && home.seo) || null;
     this.navTitles = {};
@@ -339,7 +341,7 @@ const App = {
       || (isEn ? (homeItem && (homeItem.label_en || homeItem.label)) : (homeItem && homeItem.label))
       || section;
     const list = [
-      { "@type": "ListItem", position: 1, name: isEn ? "Home" : "Inici", item: baseUrl + (isEn ? "/en" : "/") },
+      { "@type": "ListItem", position: 1, name: L('homeBreadcrumb', this.lang), item: baseUrl + (isEn ? "/en" : "/") },
       { "@type": "ListItem", position: 2, name: label, item: baseUrl + prefix + '/' + section }
     ];
     if (item && (item.title || item.title_en)) {
@@ -365,7 +367,7 @@ const App = {
     const items = keys.filter(k => social[k]).map(k => social[k]);
     if (!items.length) return '';
     return `<div class="references">
-      <h3 class="section-label">${isEn ? 'References' : 'REFERÈNCIES'}</h3>
+      <h3 class="section-label">${L('references', this.lang)}</h3>
       <p>${items.map(s => `<a href="${s.url}" class="inline-link" target="_blank" rel="noopener">${s.label}</a>`).join(' \u00B7 ')}</p>
     </div>`;
   },
@@ -443,7 +445,7 @@ const App = {
 
     const listLayer = sectionEl.querySelector('.list-layer');
     if (listLayer) {
-      listLayer.innerHTML = '<p style="opacity:0.3;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;animation:pulse 1.2s ease-in-out infinite;">carregant...</p>';
+      listLayer.innerHTML = `<p style="opacity:0.3;font-size:11px;text-transform:uppercase;letter-spacing:0.1em;animation:pulse 1.2s ease-in-out infinite;">${L('loading', this.lang)}</p>`;
     }
 
     await this.loadContent(section, sectionEl, article);
@@ -495,16 +497,16 @@ const App = {
       listLayer.innerHTML = `
         <div class="error-404">
           <h2>404</h2>
-          <p>${isEn ? 'Page not found.' : 'Pàgina no trobada.'}</p>
-          <p><a href="${isEn ? '/en' : '/'}" class="inline-link">${isEn ? 'Go home \u2192' : 'Tornar a l\'inici \u2192'}</a></p>
+          <p>${L('notFound', this.lang)}</p>
+          <p><a href="${isEn ? '/en' : '/'}" class="inline-link">${L('goHome', this.lang)}</a></p>
         </div>`;
-      document.title = isEn ? 'Page not found | Adri\u00E1n Salcedo Toca' : 'P\u00E0gina no trobada | Adri\u00E1n Salcedo Toca';
+      document.title = L('notFoundTitle', this.lang);
       return;
     }
 
     let data = await ContentLoader.loadSection(section, this.lang);
     if (!data) {
-      listLayer.innerHTML = '<p style="opacity:0.65;font-size:11px;">No s\'ha pogut carregar el contingut.</p>';
+      listLayer.innerHTML = `<p style="opacity:0.65;font-size:11px;">${L('loadError', this.lang)}</p>`;
       return;
     }
 
@@ -518,21 +520,21 @@ const App = {
       const awtxt = isEn ? (data.awards_en || data.awards) : data.awards;
       const edu = isEn ? (data.education_en || data.education) : data.education;
       const statement = isEn ? (data.artistStatement_en || data.artistStatement) : data.artistStatement;
-      const tlLabel = isEn ? 'Career trajectory' : 'Trajectòria';
+      const tlLabel = L('career', this.lang);
 
       listLayer.innerHTML = `<h2>${title}</h2>
-        ${data.portrait ? `<img src="${data.portrait}" alt="Portrait" style="display: block; max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
+        ${data.portrait ? `<img src="${data.portrait}" alt="${L('portraitAlt', this.lang)}" style="display: block; max-width: 300px; height: auto; margin: 0 0 20px 0;" loading="lazy" />` : ''}
         ${Renderers.paragraphs(bio)}
         ${Renderers.paragraphs(perfs)}
         ${Renderers.paragraphs(members)}
         ${Renderers.paragraphs(awtxt)}
         ${Renderers.paragraphs(edu)}
         ${statement ? `<p><em>${statement}</em></p>` : ''}
-        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank" rel="noopener">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}
+        ${data.cv ? `<p><a href="${data.cv}" class="inline-link" target="_blank" rel="noopener">${L('downloadCv', this.lang)}</a></p>` : ''}
         ${this._references(isEn)}
         ${data.timeline ? `<div class="timeline-wrapper" style="margin-top: 40px; border-top: 1px dashed #e0e0e0; padding-top: 30px;"><h3 style="font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.62; margin-bottom: 25px;">${tlLabel}</h3>${Renderers.timeline(data.timeline, this.lang)}</div>` : ''}`;
     } else if (section === 'projectes' && data.projects) {
-      listLayer.innerHTML = `<h2>${isEn ? 'Projects' : 'Projectes'}</h2>
+      listLayer.innerHTML = `<h2>${L('projects', this.lang)}</h2>
         <ul class="item-list">${data.projects.map(p => `<li><a class="item-link" href="${prefix}/projectes/${p.id}">${p.title}</a></li>`).join('')}</ul>`;
 
       data.projects.forEach(p => {
@@ -547,7 +549,7 @@ const App = {
           ? Renderers.blocks(p.blocks, this.lang)
           : `${p.image ? `<img src="${p.image}" style="max-width: ${p.imageWidth || '50%'}; height: auto; margin: 15px 0;" alt="${p.imageAlt || ''}" loading="lazy" />` : ''}
           ${Renderers.paragraphs(isEn ? (p.content_en || p.content) : p.content)}`;
-        existing.innerHTML = `<a href="${prefix}/projectes" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+        existing.innerHTML = `<a href="${prefix}/projectes" class="back-link">← ${L('back', this.lang)}</a>
           <h3>${p.title}${p.issn ? ` (ISSN: ${p.issn})` : ''}</h3>
           ${body}`;
       });
@@ -556,7 +558,7 @@ const App = {
         if (match) this.updateArticleSEO(match, section);
       }
     } else if (section === 'obres' && data.works) {
-      listLayer.innerHTML = `<h2>${isEn ? 'Works' : 'Obres'}</h2>
+      listLayer.innerHTML = `<h2>${L('works', this.lang)}</h2>
         <ul class="item-list">${data.works.map(w => `<li><a class="item-link" href="${prefix}/obres/${w.id}">${w.title}</a>${w.year ? `<span class="archive-meta">${[Renderers.kindLabel(w.type, isEn), w.year].filter(Boolean).join(' \u00B7 ')}</span>` : ''}</li>`).join('')}</ul>`;
       data.works.forEach(w => {
         let existing = sectionEl.querySelector(`#${w.id}`);
@@ -585,7 +587,7 @@ const App = {
           ${w.videos_position !== 'top' && w.videos_position !== 'middle' ? Renderers.videos(w.videos, this.lang) : ''}
           ${Renderers.reviews(w.reviews, this.lang)}
           ${Renderers.contributors(w.contributors, this.lang)}`;
-        existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+        existing.innerHTML = `<a href="${prefix}/obres" class="back-link">← ${L('back', this.lang)}</a>
           <h3>${w.title}</h3>
           ${ficha ? `<p class="featured-meta">${ficha}</p>` : ''}
           ${body}`;
@@ -595,7 +597,7 @@ const App = {
         if (match) this.updateArticleSEO(match, section);
       }
     } else if (section === 'festivals' && data.festivals) {
-      const sectionTitle = isEn ? (data.title_en || data.title || 'Festivals') : (data.title || 'Festivals');
+      const sectionTitle = (isEn ? data.title_en : null) || data.title || L('festivals', this.lang);
       listLayer.innerHTML = `<h2>${sectionTitle}</h2>
           <ul class="item-list">${data.festivals.map(f => `<li><a class="item-link" href="${prefix}/festivals/${f.id}">${isEn ? (f.title_en || f.title) : f.title}</a></li>`).join('')}</ul>`;
       data.festivals.forEach(f => {
@@ -613,7 +615,7 @@ const App = {
           ${isEn ? ((f.contentList_en && f.contentList_en.length) ? Renderers.contentList(f.contentList_en) : (f.contentList && f.contentList.length ? Renderers.contentList(f.contentList) : '')) : ((f.contentList && f.contentList.length) ? Renderers.contentList(f.contentList) : '')}
           ${Renderers.images(f.images, this.lang)}
           ${Renderers.videos(f.videos, this.lang)}`;
-        existing.innerHTML = `<a href="${prefix}/festivals" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+        existing.innerHTML = `<a href="${prefix}/festivals" class="back-link">← ${L('back', this.lang)}</a>
           <h3>${isEn ? (f.title_en || f.title) : f.title}</h3>
           ${body}`;
       });
@@ -622,7 +624,7 @@ const App = {
         if (match) this.updateArticleSEO(match, section);
       }
     } else if (section === 'premis' && data.awards) {
-      listLayer.innerHTML = `<h2>${isEn ? 'Awards' : 'Premis'}</h2>
+      listLayer.innerHTML = `<h2>${L('awards', this.lang)}</h2>
         <ul class="item-list">${data.awards.map(a => `<li><a class="item-link" href="${prefix}/premis/${a.id}">${isEn ? (a.title_en || a.title) : a.title}</a></li>`).join('')}</ul>`;
       data.awards.forEach(a => {
         let existing = sectionEl.querySelector(`#${a.id}`);
@@ -638,7 +640,7 @@ const App = {
           ${Renderers.paragraphs(isEn ? (a.content_en || a.content) : a.content)}
           ${Renderers.images(a.images, this.lang)}
           ${Renderers.videos(a.videos, this.lang)}`;
-        existing.innerHTML = `<a href="${prefix}/premis" class="back-link">← ${isEn ? 'back' : 'enrere'}</a>
+        existing.innerHTML = `<a href="${prefix}/premis" class="back-link">← ${L('back', this.lang)}</a>
           <h3>${isEn ? (a.title_en || a.title) : a.title}</h3>
           ${body}`;
       });

@@ -1,3 +1,8 @@
+function L(key, lang) {
+  const row = (Renderers.labels || []).find((item) => item.key === key);
+  return row ? (lang === 'en' ? row.en : row.ca) : '';
+}
+
 const Renderers = {
   navList(data, lang) {
     return data.nav.map(item => {
@@ -44,7 +49,7 @@ const Renderers = {
     const isEn = lang === 'en';
     return `
       <div class="reviews-container">
-        <h3>${isEn ? 'Critical reception' : 'Recepció crítica'}</h3>
+        <h3>${L('criticalReception', lang)}</h3>
         ${reviews.map(r => `
           <div class="review-item">
             <p class="review-text">"${r.text}"</p>
@@ -58,7 +63,7 @@ const Renderers = {
     if (!list || !list.length) return '';
     const isEn = lang === 'en';
     return `<div class="credits-line">
-      <h4 class="section-label">${isEn ? 'Contributors' : 'Col·laboradors'}</h4>
+      <h4 class="section-label">${L('contributors', lang)}</h4>
       <div class="meta-line">${list.map(c => `<span class="meta-chip">${c}</span>`).join('')}</div>
     </div>`;
   },
@@ -107,7 +112,7 @@ const Renderers = {
     if (!links || !links.length) return '';
     const isEn = lang === 'en';
     return `<div class="item-links" style="margin: 25px 0;">
-      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${isEn ? 'Read more' : 'Llegeix-ne més'}</h4>
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${L('readMore', lang)}</h4>
       ${links.map(l =>
         `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>`
       ).join(' \u00B7 ')}
@@ -118,7 +123,7 @@ const Renderers = {
     if (!list || !list.length) return '';
     const isEn = lang === 'en';
     return `<div class="buy-links" id="${anchorId || 'comprar'}" style="margin: 25px 0;">
-      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${isEn ? 'Where to buy' : 'On comprar-lo'}</h4>
+      <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${L('whereToBuy', lang)}</h4>
       ${list.map(l => `
         <p style="margin: 6px 0;">
           <a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${isEn ? (l.label_en || l.label) : l.label} \u2192</a>
@@ -141,7 +146,7 @@ const Renderers = {
   pressItems(articles, isEn) {
     if (!articles || !articles.length) return '';
     const sorted = [...articles].sort((a, b) => new Date(b.date) - new Date(a.date));
-    const readLabel = isEn ? 'Read' : 'Llegir';
+    const readLabel = L('read', isEn ? 'en' : 'ca');
     return sorted.map(a => `
       <div class="press-item">
         <div class="press-meta">${a.date} · ${a.publication} · ${a.type}</div>
@@ -218,7 +223,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="item-links" style="margin: 25px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${lang === 'en' ? 'Read more' : 'Llegeix-ne més'}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${L('readMore', lang)}</h4>
         ${items.map(l => `<a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${this._pick(l, 'label', lang)} \u2192</a>`).join(' \u00B7 ')}
       </div>`;
       }
@@ -226,7 +231,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="buy-links" style="margin: 25px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${lang === 'en' ? 'Where to buy' : 'On comprar-lo'}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 12px 0;">${L('whereToBuy', lang)}</h4>
         ${items.map(l => `<p style="margin: 6px 0;"><a href="${l.url}" class="inline-link" target="_blank" rel="noopener">${this._pick(l, 'label', lang)} \u2192</a></p>`).join('')}
       </div>`;
       }
@@ -244,7 +249,7 @@ const Renderers = {
         const items = b.items || [];
         if (!items.length) return '';
         return `<div class="credits-line" style="margin: 20px 0;">
-        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 10px 0;">${this._pick(b, 'title', lang) || (lang === 'en' ? 'Credits' : 'Crèdits')}</h4>
+        <h4 style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.62; margin: 0 0 10px 0;">${this._pick(b, 'title', lang) || L('credits', lang)}</h4>
         <div class="meta-line">${items.map(c => `<span class="meta-chip">${c}</span>`).join('')}</div>
       </div>`;
       }
@@ -266,19 +271,12 @@ const Renderers = {
 
   kindLabel(type, isEn) {
     const map = {
-      publication: ['Publicació', 'Publication'],
-      videopoem: ['Vídeopoema', 'Videopoem'],
-      installation: ['Instal·lació', 'Installation'],
-      digital: ['Digital', 'Digital'],
-      recital: ['Recital', 'Recital'],
-      exhibition: ['Exposició', 'Exhibition'],
-      intervention: ['Intervenció', 'Intervention'],
-      festival: ['Festival', 'Festival'],
-      workshop: ['Taller', 'Workshop'],
-      lecture: ['Conferència', 'Lecture'],
-      audiovisual: ['Audiovisual', 'Audiovisual']
+      publication: 'kindPublication', videopoem: 'kindVideopoem',
+      installation: 'kindInstallation', digital: 'kindDigital', recital: 'kindRecital',
+      exhibition: 'kindExhibition', intervention: 'kindIntervention', festival: 'kindFestival',
+      workshop: 'kindWorkshop', lecture: 'kindLecture', audiovisual: 'kindAudiovisual'
     };
-    if (map[type]) return isEn ? map[type][1] : map[type][0];
+    if (map[type]) return L(map[type], isEn ? 'en' : 'ca');
     if (!type) return '';
     return type.charAt(0).toUpperCase() + type.slice(1).replace(/-/g, ' ');
   },
@@ -292,22 +290,22 @@ const Renderers = {
 
     const item = e => `
       <div class="agenda-item">
-        <div class="agenda-date">${e.date ? this.formatDate(e.date, lang) : (isEn ? 'Date to be confirmed' : 'Data per confirmar')}</div>
+        <div class="agenda-date">${e.date ? this.formatDate(e.date, lang) : (L('dateTbc', lang))}</div>
         <div class="agenda-title">${this._pick(e, 'title', lang)}</div>
         <div class="agenda-venue">${[e.venue, e.city, e.time].filter(Boolean).join(' · ')}</div>
         ${e.description ? `<p>${this._pick(e, 'description', lang)}</p>` : ''}
-        ${e.url ? `<a class="inline-link" href="${e.url}" target="_blank" rel="noopener">${isEn ? 'More info \u2192' : 'M\u00E9s informaci\u00F3 \u2192'}</a>` : ''}
+        ${e.url ? `<a class="inline-link" href="${e.url}" target="_blank" rel="noopener">${L('moreInfo', lang)}</a>` : ''}
       </div>`;
 
     let body = '';
     if (upcoming.length) {
-      body += `<h3 class="agenda-section-label">${isEn ? 'Upcoming' : 'Properes'}</h3>${upcoming.map(item).join('')}`;
+      body += `<h3 class="agenda-section-label">${L('upcoming', lang)}</h3>${upcoming.map(item).join('')}`;
     }
     if (past.length) {
-      body += `<h3 class="agenda-section-label">${isEn ? 'Past' : 'Passades'}</h3>${past.map(item).join('')}`;
+      body += `<h3 class="agenda-section-label">${L('past', lang)}</h3>${past.map(item).join('')}`;
     }
     if (!body) {
-      body = `<p style="opacity: 0.65;">${isEn ? 'No public events scheduled at the moment.' : 'No hi ha lectures o actuacions programades de moment.'}</p>`;
+      body = `<p style="opacity: 0.65;">${L('noEvents', lang)}</p>`;
     }
 
     return `<h2>${title}</h2>
@@ -325,10 +323,10 @@ const Renderers = {
       ${intro ? `<p class="contact-intro">${intro}</p>` : ''}
       ${email ? `<p class="contact-mail"><a href="mailto:${email}">${email}</a></p>` : ''}
       ${o.social ? `<div class="contact-block">
-        <h3 class="section-label">${isEn ? 'You can also find me on' : 'Tamb\u00E9 em pots trobar a'}</h3>
+        <h3 class="section-label">${L('findMeOn', lang)}</h3>
         ${this.socialLinks({ social: o.social })}
       </div>` : ''}
-      ${o.cv ? `<p style="margin-top: 30px;"><a class="download-link" href="${o.cv}" target="_blank" rel="noopener">${isEn ? 'Download CV' : 'Descarregar CV'}</a></p>` : ''}`;
+      ${o.cv ? `<p style="margin-top: 30px;"><a class="download-link" href="${o.cv}" target="_blank" rel="noopener">${L('downloadCv', lang)}</a></p>` : ''}`;
   },
 
   archive(src, lang, prefix) {
@@ -339,8 +337,8 @@ const Renderers = {
     };
     ((src && src.obres && src.obres.works) || []).forEach(w => push(this._pick(w, 'title', lang), `${prefix}/obres/${w.id}`, this.kindLabel(w.type, isEn), w.year));
     ((src && src.festivals && src.festivals.festivals) || []).forEach(f => push(this._pick(f, 'title', lang), `${prefix}/festivals/${f.id}`, this.kindLabel(f.label || f.type, isEn), f.year));
-    ((src && src.premis && src.premis.awards) || []).forEach(a => push(this._pick(a, 'title', lang), `${prefix}/premis/${a.id}`, isEn ? 'Award' : 'Premi', a.year));
-    ((src && src.projectes && src.projectes.projects) || []).forEach(p => push(this._pick(p, 'title', lang), `${prefix}/projectes/${p.id}`, isEn ? 'Project' : 'Projecte', p.year));
+    ((src && src.premis && src.premis.awards) || []).forEach(a => push(this._pick(a, 'title', lang), `${prefix}/premis/${a.id}`, L('award', isEn ? 'en' : 'ca'), a.year));
+    ((src && src.projectes && src.projectes.projects) || []).forEach(p => push(this._pick(p, 'title', lang), `${prefix}/projectes/${p.id}`, L('project', isEn ? 'en' : 'ca'), p.year));
 
     const kinds = [...new Set(catalog.map(c => c.kind).filter(Boolean))].sort();
     const years = [...new Set(catalog.map(c => c.year).filter(Boolean))].sort((a, b) => b - a);
@@ -366,19 +364,19 @@ const Renderers = {
       rows.sort((a, b) => String(b.year).localeCompare(String(a.year)));
       listEl.innerHTML = rows.length
         ? `<ul class="archive-list">${rows.map(row).join('')}</ul>`
-        : `<p style="opacity: 0.65;">${isEn ? 'No results.' : 'Cap resultat.'}</p>`;
+        : `<p style="opacity: 0.65;">${L('noResults', lang)}</p>`;
     };
 
     return `
       <div class="filter-bar">
-        <label class="filter-label" for="archive-kind">${isEn ? 'Type' : 'Tipus'}</label>
-        <select id="archive-kind" class="filter-select" aria-label="${isEn ? 'Filter by type' : 'Filtra per tipus'}">
-          <option value="">${isEn ? 'All' : 'Tots'}</option>
+        <label class="filter-label" for="archive-kind">${L('type', lang)}</label>
+        <select id="archive-kind" class="filter-select" aria-label="${L('filterByType', lang)}">
+          <option value="">${L('all', lang)}</option>
           ${kinds.map(k => `<option value="${k}">${k}</option>`).join('')}
         </select>
-        <label class="filter-label" for="archive-year">${isEn ? 'Year' : 'Any'}</label>
-        <select id="archive-year" class="filter-select" aria-label="${isEn ? 'Filter by year' : 'Filtra per any'}">
-          <option value="">${isEn ? 'All' : 'Tots'}</option>
+        <label class="filter-label" for="archive-year">${L('year', lang)}</label>
+        <select id="archive-year" class="filter-select" aria-label="${L('filterByYear', lang)}">
+          <option value="">${L('all', lang)}</option>
           ${years.map(y => `<option value="${y}">${y}</option>`).join('')}
         </select>
       </div>
@@ -409,7 +407,7 @@ const Renderers = {
         <div class="project-card">
           <h3>${title}</h3>
           <p>${desc}</p>
-          <a href="${link}" class="inline-link">${isEn ? 'Explore \u2192' : 'Explorar \u2192'}</a>
+          <a href="${link}" class="inline-link">${L('explore', lang)}</a>
         </div>`;
     });
 
@@ -417,7 +415,7 @@ const Renderers = {
     if (currentProjects.length) {
       currentHtml = `
         <div class="home-current" id="home-current">
-          <h2 class="section-label">${isEn ? 'Now' : 'Ara'}</h2>
+          <h2 class="section-label">${L('now', lang)}</h2>
           ${currentProjects.map(p => {
             const title = isEn ? (p.title_en || p.title) : p.title;
             const desc = isEn ? (p.description_en || p.description) : p.description;
@@ -452,15 +450,15 @@ const Renderers = {
       ${manifestoHtml}
 
       <div class="home-featured" id="home-featured">
-        <h2 class="section-label">${isEn ? 'Featured work' : 'Obra destacada'}</h2>
+        <h2 class="section-label">${L('featuredWork', lang)}</h2>
         <div class="featured-block">
           <div class="featured-info">
             <h3>${isEn ? (fw.title_en || fw.title) : fw.title}</h3>
             <p class="featured-meta">${isEn ? (fw.type_en || fw.type) : fw.type} \u00B7 ${fw.publisher} \u00B7 ${fw.year}</p>
             <p>${isEn ? (fw.description_en || fw.description) : fw.description}</p>
             <span class="cta-row">
-              <a href="${featuredLink}" class="inline-link">${isEn ? 'Read more \u2192' : 'Llegir-ne m\u00E9s \u2192'}</a>
-              ${buyLink ? `<a href="${buyLink}" class="inline-link">${isEn ? 'Where to buy \u2192' : 'On comprar-lo \u2192'}</a>` : ''}
+              <a href="${featuredLink}" class="inline-link">${L('readMoreArrow', lang)}</a>
+              ${buyLink ? `<a href="${buyLink}" class="inline-link">${L('whereToBuyArrow', lang)}</a>` : ''}
             </span>
           </div>
           <div class="featured-image">
@@ -472,15 +470,15 @@ const Renderers = {
       ${currentHtml}
 
       <div class="home-projects" id="home-projects">
-        <h2 class="section-label">${isEn ? 'Projects' : 'Projectes'}</h2>
+        <h2 class="section-label">${L('projects', lang)}</h2>
         <div class="project-grid">${projectCards}</div>
       </div>
 
       <div class="home-bio" id="home-bio">
         <p>${bio}</p>
         <span class="cta-row">
-          <a href="${bioLink}" class="inline-link">${isEn ? 'Full biography \u2192' : 'Biografia completa \u2192'}</a>
-          <a href="${contactLink}" class="inline-link">${isEn ? 'Contact \u2192' : 'Contacte \u2192'}</a>
+          <a href="${bioLink}" class="inline-link">${L('fullBiography', lang)}</a>
+          <a href="${contactLink}" class="inline-link">${L('contact', lang)}</a>
         </span>
       </div>`;
   },
@@ -488,9 +486,9 @@ const Renderers = {
   festivalDetail(f, lang) {
     const isEn = lang === 'en';
     return `
-      <a href="${isEn ? '/en/festivals' : '/festivals'}" class="back-link">\u2190 ${isEn ? 'back' : 'enrere'}</a>
+      <a href="${isEn ? '/en/festivals' : '/festivals'}" class="back-link">\u2190 ${L('back', lang)}</a>
       <h3>${isEn ? (f.title_en || f.title) : f.title}</h3>
-      <div class="performance-type" style="margin-bottom:15px;">${f.label || f.type || 'recital'}</div>
+      <div class="performance-type" style="margin-bottom:15px;">${f.label || f.type || L('kindRecital', lang).toLowerCase()}</div>
       <p class="featured-meta" style="margin-bottom:15px;">${f.year}</p>
       ${Renderers.paragraphs(isEn ? (f.content_en || f.content) : f.content)}
       ${(f.contentList_en || f.contentList) ? Renderers.contentList(isEn ? (f.contentList_en || f.contentList) : f.contentList) : ''}

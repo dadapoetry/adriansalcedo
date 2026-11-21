@@ -5,6 +5,7 @@
     {
       "date": "2026-07-31",
       "id": "caracters",
+      "destacat": true,
       "publication": "Revista Caràcters. Universitat de València",
       "title": "El son porpra i el cant dels alats. Sobre “Crit”, d’Adrián Salcedo Toca",
       "language": "ca",
@@ -14,6 +15,7 @@
     {
       "date": "2026-02-04",
       "id": "garraf",
+      "destacat": true,
       "publication": "Tot ho sap",
       "title": "Adrián Salcedo publica CRIT, un llibre que trenca la tradició del silenci",
       "url": "https://www.calameo.com/tothosap/read/00630654717cf7ae69ec1",
@@ -23,6 +25,7 @@
     {
       "date": "2025-12-06",
       "id": "rne",
+      "destacat": true,
       "publication": "Ràdio 4 - Radio Nacional Española",
       "title": "Espai de Literatura: la poesia d'Adrián Salcedo",
       "url": "https://www.rtve.es/play/audios/son-4-dies/espai-literatura-poesia-dadrian-salcedo/16848135/",

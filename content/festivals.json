@@ -73,6 +73,7 @@
     },
     {
       "id": "festival-3",
+      "destacat": true,
       "title": "Dia internacional de la poesia: mural cal·ligramàtic",
       "title_en": "World Poetry Day: Calligram Mural",
       "year": 2025,

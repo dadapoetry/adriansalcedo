@@ -29,6 +29,7 @@
         "En aquesta fita es van distingir dues categories:\n      <ul class=\"item-list\">\n        <li><strong>Cecília Navarro</strong>: Guardonada en la categoria d’obra escrita.</li>\n        <li><strong>Adrián Salcedo</strong>: Guardonat en la categoria d’<strong>obra audiovisual</strong>, posant en rellevància el valor del videopoema i els nous llenguatges digitals com a formats artístics de ple dret.</li>\n      </ul>"
       ],
       "id": "premi-1",
+      "destacat": true,
       "year": 2021,
       "category": "audiovisual"
     },
