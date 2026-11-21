@@ -560,7 +560,6 @@ collections:
         fields:
           - { label: "Títol (CA)", name: "title", widget: "string" }
           - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
-          - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
           - { label: "Biografia (CA)", name: "biography", widget: "list", field: { label: "Paràgraf", name: "paragraph", widget: "text" } }
           - { label: "Biography (EN)", name: "biography_en", widget: "list", field: { label: "Paragraph", name: "paragraph", widget: "text" } }
           - { label: "Actuacions (CA)", name: "performances", widget: "list", field: { label: "Text", name: "text", widget: "text" }, required: false }

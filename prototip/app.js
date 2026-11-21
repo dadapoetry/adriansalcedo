@@ -206,12 +206,6 @@
       ...highlighted(quisoc.timeline).map(rollItem),
       ...highlighted(agenda.events)
     ];
-    let bio = quisoc.destacat ? `
-      <div class="text">
-        <div>${heading(pick(quisoc, 'title'))}</div>
-        ${lead([strip(pick(quisoc, 'biography')), strip(pick(quisoc, 'education'))].filter(Boolean).join(' '))}
-      </div>
-    ` : '';
 
     let detailCount = 0;
     entries.forEach((item, i) => {
@@ -235,9 +229,7 @@
           `panel--detail${detailCount++ % 2 ? ' panel--detail--wide' : ''}`
         );
       }
-      if (bio && i === 1) { add(bio, 'panel--bio'); bio = ''; }
     });
-    if (bio) add(bio, 'panel--bio');
 
     add(`
       <ul class="press">
