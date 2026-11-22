@@ -10,6 +10,6 @@ for (const name of names) {
 }
 
 fs.writeFileSync(
-  path.join(root, 'prototip', 'data.js'),
+  path.join(root, 'js', 'data.js'),
   `window.PROTOTIP_DATA = ${JSON.stringify(data)};\n`
 );

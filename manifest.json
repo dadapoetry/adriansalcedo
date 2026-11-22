@@ -4,8 +4,8 @@
   "description": "Poeta avantguardista, comunicador i crític cultural",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#f2efe7",
+  "theme_color": "#f2efe7",
   "icons": [
     {
       "src": "/media/images/sat.png",

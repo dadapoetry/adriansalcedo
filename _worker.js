@@ -80,9 +80,9 @@ async function fetchJson(path, env) {
   }
 }
 
-async function getMeta(pathname, env) {
+async function getMeta(pathname, env, requestUrl) {
   const path = pathname.replace(/\/$/, "") || "/";
-  const isEn = path.startsWith("/en");
+  const isEn = requestUrl?.searchParams.get("lang") === "en" || path.startsWith("/en");
   const lang = isEn ? "en" : "ca";
   const cleanPath = isEn ? path.replace(/^\/en/, "") : path;
   const segments = cleanPath.replace(/^\/$/, "").split("/").filter(Boolean);
@@ -646,10 +646,18 @@ export default {
       return withAdminSecurity(res);
     }
 
+    // La web és un sol rotlle: les rutes antigues tornen a la portada.
+    if (path !== "/") {
+      const dest = new URL("/", url);
+      const wanted = url.searchParams.get("lang");
+      if (path.startsWith("/en") || wanted === "en") dest.searchParams.set("lang", "en");
+      return Response.redirect(dest, 301);
+    }
+
     const res = await env.ASSETS.fetch(new Request(new URL("/index.html", url.origin + path)));
     let html = await res.text();
 
-    const meta = await getMeta(path, env);
+    const meta = await getMeta(path, env, url);
     html = applyMeta(html, meta);
 
     return new Response(html, {

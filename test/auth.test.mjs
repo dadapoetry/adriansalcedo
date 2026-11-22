@@ -265,20 +265,19 @@ check("gate: també cobreix /api/auth/callback", callbackGated.status === 401, `
 const openRes = await worker.fetch(get(`${SITE}/admin/`), env);
 check("sense gate, admin continua obert", openRes.status === 200, `status=${openRes.status}`);
 
-// ── 9. El lloc public continua intacte ──────────────────────────────────
-const home = await worker.fetch(get(`${SITE}/obres`), env);
-check("ruta publica segueix servint", home.status === 200, `status=${home.status}`);
+// ── 9. El lloc public és un sol rotlle ──────────────────────────────────
+const home = await worker.fetch(get(`${SITE}/`), env);
+check("la portada serveix el rotlle", home.status === 200, `status=${home.status}`);
 check(
   "ruta publica no rep CSP de l'admin",
   !(home.headers.get("Content-Security-Policy") || "").includes("frame-ancestors")
 );
 
-// La canonicalització de la barra final ja existia abans dels nostres canvis.
-const slash = await worker.fetch(get(`${SITE}/obres/`), env);
+const oldRoute = await worker.fetch(get(`${SITE}/obres`), env);
 check(
-  "rambla final continua redirigit (com abans)",
-  slash.status === 301,
-  `status=${slash.status}`
+  "rutes antigues redirigeixen a la portada",
+  oldRoute.status === 301 && (oldRoute.headers.get("Location") || "").startsWith(`${SITE}/`),
+  `status=${oldRoute.status}`
 );
 
 // ── Resum ───────────────────────────────────────────────────────────────
