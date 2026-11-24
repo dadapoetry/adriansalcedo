@@ -4,48 +4,50 @@
    ═══════════════════════════════════════════════════════════ */
 
 :root {
-  --bg-primary: #08080c;
-  --bg-secondary: #101016;
-  --bg-elevated: #18181f;
-  --bg-hover: #1e1e28;
-  --bg-active: #252530;
+  /* Mateix paper i tinta que la portada: el panell és el seu backstage. */
+  --bg-primary: #f2efe7;
+  --bg-secondary: #ece8dd;
+  --bg-elevated: #f7f4ec;
+  --bg-hover: #e4ddcd;
+  --bg-active: #dbd2bf;
 
-  --border-subtle: #1e1e2a;
-  --border-default: #2a2a3a;
-  --border-strong: #3a3a50;
+  --border-subtle: rgba(18, 17, 15, 0.14);
+  --border-default: rgba(18, 17, 15, 0.24);
+  --border-strong: rgba(18, 17, 15, 0.42);
 
-  --text-primary: #e8e8ed;
-  --text-secondary: #8888a0;
-  --text-tertiary: #555568;
-  --text-inverse: #08080c;
+  --text-primary: #12110f;
+  --text-secondary: rgba(18, 17, 15, 0.66);
+  --text-tertiary: rgba(18, 17, 15, 0.64);
+  --text-inverse: #f2efe7;
 
-  --accent: #c8a2ff;
-  --accent-hover: #d4b5ff;
-  --accent-muted: rgba(200, 162, 255, 0.12);
-  --accent-border: rgba(200, 162, 255, 0.25);
+  --accent: #12110f;
+  --accent-hover: #33302a;
+  --accent-muted: rgba(18, 17, 15, 0.08);
+  --accent-border: rgba(18, 17, 15, 0.3);
 
-  --success: #4ade80;
-  --success-bg: rgba(74, 222, 128, 0.1);
-  --success-border: rgba(74, 222, 128, 0.3);
+  --success: #2f6b4f;
+  --success-bg: rgba(47, 107, 79, 0.1);
+  --success-border: rgba(47, 107, 79, 0.35);
 
-  --danger: #f87171;
-  --danger-bg: rgba(248, 113, 113, 0.08);
-  --danger-border: rgba(248, 113, 113, 0.25);
+  --danger: #a3362b;
+  --danger-bg: rgba(163, 54, 43, 0.08);
+  --danger-border: rgba(163, 54, 43, 0.3);
 
-  --warning: #fbbf24;
+  --warning: #8a6a1f;
 
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
 
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 0 rgba(18, 17, 15, 0.06);
+  --shadow-md: 0 6px 20px rgba(18, 17, 15, 0.1);
+  --shadow-lg: 0 14px 40px rgba(18, 17, 15, 0.16);
 
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  --font-sans: Arial, Helvetica, sans-serif;
+  --font-display: Georgia, 'Times New Roman', serif;
+  --font-mono: 'SF Mono', 'Fira Code', monospace;
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 /* ─── Base ─── */
@@ -61,6 +63,11 @@ body {
 
 a { color: var(--accent); text-decoration: none; }
 a:hover { color: var(--accent-hover); }
+
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
 
 h1, h2, h3, h4, h5, h6, p { color: inherit; }
 
@@ -222,7 +229,7 @@ a[class*="AppHeaderSiteLink"] {
 }
 [class*="button-green"]:hover,
 [class*="PublishButton"]:hover {
-  background-color: #5ce690 !important;
+  background-color: #3f8363 !important;
 }
 
 [class*="utton-lightRed"],
@@ -369,7 +376,8 @@ textarea:focus,
 select:focus,
 [class*="TextControl"]:focus {
   border-color: var(--accent) !important;
-  outline: none !important;
+  outline: 2px solid var(--text-primary) !important;
+  outline-offset: 2px !important;
   box-shadow: 0 0 0 2px var(--accent-muted) !important;
 }
 
@@ -533,12 +541,89 @@ button[class*="RefreshPreviewButton"] > [class*="IconWrapper"] {
   background: var(--border-subtle) !important;
 }
 
-/* ─── Auth Page ─── */
+/* ─── Auth Page: la portada del panell ─── */
 section[class*="StyledAuthenticationPage"] {
   background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+  min-height: 100vh;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 48px 24px;
+  font-family: var(--font-sans) !important;
+}
+/* Filigrana editorial: mateix títol de la portada, sense tocar el DOM del CMS. */
+section[class*="StyledAuthenticationPage"]::before {
+  content: "Adrián Salcedo Toca";
+  order: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 7vw, 5rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  text-align: center;
+}
+section[class*="StyledAuthenticationPage"]::after {
+  content: "backstage · cms";
+  order: 1;
+  color: var(--text-tertiary);
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-top: -18px;
+}
+section[class*="StyledAuthenticationPage"] [class*="CustomIconWrapper"] {
+  order: 2;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+section[class*="StyledAuthenticationPage"] [class*="CustomIconWrapper"] img {
+  width: 64px !important;
+  height: 64px !important;
+  object-fit: contain;
+  border-radius: 50%;
+  border: 1px solid var(--border-default);
+}
+section[class*="StyledAuthenticationPage"] button[class*="LoginButton"] {
+  order: 3;
+  background-color: var(--text-primary) !important;
+  color: var(--bg-primary) !important;
+  border: 1px solid var(--text-primary) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 14px 28px !important;
+  height: auto !important;
+  min-height: 52px !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.9rem !important;
+  letter-spacing: 0.02em;
+  transition: background 160ms ease, color 160ms ease, transform 160ms ease !important;
+}
+section[class*="StyledAuthenticationPage"] button[class*="LoginButton"] span {
+  color: inherit !important;
+}
+section[class*="StyledAuthenticationPage"] button[class*="LoginButton"] svg path {
+  fill: currentColor !important;
+}
+section[class*="StyledAuthenticationPage"] button[class*="LoginButton"]:hover {
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+}
+section[class*="StyledAuthenticationPage"] button[class*="LoginButton"]:active {
+  transform: scale(0.98);
 }
 section[class*="StyledAuthenticationPage"] a[class*="GoBackButtonStyle"] {
+  order: 4;
   color: var(--text-secondary) !important;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: 3px;
+}
+section[class*="StyledAuthenticationPage"] a[class*="GoBackButtonStyle"] svg path {
+  fill: currentColor !important;
 }
 
 /* ─── Workflow ─── */
