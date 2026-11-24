@@ -227,6 +227,9 @@ a { color: inherit; text-decoration: none; }
   mix-blend-mode: multiply;
 }
 
+/* El rotlle de VIRTUAL AUSIÀS és alt: retallar-lo el desfigura. */
+.panel--media figure img[src*="virtual-ausias"] { object-fit: contain; }
+
 /* Un parell de fulls en horitzontal trenquen el ritme apilat. */
 .panel--media.panel--side {
   width: min(78vw, 1080px);
