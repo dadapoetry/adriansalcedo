@@ -56,7 +56,9 @@
       const overlap = Math.max(0, Math.min(left + panel.offsetWidth, w) - Math.max(left, 0));
       const focus = Math.min(1, overlap / panel.offsetWidth);
       const reveal = reduceMotion ? 1 : boot * Math.max(0, Math.min(1, (w * 0.95 - left) / (w * 0.6)));
-      const blur = reduceMotion ? 0 : (1 - focus) * 0.7;
+      // En mòbil el panell ocupa gairebé tot l'ample: qualsevol desplaçament
+      // petit desenfoca el text. Només mantenim l'efecte a l'escriptori.
+      const blur = reduceMotion || w <= 760 ? 0 : (1 - focus) * 0.7;
       panel.style.filter = blur > 0.02 ? `blur(${blur.toFixed(2)}px)` : 'none';
 
       [...panel.children].forEach((child, i) => {
