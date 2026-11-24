@@ -186,7 +186,7 @@ collections:
             name: "featuredWork"
             widget: "object"
             fields:
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Tipus (CA)", name: "type", widget: "string" }
@@ -204,7 +204,7 @@ collections:
             name: "featuredProjects"
             widget: "list"
             fields:
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Descripció (CA)", name: "description", widget: "text" }
@@ -220,7 +220,7 @@ collections:
             widget: "list"
             required: false
             fields:
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Descripció (CA)", name: "description", widget: "text" }
@@ -249,7 +249,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol", name: "title", widget: "string" }
               - { label: "ISSN", name: "issn", widget: "string", required: false }
               - { label: "URL", name: "url", widget: "string", required: false }
@@ -385,7 +385,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Tipus", name: "label", widget: "select", options: ["recital", "exhibition", "intervention", "festival", "workshop", "lecture"], default: ["recital"] }
@@ -438,7 +438,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol", name: "title", widget: "string" }
               - { label: "Tipus", name: "type", widget: "select", options: ["publication", "videopoem", "installation", "digital"] }
               - { label: "Any", name: "year", widget: "number", value_type: "int", required: false }
@@ -517,7 +517,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string" }
               - { label: "Any", name: "year", widget: "number", value_type: "int" }
@@ -583,7 +583,7 @@ collections:
             widget: "list"
             required: false
             fields:
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Any", name: "year", widget: "number", value_type: "int" }
               - { label: "Etiqueta (CA)", name: "label", widget: "string" }
               - { label: "Label (EN)", name: "label_en", widget: "string" }
@@ -605,7 +605,7 @@ collections:
             widget: "list"
             fields:
               - { label: "ID", name: "id", widget: "string" }
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "Data (YYYY-MM-DD)", name: "date", widget: "date", format: "YYYY-MM-DD" }
               - { label: "Publicació", name: "publication", widget: "string" }
               - { label: "Títol de l'article", name: "title", widget: "string" }
@@ -664,7 +664,7 @@ collections:
             name: "events"
             widget: "list"
             fields:
-              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false }
+              - { label: "Destacar al rotlle", name: "destacat", widget: "boolean", default: false, required: false }
               - { label: "ID", name: "id", widget: "string" }
               - { label: "Títol (CA)", name: "title", widget: "string" }
               - { label: "Title (EN)", name: "title_en", widget: "string", required: false }
