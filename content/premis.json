@@ -2,7 +2,9 @@
   "awards": [
     {
       "content_en": [
-        "Announcement and presentation of the Marta Pessarrodona Award as part of the seventh edition of L'Elixir Poètic, a leading poetry festival that filled Terrassa with cross-disciplinary proposals through fifteen events, seminars, round tables, and listening sessions designed to bring the discipline closer to the public."
+        "Announcement and presentation of the Marta Pessarrodona Award as part of the seventh edition of L'Elixir Poètic, a leading poetry festival that filled Terrassa with cross-disciplinary proposals through fifteen events, seminars, round tables, and listening sessions designed to bring the discipline closer to the public.",
+        "",
+        "<a href=\"https://www.youtube.com/embed/d9HuzEP0RiY\" target=\"_blank\">L'aigua és un joc - Premi Marta Pessarrodona</a>"
       ],
       "title_en": "Marta Pessarrodona Poetry Prize of Terrassa 2021",
       "title": "Premi de Poesia Marta Pessarrodona de Terrassa 2021",
@@ -13,16 +15,11 @@
           "width": "100%"
         }
       ],
-      "videos": [
-        {
-          "url": "https://www.youtube.com/embed/d9HuzEP0RiY",
-          "title": "L'aigua és un joc - Premi Marta Pessarrodona",
-          "width": 560,
-          "height": 315
-        }
-      ],
+      "videos": null,
       "content": [
-        "Anunci i lliurament del Premi Marta Pessarrodona en el marc de la setena edició de L'Elixir Poètic, un festival de referència que va omplir Terrassa de propostes transversals a través d'una quinzena d'actes, seminaris, taules rodones i audicions dissenyats per apropar la disciplina al poble."
+        "Anunci i lliurament del Premi Marta Pessarrodona en el marc de la setena edició de L'Elixir Poètic, un festival de referència que va omplir Terrassa de propostes transversals a través d'una quinzena d'actes, seminaris, taules rodones i audicions dissenyats per apropar la disciplina al poble.",
+        "",
+        "<a href=\"https://www.youtube.com/embed/d9HuzEP0RiY\" target=\"_blank\">L'aigua és un joc - Premi Marta Pessarrodona</a>"
       ],
       "id": "premi-1",
       "destacat": true,
