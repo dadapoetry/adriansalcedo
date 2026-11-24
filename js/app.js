@@ -211,9 +211,11 @@
 
     if (pick(h, 'statement')) add(`<p class="statement">${esc(pick(h, 'statement'))}</p>`, 'panel--statement');
 
-    const entries = [
+    // Ordre: per defecte la seqüència històrica; si una entrada té `order`,
+    // el respectem per permetre reordenar des de l'admin.
+    const rawEntries = [
       ...(featured.destacat ? [featured] : []),
-      ...highlighted(projectes.projects),
+      ...highlighted(projectes.projects).filter((w) => w !== work),
       ...highlighted(festivals.festivals),
       ...highlighted(obres.works).filter((w) => w !== work),
       ...highlighted(premis.awards),
@@ -222,6 +224,8 @@
       ...highlighted(quisoc.timeline).map(rollItem),
       ...highlighted(agenda.events)
     ];
+    rawEntries.forEach((item, i) => { if (item.order == null) item.order = i; });
+    const entries = [...rawEntries].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
 
     let detailCount = 0;
     entries.forEach((item, i) => {

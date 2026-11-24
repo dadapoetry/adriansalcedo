@@ -216,3 +216,55 @@ button, input, textarea { font-family: inherit; }
   outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
+/* ── Formularis estructurats ── */
+.form { display: flex; flex-direction: column; gap: 14px; max-width: 760px; }
+.form-top { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; background: rgba(255,255,255,0.3); }
+.section-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; letter-spacing: -0.02em; margin: 0 0 6px; color: var(--ink); }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field label { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); font-weight: 600; }
+.field .hint { text-transform: none; letter-spacing: 0; font-weight: 400; color: var(--muted); }
+.field input, .field textarea, .field select {
+  padding: 8px 10px; border: 1px solid var(--line-strong); border-radius: var(--radius);
+  background: #fbfaf6; color: var(--ink); font-size: 0.9rem; font-family: inherit;
+}
+.field textarea { resize: vertical; min-height: 70px; }
+.field textarea.mono { font-family: "SF Mono","Fira Code",monospace; font-size: 0.82rem; }
+.field-boolean { flex-direction: row; align-items: center; gap: 8px; }
+.field-boolean input { width: 16px; height: 16px; accent-color: var(--ink); }
+.field-inline { flex-direction: row; align-items: center; gap: 8px; }
+.field-inline label { min-width: 50px; }
+.field-group { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; background: rgba(255,255,255,0.25); }
+.field-group-title { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); font-weight: 600; margin-bottom: 10px; }
+.preview-img { max-width: 120px; max-height: 80px; margin-top: 6px; border: 1px solid var(--line); border-radius: var(--radius); object-fit: cover; }
+.list-editor { display: flex; flex-direction: column; gap: 10px; }
+.list-item { border: 1px solid var(--line); border-radius: var(--radius); padding: 12px; background: rgba(255,255,255,0.4); }
+.list-item-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.list-row { display: flex; gap: 8px; align-items: center; }
+.list-row input { flex: 1; }
+.btn-sm { padding: 4px 8px; font-size: 0.78rem; }
+.btn-danger { color: var(--danger); border-color: rgba(163,54,43,0.3); }
+.btn-danger:hover { background: var(--danger); color: var(--paper); }
+.view-toggle { display: flex; gap: 4px; }
+.view-toggle .btn.active { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.card-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+/* ── Vista del Rotlle ── */
+.roll-view { display: flex; flex-direction: column; gap: 24px; max-width: 820px; }
+.roll-section { border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; background: rgba(255,255,255,0.3); }
+.small { font-size: 0.8rem; margin: 0 0 10px; }
+.roll-list, .avail-list { display: flex; flex-direction: column; gap: 6px; }
+.roll-row {
+  display: grid; grid-template-columns: 20px 1fr auto auto;
+  align-items: center; gap: 10px; padding: 8px 10px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper);
+  cursor: grab; transition: background 120ms, border-color 120ms, opacity 120ms;
+}
+.roll-row:active { cursor: grabbing; }
+.roll-row.dragging { opacity: 0.4; }
+.roll-row.drag-over { border-color: var(--ink); background: rgba(18,17,15,0.06); }
+.drag-handle { color: var(--faint); font-size: 0.9rem; user-select: none; }
+.roll-title { font-weight: 600; font-size: 0.9rem; }
+.roll-source { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); }
+.roll-actions { display: flex; gap: 4px; }
+.avail-row { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 10px; padding: 8px 10px; border: 1px dashed var(--line); border-radius: var(--radius); }
+.fixed-panels { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn-xs { padding: 3px 7px; font-size: 0.75rem; }
