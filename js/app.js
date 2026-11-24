@@ -249,8 +249,8 @@
       const rawLead = pick(item, leadSource);
       const leadHtml = Array.isArray(rawLead) ? rawLead[0] : rawLead;
       const leadText = text(leadHtml);
-      const oneParagraph = pickList(item, 'content').length <= 1;
       const detail = detailOf(item, leadText);
+      const inlineDetail = !detail.body;
       add(`
         <div class="text">
           <div>
@@ -258,11 +258,11 @@
             ${meta ? `<p class="meta">${esc(meta)}</p>` : ''}
           </div>
           ${lead(leadHtml)}
-          ${oneParagraph ? detail.body + detail.links : ''}
+          ${inlineDetail ? detail.links : ''}
         </div>
         ${image ? `<figure><img src="${esc(asset(image))}" alt="${esc(altOf(item))}"></figure>` : ''}
-      `, `panel--media${i % 3 === 1 && !oneParagraph ? ' panel--side' : ''}`);
-      if (!oneParagraph && (detail.body || detail.links)) {
+      `, `panel--media${i % 3 === 1 && !inlineDetail ? ' panel--side' : ''}`);
+      if (!inlineDetail) {
         add(
           `<div class="detail-inner"><div class="detail-body">${detail.body}</div>${detail.links}</div>`,
           `panel--detail${detailCount++ % 2 ? ' panel--detail--wide' : ''}`
