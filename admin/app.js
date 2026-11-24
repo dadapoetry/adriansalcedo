@@ -81,12 +81,6 @@ async function gh(path, opts = {}) {
 }
 
 async function fetchFile(path) {
-  if (!state.token) {
-    const res = await fetch(`/${path}`);
-    if (!res.ok) throw new Error(`GET ${path}: ${res.status}`);
-    const json = await res.json();
-    return { json, sha: null };
-  }
   const data = await gh(`/repos/${OWNER}/${REPO}/contents/${path}?ref=${BRANCH}`);
   const json = JSON.parse(decodeBase64(data.content));
   return { json, sha: data.sha };
@@ -172,7 +166,6 @@ async function selectCollection(id) {
     const { json, sha } = await fetchFile(col.file);
     state.data = json;
     state.sha = sha;
-    if (!state.token) $("#status").textContent = "Mode lectura: connecta amb GitHub per editar i desar.";
     renderCollection();
   } catch (e) {
     $("#entries").innerHTML = `<p class="error">Error carregant: ${e.message}</p>`;
