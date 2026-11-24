@@ -77,7 +77,8 @@
         "title_en": "Crit (ISBN: 979-13-990643-5-3)",
         "description": "CRIT és el debut editorial d'Adrián Salcedo Toca, publicat per Pont del Petroli Edicions a finals de l'any 2025.",
         "description_en": "CRIT is Adrián Salcedo Toca's debut book, published by Pont del Petroli Edicions in late 2025."
-      }
+      },
+      "destacat": true
     },
     {
       "id": "obra-barretdefum",
@@ -319,7 +320,7 @@
     },
     {
       "id": "obra-poemot",
-      "destacat": true,
+      "destacat": false,
       "title": "POEMOT (Poema de 10 metres)",
       "type": "installation",
       "year": 2022,
