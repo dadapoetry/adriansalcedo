@@ -358,6 +358,33 @@
           "height": 315
         }
       ]
+    },
+    {
+      "id": "obra-virtual-ausias",
+      "destacat": true,
+      "order": 10,
+      "title": "VIRTUAL AUSIÀS",
+      "type": "digital",
+      "year": 2026,
+      "content": [
+        "VIRTUAL AUSIÀS és una instal·lació digital d'Adrián Salcedo Toca publicada com a tercer objecte de dades de la revista Dada Poetry (ISSN: 3137-6738), al novembre de 2026.",
+        "L'obra explora la virtualitat latent en la poesia d'Ausiàs March a través d'un dispositiu que processa els versos del poeta medieval en ordres executables, transformant la carn poètica en byteliteralitat.",
+        "Estructurada en quatre seccions —mojibake (文字化け), gimmick, nothingburger i slop—, la peça travessa la corrupció de caràcters, l'encarnació transhumana, la descoberta algorítmica de la virtualitat i la baixa qualitat generativa, tot qüestionant els límits entre carn i byte.",
+        "El dispositiu compila sis versos d'Ausiàs March («Callen aquells que d'Amor han parlat», «e dels passats deliu tots lurs escrits», «e·n mi penssant meteu-los en oblits», «Lexant a part l'estil dels trobadors», «qui, per escalf, trespassen veritat», «No guart avant ne membre lo passat») i els transforma en ordres (SILENCIAR, DELIU, OBLIT, LEXANT, TRESPASSAR, NO GUART) que s'executen a 40 columnes, com un terminal que no sent dolor, només executa la instrucció."
+      ],
+      "content_en": [
+        "VIRTUAL AUSIÀS is a digital installation by Adrián Salcedo Toca, published as the third data object of Dada Poetry magazine (ISSN: 3137-6738), in November 2026.",
+        "The work explores the virtuality latent in Ausiàs March's poetry through a device that processes the medieval poet's verses into executable commands, transforming poetic flesh into byteliteralism.",
+        "Structured in four sections —mojibake (文字化け), gimmick, nothingburger, and slop— the piece traverses character corruption, transhuman embodiment, algorithmic discovery of virtuality, and generative low quality, questioning the limits between flesh and byte.",
+        "The device compiles six verses by Ausiàs March («Callen aquells que d'Amor han parlat», «e dels passats deliu tots lurs escrits», «e·n mi penssant meteu-los en oblits», «Lexant a part l'estil dels trobadors», «qui, per escalf, trespassen veritat», «No guart avant ne membre lo passat») and transforms them into commands (SILENCIAR, DELIU, OBLIT, LEXANT, TRESPASSAR, NO GUART) executed at 40 columns, like a terminal that feels no pain, only executes the instruction."
+      ],
+      "links": [
+        {
+          "label": "Dada Poetry",
+          "label_en": "Dada Poetry",
+          "url": "https://dadapoetry.cat/tercer/virtual-ausias.html"
+        }
+      ]
     }
   ]
 }
