@@ -717,3 +717,55 @@ p[class*="WorkflowTopDescription"] {
   font-size: 0.9rem;
   margin-top: 4px;
 }
+
+/* ── Preview alineada amb el rotlle (paper i tipografia editorial) ── */
+#preview-pane {
+  background-color: #f2efe7 !important;
+}
+.cms-preview {
+  background: #f2efe7;
+  color: #1a1814;
+  font-family: Georgia, 'Times New Roman', serif;
+  padding: 44px 40px;
+  line-height: 1.5;
+}
+.cms-preview h1 {
+  color: #1a1814;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+}
+.cms-preview h2 {
+  color: #6b5c46;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 400;
+}
+.cms-preview p {
+  color: #3a352d;
+}
+.cms-preview .preview-tag {
+  background: transparent;
+  color: #6b5c46;
+  border: 1px solid #c9c1b2;
+  text-transform: none;
+  letter-spacing: 0;
+}
+.cms-preview .preview-meta {
+  color: #6b5c46;
+}
+.cms-preview .preview-content li {
+  border-color: #d5cec1;
+  color: #3a352d;
+}
+.cms-preview .preview-seo {
+  background: #eae6db;
+  border-color: #d5cec1;
+}
+.cms-preview .preview-seo h3,
+.cms-preview .preview-seo .seo-title {
+  color: #6b5c46;
+}
+.cms-preview .preview-seo .seo-desc {
+  color: #3a352d;
+}
