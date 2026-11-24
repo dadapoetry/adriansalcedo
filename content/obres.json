@@ -378,6 +378,14 @@
         "Structured in four sections —mojibake (文字化け), gimmick, nothingburger, and slop— the piece traverses character corruption, transhuman embodiment, algorithmic discovery of virtuality, and generative low quality, questioning the limits between flesh and byte.",
         "The device compiles six verses by Ausiàs March («Callen aquells que d'Amor han parlat», «e dels passats deliu tots lurs escrits», «e·n mi penssant meteu-los en oblits», «Lexant a part l'estil dels trobadors», «qui, per escalf, trespassen veritat», «No guart avant ne membre lo passat») and transforms them into commands (SILENCIAR, DELIU, OBLIT, LEXANT, TRESPASSAR, NO GUART) executed at 40 columns, like a terminal that feels no pain, only executes the instruction."
       ],
+      "images": [
+        {
+          "src": "/media/images/virtual-ausias-teletext.png",
+          "alt": "VIRTUAL AUSIÀS: retrat d'Ausiàs March fet amb blocs de teletext",
+          "alt_en": "VIRTUAL AUSIÀS: Ausiàs March portrayed in teletext blocks",
+          "width": "100%"
+        }
+      ],
       "links": [
         {
           "label": "Dada Poetry",
