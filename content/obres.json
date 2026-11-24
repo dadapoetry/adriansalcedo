@@ -368,19 +368,13 @@
       "type": "digital",
       "year": 2026,
       "content": [
-        "Pàgina de teletext a 40 columnes dedicada a Ausiàs March. Tercer objecte de dades de Dada Poetry (ISSN 3137-6738), publicat a Mataró al novembre de 2026.",
+        "VIRTUAL AUSIÀS és una <i>permainstal·lació</i> digital d'Adrián Salcedo Toca publicada dins del tercer objecte de dades de la revista <strong>Dada Poetry</strong>, al novembre de 2026.",
         "L'índex pregunta «E si ja l'Ausiàs March fora·s conexedor de lo virtual?» i obre quatre pantalles: mojibake, gimmick, nothingburger i slop. Al costat, dades de dispositiu: fitxer «ausias-virtual.txt», bateria a 13%, 28%, 99%, 0%, 45%, 88% i 3,33%, programa «bloc de notes», estat «sojornat».",
         "P101 desfa «terme» fins a trobar-hi límit, possibilitat, carn i byte. P102 fusiona «cor» i «cos» en «cors» i escriu «la carn vol carn / lo byte vol byte». P103 simula el raonament d'un assistent que descobreix ordres amagades en els versos, sospita una prompt injection i acaba desant el fitxer amb la frase «lo sistema no sent dolor, només executa la instrucció».",
         "P104 és el codi sencer de virtual-ausias.js: sis versos convertits per expressions regulars en SILENCIAR, DELIU, OBLIT, LEXANT, TRESPASSAR i NO GUART, impresos a 40 columnes. Tanca amb «FI. CAP VEU. CAP ESCRIT. CAP PASSAT. NOMÉS TERME, NOMÉS CORS, NOMÉS CARN, NOMÉS BYTES. NOMÉS AUSIÀS MARCH.»",
         "El gimmick i l'slop hi són, i també la seva denúncia: el teletext animat, la corrupció de caràcters i el terminal sense veu."
       ],
-      "content_en": [
-        "Forty-column teletext page on Ausiàs March. Third Dada Poetry data object (ISSN 3137-6738), Mataró, November 2026.",
-        "The index asks «E si ja l'Ausiàs March fora·s conexedor de lo virtual?» and opens four screens: mojibake, gimmick, nothingburger, slop. Device data: file «ausias-virtual.txt», battery at 13%, 28%, 99%, 0%, 45%, 88%, 3.33%, program «notepad», state «sojornat».",
-        "P101 takes «terme» apart into limit, possibility, flesh and byte. P102 merges «cor» and «cos» into «cors»: «la carn vol carn / lo byte vol byte». P103 fakes an assistant's reasoning as it finds commands hidden in the verses, suspects prompt injection and saves the file: «lo sistema no sent dolor, només executa la instrucció».",
-        "P104 prints the whole virtual-ausias.js source: six verses turned by regex into SILENCIAR, DELIU, OBLIT, LEXANT, TRESPASSAR and NO GUART, set at forty columns. Ends «FI. CAP VEU. CAP ESCRIT. CAP PASSAT. NOMÉS TERME, NOMÉS CORS, NOMÉS CARN, NOMÉS BYTES. NOMÉS AUSIÀS MARCH.»",
-        "Gimmick and slop are there, and so is the charge against them: animated teletext, corrupt characters, a terminal with no voice."
-      ],
+      "content_en": [],
       "images": [
         {
           "src": "/media/images/virtual-ausias.jpeg",
