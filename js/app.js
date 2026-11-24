@@ -86,6 +86,19 @@
     { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]
   ));
   const text = (html) => new DOMParser().parseFromString(String(html || ''), 'text/html').body.textContent.trim();
+  const rich = (html) => {
+    const doc = new DOMParser().parseFromString(String(html || ''), 'text/html');
+    const allowed = new Set(['STRONG', 'EM', 'B', 'I', 'BR', 'A']);
+    for (const el of [...doc.body.querySelectorAll('*')]) {
+      if (!allowed.has(el.tagName)) { el.replaceWith(...el.childNodes); continue; }
+      for (const attr of [...el.attributes]) {
+        if (!(el.tagName === 'A' && attr.name === 'href' && /^(https?:|mailto:|\/)/i.test(attr.value))) {
+          el.removeAttribute(attr.name);
+        }
+      }
+    }
+    return doc.body.innerHTML;
+  };
   const asset = (src) => (String(src || '').startsWith('/media/') ? withBase(src) : src);
 
   async function init() {
@@ -159,7 +172,7 @@
     };
     const lead = (value) => {
       const body = String(value || '');
-      return `<p class="lead${body.length > 140 ? ' long' : ''}">${esc(body)}</p>`;
+      return `<p class="lead${body.length > 140 ? ' long' : ''}">${rich(body)}</p>`;
     };
 
     const highlighted = (list) => (list || []).filter((item) => item.destacat);
@@ -174,7 +187,6 @@
       item.issn ? `ISSN: ${item.issn}` : '',
       item.status ? (L(`status${item.status.charAt(0).toUpperCase()}${item.status.slice(1)}`) || pick(item, 'status')) : ''
     ].filter(Boolean).join(', ');
-    const strip = (value) => text(Array.isArray(value) ? value[0] : value);
     const rollItem = (item) => (item.label && !item.title
       ? { ...item, title: pick(item, 'label'), meta: String(item.year || '') }
       : item);
@@ -234,7 +246,9 @@
       const image = imageOf(item);
       const meta = metaOf(item);
       const leadSource = pick(item, 'description') ? 'description' : 'content';
-      const leadText = strip(pick(item, leadSource));
+      const rawLead = pick(item, leadSource);
+      const leadHtml = Array.isArray(rawLead) ? rawLead[0] : rawLead;
+      const leadText = text(leadHtml);
       const oneParagraph = pickList(item, 'content').length <= 1;
       const detail = detailOf(item, leadText);
       add(`
@@ -243,7 +257,7 @@
             ${heading(pick(item, 'title'))}
             ${meta ? `<p class="meta">${esc(meta)}</p>` : ''}
           </div>
-          ${lead(leadText)}
+          ${lead(leadHtml)}
           ${oneParagraph ? detail.body + detail.links : ''}
         </div>
         ${image ? `<figure><img src="${esc(asset(image))}" alt="${esc(altOf(item))}"></figure>` : ''}

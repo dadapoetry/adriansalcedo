@@ -395,4 +395,5 @@ a { color: inherit; text-decoration: none; }
   .panel--end { width: 100vw; min-width: 100vw; }
   .panel--end > * { max-width: 100%; }
   .social, .colophon { overflow-wrap: break-word; }
+  .end-mail a { font-size: var(--title); }
 }
