@@ -234,6 +234,7 @@
       const leadSource = pick(item, 'description') ? 'description' : 'content';
       const leadText = strip(pick(item, leadSource));
       const oneParagraph = pickList(item, leadSource).length <= 1;
+      const detail = detailOf(item, leadText);
       add(`
         <div class="text">
           <div>
@@ -241,11 +242,11 @@
             ${meta ? `<p class="meta">${esc(meta)}</p>` : ''}
           </div>
           ${lead(leadText)}
+          ${oneParagraph ? detail.body + detail.links : ''}
         </div>
         ${image ? `<figure><img src="${esc(asset(image))}" alt="${esc(altOf(item))}"></figure>` : ''}
       `, `panel--media${i % 3 === 1 && !oneParagraph ? ' panel--side' : ''}`);
-      const detail = detailOf(item, leadText);
-      if (detail.body || detail.links) {
+      if (!oneParagraph && (detail.body || detail.links)) {
         add(
           `<div class="detail-inner"><div class="detail-body">${detail.body}</div>${detail.links}</div>`,
           `panel--detail${detailCount++ % 2 ? ' panel--detail--wide' : ''}`
