@@ -3,7 +3,7 @@
    Custom preview rendering for Decap CMS collections
    ═══════════════════════════════════════════════════════════ */
 
-var h = React.createElement;
+// `h` és el createElement que el CMS posa a l'àmbit global dels previews.
 
 function getVal(entry, path, fallback) {
   try {

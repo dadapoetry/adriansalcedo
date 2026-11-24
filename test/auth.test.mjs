@@ -173,7 +173,10 @@ check(
   /cms_oauth=;/.test(okRes.headers.get("Set-Cookie") || "")
 );
 check("resposta no es cacheja", okRes.headers.get("Cache-Control") === "no-store");
-
+const callbackCsp = okRes.headers.get("Content-Security-Policy") || "";
+const nonceMatch = html.match(/<script nonce="([^"]+)">/);
+check("callback CSP permet l'script inline", /script-src 'nonce-/.test(callbackCsp));
+check("nonce de l'script coincideix amb el CSP", !!nonceMatch && callbackCsp.includes(`'nonce-${nonceMatch[1]}'`));
 // Un token de GitHub que contingui '</script>' no ha d'escapar del bloc.
 globalThis.fetch = async () =>
   new Response(

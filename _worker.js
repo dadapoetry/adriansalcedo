@@ -564,12 +564,15 @@ async function authCallback(request, url, env) {
   // El CMS retrieve() fa JSON.parse del que hi ha a localStorage, i valida el
   // nonce que deixa a sessionStorage en obrir el pop-up. Desem l'objecte
   // serialitzat (un sol cop) i el nonce de torn, que és el que ell espera.
+  // CSP amb nonce: sense això, default-src 'none' bloqueja aquest script i el
+  // pop-up es queda penjat a "Iniciant sessió".
+  const scriptNonce = randomToken(16);
   const html = `<!DOCTYPE html>
 <html lang="ca">
 <head><meta charset="utf-8"><title>Iniciant sessió</title></head>
 <body>
 <p id="status">Iniciant sessió…</p>
-<script>
+<script nonce="${scriptNonce}">
 try {
   localStorage.setItem("netlify-cms-user", ${jsString(JSON.stringify(user))});
   var auth = sessionStorage.getItem("netlify-cms-auth");
@@ -595,7 +598,7 @@ try {
       headers: {
         "Content-Type": "text/html;charset=utf-8",
         "Cache-Control": "no-store",
-        "Content-Security-Policy": "default-src 'none'; frame-ancestors 'none'",
+        "Content-Security-Policy": `default-src 'none'; script-src 'nonce-${scriptNonce}'; frame-ancestors 'none'`,
         "X-Content-Type-Options": "nosniff",
       },
     })
