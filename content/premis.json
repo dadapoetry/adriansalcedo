@@ -73,7 +73,8 @@
       ],
       "id": "premi-2",
       "year": 2024,
-      "category": "poetry"
+      "category": "poetry",
+      "destacat": true
     }
   ]
 }
