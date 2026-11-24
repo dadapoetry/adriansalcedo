@@ -233,7 +233,7 @@
       const meta = metaOf(item);
       const leadSource = pick(item, 'description') ? 'description' : 'content';
       const leadText = strip(pick(item, leadSource));
-      const oneParagraph = pickList(item, leadSource).length <= 1;
+      const oneParagraph = pickList(item, 'content').length <= 1;
       const detail = detailOf(item, leadText);
       add(`
         <div class="text">
