@@ -231,7 +231,9 @@
     entries.forEach((item, i) => {
       const image = imageOf(item);
       const meta = metaOf(item);
-      const leadText = strip(pick(item, 'description') || pick(item, 'content'));
+      const leadSource = pick(item, 'description') ? 'description' : 'content';
+      const leadText = strip(pick(item, leadSource));
+      const oneParagraph = pickList(item, leadSource).length <= 1;
       add(`
         <div class="text">
           <div>
@@ -241,7 +243,7 @@
           ${lead(leadText)}
         </div>
         ${image ? `<figure><img src="${esc(asset(image))}" alt="${esc(altOf(item))}"></figure>` : ''}
-      `, `panel--media${i % 3 === 1 ? ' panel--side' : ''}`);
+      `, `panel--media${i % 3 === 1 && !oneParagraph ? ' panel--side' : ''}`);
       const detail = detailOf(item, leadText);
       if (detail.body || detail.links) {
         add(

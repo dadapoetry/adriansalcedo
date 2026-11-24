@@ -12,6 +12,7 @@
     { "key": "kindVideopoem", "ca": "Vídeopoema", "en": "Videopoem" },
     { "key": "kindInstallation", "ca": "Instal·lació", "en": "Installation" },
     { "key": "kindDigital", "ca": "Digital", "en": "Digital" },
+    { "key": "kindPoetry", "ca": "Poesia", "en": "Poetry" },
     { "key": "kindRecital", "ca": "Recital", "en": "Recital" },
     { "key": "kindExhibition", "ca": "Exposició", "en": "Exhibition" },
     { "key": "kindIntervention", "ca": "Intervenció", "en": "Intervention" },
