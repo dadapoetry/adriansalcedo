@@ -170,7 +170,9 @@
       item.year || String(pick(item, 'date') || '').slice(0, 4),
       item.publisher,
       item.venue,
-      item.isbn ? `ISBN: ${item.isbn}` : ''
+      item.isbn ? `ISBN: ${item.isbn}` : '',
+      item.issn ? `ISSN: ${item.issn}` : '',
+      item.status ? (L(`status${item.status.charAt(0).toUpperCase()}${item.status.slice(1)}`) || pick(item, 'status')) : ''
     ].filter(Boolean).join(', ');
     const strip = (value) => text(Array.isArray(value) ? value[0] : value);
     const rollItem = (item) => (item.label && !item.title
