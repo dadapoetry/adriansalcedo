@@ -4,6 +4,6 @@
   "scripts": {
     "build:seo": "node scripts/build-seo.js",
     "build:prototip": "node scripts/build-prototip-data.js",
-    "test": "node test/auth.test.mjs"
+    "test": "node test/auth.test.mjs && node test/paper.test.mjs"
   }
 }

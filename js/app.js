@@ -12,6 +12,7 @@
   let travel = 0;
   let current = 0;
   let boot = reduceMotion ? 1 : 0;
+  let paper = null;
 
   function measure() {
     const ratio = travel ? Math.min(window.scrollY, travel) / travel : 0;
@@ -19,6 +20,7 @@
     scroller.style.height = `${window.innerHeight + travel}px`;
     window.scrollTo(0, ratio * travel);
     current = ratio * travel;
+    paper?.resize(window.innerWidth, window.innerHeight);
   }
 
   function fitBody(inner, max) {
@@ -67,6 +69,7 @@
         child.style.transform = local <= 0 || local >= 1 ? 'none' : `translate3d(${((1 - local) * 44).toFixed(1)}px, 0, 0)`;
       });
     }
+    if (paper && !document.hidden) paper.update(current);
     requestAnimationFrame(frame);
   }
 
@@ -292,6 +295,20 @@
 
     roll.innerHTML = panels.join('');
     roll.querySelector('.panel--end').id = 'final';
+
+    // Capa WebGL opcional: si la CDN o WebGL falla, el rotlle segueix sent el mateix.
+    if (!reduceMotion) {
+      try {
+        const { createPaper } = await import(withBase('/js/paper.js'));
+        paper = createPaper(document.querySelector('#paper'), {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          title: roll.querySelector('.panel--cover h1')
+        });
+      } catch (error) {
+        console.warn('Web: capa de paper no disponible.', error);
+      }
+    }
 
     const max = parseFloat(getComputedStyle(roll.querySelector('.statement') || roll.querySelector('.text h2')).fontSize);
     roll.querySelectorAll('.panel--detail .detail-inner').forEach((inner) => fitBody(inner, max));
